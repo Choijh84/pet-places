@@ -1,0 +1,351 @@
+//
+//  StoresListImageViewController.swift
+//  pet-place
+//
+//  Created by Owner on 2017. 1. 3..
+//  Copyright © 2017년 press.S. All rights reserved.
+//
+
+import UIKit
+
+class StoresListImageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LocationHandlerProtocol {
+
+    /// Our list view
+    @IBOutlet weak var tableView: LoadingTableView!
+    
+    /// selected Store Category(Type) from the StoreCategory VC
+    var selectedStoreType : String?
+    
+    /// Objects that needs to be displayed
+    var objectsArray: [Store] = []
+    
+    /// Refreshcontrol to show a loading indicator and a pull to refresh view, when the view is loading content
+    var refreshControl: UIRefreshControl!
+    
+    /// A handler object that responsible for getting the user's location
+    var locationHandler: LocationHandler!
+    
+    /// Location download manager, that will download all the objects from the server
+    let downloadManager: LocationsDownloadManager = LocationsDownloadManager()
+    
+    /// Last saved location
+    var lastLocation: CLLocation?
+    
+    /// The selected category from StoresCategoryView or from filterView
+    var selectedStoreCategory: StoreCategory?
+    /// Array to hold all the downloaded categories
+    var allStoreCategories: [StoreCategory] = []
+    
+    /// The selected sorting option from filterview
+    var selectedSortingOption: SortingOption?
+    
+    /// True, if we currently loading new products
+    var isLoadingItems: Bool = false
+    
+    /**
+     Called after the view has been loaded. Customise the view and download the store objects
+     */
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        findStoreCategoryByName()
+        customizeViews()
+        startLocationTracking()
+        title = "Places Nearby"
+        
+        tableView.showLoadingIndicator()
+    }
+    
+    /**
+        from the selectedStoreType(String type), query the StoreCategory table and matches the object
+     */
+    
+    func findStoreCategoryByName() {
+        if selectedStoreType != nil {
+            let whereClause = "name = \(selectedStoreType)"
+            let dataQuery = BackendlessDataQuery()
+            dataQuery.whereClause = whereClause
+            
+            var error: Fault?
+            let dataStore = Backendless.sharedInstance().data.of(StoreCategory.ofClass())
+            let bc = dataStore?.find(dataQuery, fault: &error)
+        
+            if error == nil {
+                print("Category has been found: \(bc?.data)")
+                selectedStoreCategory = (bc?.data as! [StoreCategory]).first
+            }
+            else {
+                print("Server reported an error: \(error)")
+            }
+        } else {
+            print("Error: The Category has not fixed")
+        }
+    }
+    
+    /**
+     Keep the navigation bar hidden, we don't need it
+     
+     - parameter animated: animated
+     */
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    /**
+     Start tracking the user's location
+     */
+    func startLocationTracking() {
+        locationHandler = LocationHandler()
+        locationHandler.locationHandlerProtocol = self
+        locationHandler.startLocationTracking()
+    }
+    
+    /**
+     Customize the view's look and feel
+     */
+    func customizeViews() {
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        tableView.separatorColor = .separatorLineColor()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .globalTintColor()
+        refreshControl.addTarget(self, action: #selector(StoresListImageViewController.downloadStores), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+    }
+    
+    /**
+    Downloads all the Store Object
+    */
+    func downloadStores() {
+        if lastLocation != nil {
+            isLoadingItems = true
+            refreshControl.beginRefreshing()
+            
+            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 10, completionBlock: { (storeObjects, error) in
+                self.isLoadingItems = false
+                if let error = error {
+                    self.showAlertViewWithRedownloadOption(error)
+                } else {
+                    self.displayStoreObjects(storeObjects)
+                    if let location = self.lastLocation {
+                        self.calculateDistanceBetweenStoreLocationsWithLocation(location)
+                    }
+                }
+                self.tableView.hideLoadingIndicator()
+            })
+        }
+    }
+    
+    /**
+    Download more Store Objects, triggered when user scrolled down enough 
+    */
+    func downloadMoreStores() {
+        isLoadingItems = true
+        
+        let temp = objectsArray.count as NSNumber
+        downloadManager.downloadStores(skippingNumberOfObjects: temp, limit: 10, completionBlock: { (storeObjects, error) in
+            if let error = error {
+                self.showAlertViewWithRedownloadOption(error)
+            } else {
+                if let storeObjects = storeObjects {
+                    self.objectsArray.append(contentsOf: storeObjects)
+                }
+                if let location = self.lastLocation {
+                    self.calculateDistanceBetweenStoreLocationsWithLocation(location)
+                }
+            }
+            
+            self.isLoadingItems = false
+            self.refreshControl.endRefreshing()
+            self.tableView.reloadData()
+            self.tableView.hideLoadingIndicator()
+        })
+    }
+    
+    /** 
+    Checks to start downloading more Stores if the user scrolled down 70% of the screen and not loading anything currently 
+    */
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let endScrolling = scrollView.contentOffset.y + scrollView.frame.height
+        if endScrolling >= (scrollView.contentSize.height*0.7) && !isLoadingItems && objectsArray.count > 10 {
+            self.downloadMoreStores()
+        }
+    }
+    
+    /**
+    Display the downloaded Store Objects 
+    */
+    func displayStoreObjects(_ stores: [Store]?) {
+        if let stores = stores {
+            objectsArray = stores
+        } else {
+            objectsArray.removeAll()
+        }
+        
+        refreshControl.endRefreshing()
+        tableView.reloadData()
+    }
+    
+    /**
+     Shows an alertView and offers an option to redownload the stores again
+     
+     :param: error error to display
+     */
+    func showAlertViewWithRedownloadOption(_ error: String) {
+        let alertView = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        alertView.addAction(UIAlertAction(title: "Retry", style: .default, handler: { (alertAction) -> Void in
+            self.downloadStores()
+        }))
+        present(alertView, animated: true, completion: nil)
+    }
+    
+    // MARK: location handler protocol methods
+    /**
+     Called when the location handler got a new location information, update the mapView and recalculate the distance between the user and the stores
+     
+     :param: location the new location
+     */
+    func locationHandlerDidUpdateLocation(_ location: CLLocation) {
+        if let lastLocation = lastLocation {
+            // only request new store objects when the user moved 1000 meters or more, since the last saved location
+            if lastLocation.distance(from: location) > 1000 {
+                downloadManager.userCoordinate = location.coordinate
+                downloadStores()
+            }
+            self.lastLocation = location
+        } else {
+            downloadManager.userCoordinate = location.coordinate
+            self.lastLocation = location
+            downloadStores()
+        }
+        
+        calculateDistanceBetweenStoreLocationsWithLocation(location)
+        updateTopbarTitleLabelWithLocation(location)
+    }
+    
+    /**
+     Updated the title of the view with geocoded name of your location. E.g.: New York, USA. If geocodeing fails, it will use the title of the view: Stores nearby
+     
+     - parameter location: the location to geocode
+     */
+    func updateTopbarTitleLabelWithLocation(_ location: CLLocation) {
+        locationHandler.geocodeLocation(location) { (geocodedName, placeMark, error) -> () in
+            if let geocodedName = geocodedName {
+                self.navigationItem.title = geocodedName
+            } else {
+                self.navigationItem.title = self.title
+            }
+        }
+    }
+    
+    /**
+     Calculates the distance between each store object and the new location
+     
+     :param: location the new location
+     */
+    func calculateDistanceBetweenStoreLocationsWithLocation(_ location: CLLocation) {
+        for storeObject in objectsArray {
+            storeObject.calculateDistanceBetweenCurrentLocation(location)
+        }
+        tableView.reloadData()
+    }
+    
+    /// Mark: TableView methods
+    /**
+     Asks the delegate for the height to use for a row in a specified location.
+     
+     :param: tableView The table-view object requesting this information.
+     :param: indexPath An index path that locates a row in tableView.
+     
+     :return: CGFloat height of the row at the indexPath
+     */
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 160.0
+    }
+    
+    /**
+     Tells the data source to return the number of rows in a given section of a table view
+     
+     :param: tableView  The table-view object requesting this information.
+     :param: section    An index number identifying a section in tableView.
+     
+     :return: NSInteger number of rows
+     */
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return objectsArray.count
+    }
+    
+    /**
+     Asks the data source for a cell to insert in a particular location of the table view.
+     
+     :param: tableView A table-view object requesting the cell.
+     :param: indexPath An index path locating a row in tableView.
+     
+     :return: UITableViewCell cell to use at the indexPath
+     */
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let storeCell = tableView.dequeueReusableCell(withIdentifier: "storeCell", for: indexPath) as! StoreListImageTableViewCell
+        
+        let storeObject = objectsArray[indexPath.row]
+        storeCell.nameLabel.text = storeObject.name
+        storeCell.locationLabel.text = storeObject.address
+        storeCell.distanceLabel.text = storeObject.distanceString()
+        
+        let storeCategory = storeObject.parentCategory
+        storeCell.categoriesLabel.text = storeCategory!.name
+        
+        if let imageURL = storeObject.imageURL {
+            storeCell.storeImageView.hnk_setImage(from: URL(string: imageURL))
+        }
+        return storeCell
+    }
+    
+    /**
+     Tells the delegate that the specified row is now selected. Just deselect it, selection will be covered by segues.
+     
+     :param: tableView A table-view object informing the delegate about the new row selection.
+     :param: indexPath An index path locating the new selected row in tableView.
+     */
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    /**
+     Called when the segue is about to be performed. Get the storyObject that is connected with the cell, and assign it to the destination viewController.
+     
+     :param: segue  The segue object containing information about the view controllers involved in the segue.
+     :param: sender The object that initiated the segue.
+     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetailView" {
+            let detailViewController = segue.destination as! StoreDetailViewController
+            
+            if let sender = sender {
+                if ((sender as AnyObject) is IndexPath) {
+                    let indexPath: IndexPath = sender as! IndexPath
+                    detailViewController.storeToDisplay = objectsArray[indexPath.row]
+                } else if ((sender as AnyObject) is Store) {
+                    detailViewController.storeToDisplay = sender as! Store
+                } else if ((sender as AnyObject) is StoreListImageTableViewCell) {
+                    let cell = sender as! StoreListImageTableViewCell
+                    let indexPath = tableView.indexPath(for: cell)
+                    detailViewController.storeToDisplay = objectsArray[indexPath!.row]
+                }
+                detailViewController.hidesBottomBarWhenPushed = true
+            }
+        }
+    }
+    
+    
+    
+    /**
+     Returns the preferred statusbar style, this case Light(White)
+     
+     :returns: the statusbar style (White)
+     */
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
+    }
+}

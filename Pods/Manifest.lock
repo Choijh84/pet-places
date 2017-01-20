@@ -1,0 +1,33 @@
+PODS:
+  - Backendless (3.0.27)
+  - Bolts (1.7.0):
+    - Bolts/AppLinks (= 1.7.0)
+    - Bolts/Tasks (= 1.7.0)
+  - Bolts/AppLinks (1.7.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.7.0)
+  - FBSDKCoreKit (4.12.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.12.0):
+    - FBSDKCoreKit
+  - Haneke (1.0.2)
+  - HCSStarRatingView (1.4.5)
+
+DEPENDENCIES:
+  - Backendless
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - Haneke (~> 1.0)
+  - HCSStarRatingView (~> 1.4.3)
+
+SPEC CHECKSUMS:
+  Backendless: 565a82d9aa6ec01257e904e0a5c0146ffdb503ed
+  Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
+  FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
+  FBSDKLoginKit: 03f68a8d48c2c8bb81d7eb8097973d483543e1f6
+  Haneke: 01454a67322faa0dd9d81fc0f447885044e71521
+  HCSStarRatingView: bff3f89314d3b5013ce826ea11897d3129ff6b8c
+
+PODFILE CHECKSUM: e3611ae8e8a662c160a5bb785010521a7d9947ba
+
+COCOAPODS: 1.2.0.beta.3
