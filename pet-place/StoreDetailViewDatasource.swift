@@ -104,4 +104,6 @@ class StoreDetailViewDatasource: NSObject, UITableViewDataSource {
         sectionSources[indexPath.section].tableView(tableView, didSelectRowAtIndexPath: indexPath)
     }
     
+    
+    
 }

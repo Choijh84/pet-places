@@ -31,8 +31,10 @@ class Store: NSObject {
     var location: GeoPoint?
     /// Email address of the store.
     var emailAddress: String?
-    /// the url for the image of the news
+    /// mainImage of the store
     var imageURL: String?
+    /// images of the store
+    var imageArray: String?
     /// Category of the Store object (pension, cafe, etc.)
     var parentCategory: StoreCategory?
     

@@ -34,6 +34,7 @@ class StoreDetailViewController: UIViewController {
     /// Back Button 
     @IBOutlet var backButton: UIButton!
     
+    
     /// the store object we want to display
     var storeToDisplay: Store!
     
@@ -104,6 +105,7 @@ class StoreDetailViewController: UIViewController {
         super.viewDidLoad()
 
         /// set up the Self-Sizing Table View Cells
+        
         tableView.estimatedRowHeight = 60.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
@@ -128,9 +130,10 @@ class StoreDetailViewController: UIViewController {
 //        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
+    
     /**
-    Set up the datasource for the tableView
-    */
+     Set up the datasource for the tableView
+     */
     func setupDatasource() {
         // define all your sections and rows here
         tableView.register(UINib(nibName: "ReviewTableViewCell", bundle: nil), forCellReuseIdentifier: "reviewCell")
@@ -159,6 +162,17 @@ class StoreDetailViewController: UIViewController {
             self.configureInfoSectionCell(cell, row: row)
         }) { (cell, row) in
             self.infoSectionCellWasSelected(cell, row: row)
+        }
+        
+        // Photo Section
+        let photoSectionHeaderRow = StoreDetailRowDatasource<UITableViewCell>(identifier: "sectionHeaderSpaceCell") { (cell) in
+            cell.textLabel?.text = "Photo"
+            cell.layoutMargins = UIEdgeInsets.zero
+            cell.separatorInset = UIEdgeInsets.zero
+        }
+
+        let photoSection = StoreDetailRowDatasource<storePhotoTableViewCell>(identifier: "storePhotoCell") { (cell) in
+            self.configureStorePhotoCell(cell)
         }
         
         // Map Section
@@ -201,7 +215,8 @@ class StoreDetailViewController: UIViewController {
             // add method here to handle cell selection
         }
         
-        dataSource = StoreDetailViewDatasource(sectionSources: [aboutSectionHeaderRow, aboutSection, infoSectionHeaderRow, infoSection, locationSectionHeaderRow, mapInfoSection, mapSection, reviewSectionHeaderRow, reviewsSection, reviewButtonSection])
+        dataSource = StoreDetailViewDatasource(sectionSources: [aboutSectionHeaderRow, aboutSection, infoSectionHeaderRow, infoSection, photoSectionHeaderRow, photoSection, locationSectionHeaderRow, mapInfoSection, mapSection, reviewSectionHeaderRow, reviewsSection, reviewButtonSection])
+        
         // Need to add: reviewSectionHeaderRow, reviewSection, reviewButtonSection
         
         dataSource.tableView = tableView
@@ -268,6 +283,51 @@ class StoreDetailViewController: UIViewController {
     }
     
     /**
+     Configures the store Photo cell
+     - parameter cell: cell to configure
+     */
+    func configureStorePhotoCell(_ cell: storePhotoTableViewCell) {
+        
+        if storeToDisplay.imageArray != nil {
+            if let imageArray = storeToDisplay.imageArray {
+                
+                let storePhotos = imageArray.components(separatedBy: ",")
+                
+                for i in 0..<(storePhotos.count) {
+                    
+                    if let url = URL(string: storePhotos[i]) {
+                        print(url)
+                        cell.storePhotoImage.hnk_setImage(from: url)
+                        cell.storePhotoImage.contentMode = .scaleAspectFill
+                    } else {
+                        print("url is nil")
+                    }
+                    let imageView = UIImageView()
+                    imageView.image = cell.storePhotoImage.image
+                    let xPosition = self.view.frame.width * CGFloat(i)
+                    imageView.frame = CGRect(x: xPosition, y: 0, width: cell.scrollView.frame.width, height: cell.scrollView.frame.height)
+                    cell.scrollView.contentSize.width = cell.scrollView.frame.width * CGFloat(i+1)
+                    cell.scrollView.addSubview(imageView)
+                }
+            }
+        } else {
+            let imageArray = [#imageLiteral(resourceName: "pethotel4"), #imageLiteral(resourceName: "pethotel6"), #imageLiteral(resourceName: "pethotel10")]
+            for i in 0..<(imageArray.count) {
+                
+                let imageView = UIImageView()
+                imageView.image = imageArray[i]
+                imageView.contentMode = .scaleAspectFill
+                
+                let xPosition = self.view.frame.width * CGFloat(i)
+                imageView.frame = CGRect(x: xPosition, y: 0, width: cell.scrollView.frame.width, height: cell.scrollView.frame.height)
+                
+                cell.scrollView.contentSize.width = cell.scrollView.frame.width * CGFloat(i+1)
+                cell.scrollView.addSubview(imageView)
+            }
+        }
+    }
+    
+    /**
      Configures the map cell
      
      - parameter cell: cell to configure
@@ -313,8 +373,8 @@ class StoreDetailViewController: UIViewController {
     func configureReviewButtonsCell(_ cell: ReviewOptionsTableViewCell, row: Int) {
         if downloadedReviews.count == 0 {
             cell.changeButtonTitle("Leave a review")
-            cell.removeButtonTargets(self, action: Selector(("leaveAReviewButtonPressed")))
-            cell.addButtonTarget(self, action: Selector(("leaveAReviewButtonPressed")), forControlEvents: .touchUpInside)
+            cell.removeButtonTargets(self, action: #selector(StoreDetailViewController.leaveAReviewButtonPressed))
+            cell.addButtonTarget(self, action: #selector(StoreDetailViewController.leaveAReviewButtonPressed), forControlEvents: .touchUpInside)
         } else {
             cell.changeButtonTitle("Read more reviews")
             cell.removeButtonTargets(self, action: #selector(StoreDetailViewController.readMoreReviewsPressed))
@@ -390,8 +450,6 @@ class StoreDetailViewController: UIViewController {
         present(alertViewController, animated: true, completion: nil)
     }
 
-    
-    
     /**
      What status bar style we want to use
      
@@ -413,7 +471,7 @@ extension StoreDetailViewController {
      */
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // updateHeaderView()
+        updateHeaderView()
         
         if scrollView.contentOffset.y >= -(customNavigationBarView.frame).height {
             customNavigationBarView.adjustBackground(false)

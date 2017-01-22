@@ -29,7 +29,7 @@ class StoreListAnnotationView: MKAnnotationView {
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
-        frame = CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0)
+        frame = CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0)
         markerView = StoreListMarkerView(frame: frame)
         markerView.isUserInteractionEnabled = true
         addSubview(markerView)
