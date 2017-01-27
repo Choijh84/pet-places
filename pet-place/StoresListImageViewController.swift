@@ -14,7 +14,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     @IBOutlet weak var tableView: LoadingTableView!
     
     /// selected Store Category(Type) from the StoreCategory VC
-    var selectedStoreType : String?
+    var selectedStoreType : StoreCategory!
     
     /// Objects that needs to be displayed
     var objectsArray: [Store] = []
@@ -32,7 +32,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     var lastLocation: CLLocation?
     
     /// The selected category from StoresCategoryView or from filterView
-    var selectedStoreCategory: StoreCategory?
+    var selectedStoreCategory: StoreCategory!
     /// Array to hold all the downloaded categories
     var allStoreCategories: [StoreCategory] = []
     
@@ -57,12 +57,14 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     /**
-        from the selectedStoreType(String type), query the StoreCategory table and matches the object
+        from the selectedStoreType(Store type), query the StoreCategory table and matches the object
      */
     
     func findStoreCategoryByName() {
+        
         if selectedStoreType != nil {
-            let whereClause = "name = \(selectedStoreType)"
+            print("This is selected store type: \(selectedStoreType.name!)")
+            let whereClause = "name = '\(selectedStoreType.name!)'"
             let dataQuery = BackendlessDataQuery()
             dataQuery.whereClause = whereClause
             
@@ -71,8 +73,8 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             let bc = dataStore?.find(dataQuery, fault: &error)
         
             if error == nil {
-                print("Category has been found: \(bc?.data)")
-                selectedStoreCategory = (bc?.data as! [StoreCategory]).first
+                print("Category has been found: \(bc!.data!)")
+                selectedStoreCategory = (bc!.data as! [StoreCategory]).first
             }
             else {
                 print("Server reported an error: \(error)")
@@ -122,8 +124,10 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             isLoadingItems = true
             refreshControl.beginRefreshing()
             
-            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 10, completionBlock: { (storeObjects, error) in
-                self.isLoadingItems = false
+            // Store Category assignmenet
+            downloadManager.selectedStoreCategory = selectedStoreCategory
+            
+            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 10, selectedStoreCategory: selectedStoreCategory, radius: 20, completionBlock: { (storeObjects, error) in
                 if let error = error {
                     self.showAlertViewWithRedownloadOption(error)
                 } else {
@@ -132,8 +136,22 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
                         self.calculateDistanceBetweenStoreLocationsWithLocation(location)
                     }
                 }
+                self.tableView.reloadData()
                 self.tableView.hideLoadingIndicator()
             })
+            
+//            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 10, completionBlock: { (storeObjects, error) in
+//                self.isLoadingItems = false
+//                if let error = error {
+//                    self.showAlertViewWithRedownloadOption(error)
+//                } else {
+//                    self.displayStoreObjects(storeObjects)
+//                    if let location = self.lastLocation {
+//                        self.calculateDistanceBetweenStoreLocationsWithLocation(location)
+//                    }
+//                }
+//                self.tableView.hideLoadingIndicator()
+//            })
         }
     }
     
@@ -144,7 +162,8 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         isLoadingItems = true
         
         let temp = objectsArray.count as NSNumber
-        downloadManager.downloadStores(skippingNumberOfObjects: temp, limit: 10, completionBlock: { (storeObjects, error) in
+        
+        downloadManager.downloadStores(skippingNumberOfObjects: temp, limit: 10, selectedStoreCategory: selectedStoreCategory, radius: 20) { (storeObjects, error) in
             if let error = error {
                 self.showAlertViewWithRedownloadOption(error)
             } else {
@@ -160,7 +179,25 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             self.refreshControl.endRefreshing()
             self.tableView.reloadData()
             self.tableView.hideLoadingIndicator()
-        })
+        }
+        
+//        downloadManager.downloadStores(skippingNumberOfObjects: temp, limit: 10, completionBlock: { (storeObjects, error) in
+//            if let error = error {
+//                self.showAlertViewWithRedownloadOption(error)
+//            } else {
+//                if let storeObjects = storeObjects {
+//                    self.objectsArray.append(contentsOf: storeObjects)
+//                }
+//                if let location = self.lastLocation {
+//                    self.calculateDistanceBetweenStoreLocationsWithLocation(location)
+//                }
+//            }
+//            
+//            self.isLoadingItems = false
+//            self.refreshControl.endRefreshing()
+//            self.tableView.reloadData()
+//            self.tableView.hideLoadingIndicator()
+//        })
     }
     
     /** 
@@ -293,8 +330,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         storeCell.locationLabel.text = storeObject.address
         storeCell.distanceLabel.text = storeObject.distanceString()
         
-        let storeCategory = storeObject.parentCategory
-        storeCell.categoriesLabel.text = storeCategory!.name
+        storeCell.categoriesLabel.text = selectedStoreType!.name
         
         if let imageURL = storeObject.imageURL {
             storeCell.storeImageView.hnk_setImage(from: URL(string: imageURL))

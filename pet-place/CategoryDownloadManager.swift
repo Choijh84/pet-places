@@ -16,7 +16,7 @@ class CategoryDownloadManager: NSObject {
     /**
         Downloads all the Category Objects 
  
-     :param: completionBlock completionBlock called after the request finished, returns the categories array and an errorMessage if any
+     :param: completionBlock called after the request finished, returns the categories array and an errorMessage if any
      :param: errorMessage errorMessage to return if any
      */
 

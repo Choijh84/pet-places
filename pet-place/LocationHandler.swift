@@ -120,11 +120,6 @@ class LocationHandler: NSObject, CLLocationManagerDelegate {
             }
         }
     }
- 
- 
- 
- 
- 
 
 }
 

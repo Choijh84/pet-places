@@ -37,6 +37,8 @@ class Store: NSObject {
     var imageArray: String?
     /// Category of the Store object (pension, cafe, etc.)
     var parentCategory: StoreCategory?
+    /// Categories of the Store objects - moved to the StoreCategory
+//    var parentCategories: [StoreCategory] = []
     
     /// Array of Review objects that connected with the Store
     var reviews: [Review] = [] {

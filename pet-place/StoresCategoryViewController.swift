@@ -10,10 +10,16 @@ import UIKit
 
 class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var tableView: LoadingTableView!
+    
     /// Categories that needs to be displayed
-    let section = ["PET PLACES", "PET SERVICES"]
-    let items = [["Pet Pension", "Pet Cafe", "Hotel with Pet", "Restaurant with Pet", "Pet Hospital", "Pet Shops"],
-                 ["Pet Beauty", "Pet Daycare", "Pet Hoteling"]]
+    let section = ["PET PLACES"]
+//    let items = ["Pet Pension", "Pet Cafe", "Hotel with Pet", "Restaurant with Pet", "Pet Hospital", "Pet Shops"]
+    
+    /// Save the selected storeCategory as a reference
+    var selectedCategory: StoreCategory?
+    /// Array to hold all the downloaded categories
+    var allStoreCategories: [StoreCategory] = []
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.section[section]
@@ -29,19 +35,22 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items[section].count
+        return allStoreCategories.count
     }
  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! StoreCategoryListTableViewCell
         
         // Configure the cell
-        let serviceName = self.items[indexPath.section][indexPath.row]
-        cell.nameLabel.text = serviceName
-        if (UIImage(named: serviceName) == nil) {
+        let serviceName = allStoreCategories[indexPath.row]
+        cell.nameLabel.text = serviceName.name
+        if (UIImage(named: serviceName.name!) == nil) {
+            // default image file if there is no matched image file
             cell.categoryImage.image = #imageLiteral(resourceName: "pethotel2")
         } else {
-            cell.categoryImage.image = UIImage(named: serviceName)
+            // Load the category image with the same name image file
+            // Maybe try to load the image file from the server later
+            cell.categoryImage.image = UIImage(named: serviceName.name!)
         }
         
         return cell
@@ -50,6 +59,8 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "PLACES CATEGORY"
+        
+        downloadStoreCategories()
     }
     
     /**
@@ -74,12 +85,51 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
         if segue.identifier == "findPlaces" {
             let destinationVC  = segue.destination as! StoresListImageViewController
             if let sender = sender {
+                
                 if ((sender as AnyObject) is IndexPath) {
                     let indexPath:IndexPath = sender as! IndexPath
-                    destinationVC.selectedStoreType = items[indexPath.section][indexPath.row]
+                    print("This is selected store type: \(allStoreCategories[indexPath.row])")
+                    destinationVC.selectedStoreType = allStoreCategories[indexPath.row]
+                } else if (sender as AnyObject).isKind(of: StoreCategory.self) {
+                    let indexPath:IndexPath = sender as! IndexPath
+                    print("This is selected store type: \(allStoreCategories[indexPath.row])")
+                    destinationVC.selectedStoreType = allStoreCategories[indexPath.row]
+                } else if (sender as AnyObject).isKind(of: StoreCategoryListTableViewCell.self) {
+                    /// 여기서 핸들링됨
+                    let cell = sender as! StoreCategoryListTableViewCell
+                    let indexPath = tableView.indexPath(for: cell)
+                    print("This is selected store type: \(allStoreCategories[(indexPath?.row)!])")
+                    destinationVC.selectedStoreType = allStoreCategories[(indexPath?.row)!]
                 }
                 
             }
+        }
+    }
+    
+    /**
+     Downloads all the Category objects
+     */
+    func downloadStoreCategories() {
+        self.tableView.showLoadingIndicator()
+        
+        let categoryDownload = CategoryDownloadManager()
+        categoryDownload.downloadStoreCategories { (categories, errorMessage) in
+            DispatchQueue.main.async(execute: { 
+                if let errorMessage = errorMessage {
+                    let alertView = UIAlertController(title: "Error", message: errorMessage as String, preferredStyle: .alert)
+                    alertView.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    alertView.addAction(UIAlertAction(title: "Retry", style: .default, handler: { (alertAction) in
+                        self.downloadStoreCategories()
+                    }))
+                    self.present(alertView, animated: true, completion: nil)
+                } else {
+                    if let categories = categories {
+                        self.allStoreCategories = categories
+                    }
+                    self.tableView.reloadData()
+                    self.tableView.hideLoadingIndicator()
+                }
+            })
         }
     }
     

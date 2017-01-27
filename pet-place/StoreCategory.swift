@@ -18,7 +18,9 @@ class StoreCategory: NSObject {
     var name: String?
     /// ID of the category
     var objectId: String?
-
+    /// List of store Objects
+    var stores =  [Store]()
+    
     /**
      Checks if the 2 objects have the same objectId, if so, they are equal
 

@@ -130,6 +130,11 @@ class StoreDetailViewController: UIViewController {
 //        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewDidLayoutSubviews()
+    }
+    
     
     /**
      Set up the datasource for the tableView
@@ -172,7 +177,10 @@ class StoreDetailViewController: UIViewController {
         }
 
         let photoSection = StoreDetailRowDatasource<storePhotoTableViewCell>(identifier: "storePhotoCell") { (cell) in
-            self.configureStorePhotoCell(cell)
+            DispatchQueue.main.async(execute: { 
+                self.configureStorePhotoCell(cell)
+            })
+            
         }
         
         // Map Section
@@ -183,8 +191,10 @@ class StoreDetailViewController: UIViewController {
         }
         
         let mapSection = StoreDetailRowDatasource<StoreMapTableViewCell>(identifier: "mapCell", setupBlock: { (cell) in
-            self.configureMapCell(cell)
-        }) { 
+            DispatchQueue.main.async(execute: {
+                self.configureMapCell(cell)
+            })
+        }) {
             // add method here to handle cell selection
         }
         
@@ -288,6 +298,8 @@ class StoreDetailViewController: UIViewController {
      */
     func configureStorePhotoCell(_ cell: storePhotoTableViewCell) {
         
+        cell.scrollView.delaysContentTouches = false
+        
         if storeToDisplay.imageArray != nil {
             if let imageArray = storeToDisplay.imageArray {
                 
@@ -296,22 +308,30 @@ class StoreDetailViewController: UIViewController {
                 for i in 0..<(storePhotos.count) {
                     
                     if let url = URL(string: storePhotos[i]) {
-                        print(url)
-                        cell.storePhotoImage.hnk_setImage(from: url)
+                        print("This is photo url: \(url)")
                         cell.storePhotoImage.contentMode = .scaleAspectFill
+                        cell.storePhotoImage.hnk_setImage(from: url, placeholder: UIImage(named: "loadingIndicator"), success: { (image) in
+                            
+                            let imageView = UIImageView()
+                            imageView.image = image
+                            let xPosition = self.view.frame.width * CGFloat(i)
+                            imageView.frame = CGRect(x: xPosition, y: 0, width: cell.scrollView.frame.width, height: cell.scrollView.frame.height)
+                            cell.scrollView.contentSize.width = cell.scrollView.frame.width * CGFloat(i+1)
+                            cell.scrollView.addSubview(imageView)
+                            
+                            
+                        }, failure: { (error) in
+                            print("there is an error on fetching store photos")
+                        })
+                        
                     } else {
                         print("url is nil")
                     }
-                    let imageView = UIImageView()
-                    imageView.image = cell.storePhotoImage.image
-                    let xPosition = self.view.frame.width * CGFloat(i)
-                    imageView.frame = CGRect(x: xPosition, y: 0, width: cell.scrollView.frame.width, height: cell.scrollView.frame.height)
-                    cell.scrollView.contentSize.width = cell.scrollView.frame.width * CGFloat(i+1)
-                    cell.scrollView.addSubview(imageView)
                 }
+                self.view.setNeedsLayout()
             }
         } else {
-            let imageArray = [#imageLiteral(resourceName: "pethotel4"), #imageLiteral(resourceName: "pethotel6"), #imageLiteral(resourceName: "pethotel10")]
+            let imageArray = [#imageLiteral(resourceName: "backgroundImage")]
             for i in 0..<(imageArray.count) {
                 
                 let imageView = UIImageView()

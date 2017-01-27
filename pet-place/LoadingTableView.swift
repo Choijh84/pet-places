@@ -8,7 +8,7 @@
 
 import UIKit
 
- /// Custom UITableView to be able to display custom empty states, or loading indicators inside a tableView anywhere in the app
+/// Custom UITableView to be able to display custom empty states, or loading indicators inside a tableView anywhere in the app
 // Read more about it at: http://zappdesigntemplates.com/create-a-custom-uitableview-with-loading-indicator/
 
 class LoadingTableView: UITableView {
@@ -28,8 +28,14 @@ class LoadingTableView: UITableView {
     required init(coder aDecoder: NSCoder) {
         loadingImageView = UIImageView(image: loadingImage)
         super.init(coder: aDecoder)!
-        addSubview(loadingImageView)
         adjustSizeOfLoadingIndicator()
+        addSubview(loadingImageView)
+        
+    }
+    
+    override func reloadData() {
+        super.reloadData()
+        self.bringSubview(toFront: loadingImageView)
     }
 
     /**
@@ -64,7 +70,11 @@ class LoadingTableView: UITableView {
     */
     fileprivate func adjustSizeOfLoadingIndicator() {
         let loadingImageSize = loadingImage?.size
-        loadingImageView.frame = CGRect(x: frame.width/2 - loadingImageSize!.width/2, y: frame.height/2-loadingImageSize!.height/2, width: loadingImageSize!.width, height: loadingImageSize!.height)
+        
+        let width = loadingImageSize!.width
+        let height = loadingImageSize!.height
+        loadingImageView.frame = CGRect(x: (frame.width-width)/2, y: (frame.height-height)/2, width: width, height: height)
+        
     }
 
     /**

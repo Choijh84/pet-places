@@ -16,13 +16,45 @@ class LocationsDownloadManager : NSObject {
     var userCoordinate: CLLocationCoordinate2D!
     
     /// selected Store category 
-    var selectedStoreCategory: StoreCategory?
+    var selectedStoreCategory: StoreCategory!
     
     /// selected sorting option
     var selectedSortedOption: SortingOption = SortingOption(name: "distance", sortingKey: SortingKey.distance)
     
     /// Store object that handles downloading of Store objects
     let dataStore = Backendless.sharedInstance().persistenceService.of(Store.self)
+    
+    /**
+     Download Store objects within the raduis with the matched storeCategory 
+     - parameter selectedStoreCategory  : selected store category by user
+     - parameter radius                 : radius around the user, basically can be set as km(2000)
+     - parameter completionBlock        : called after the request is completed, returns the Store arrays
+     
+     */
+    
+    func downloadStores(skippingNumberOfObjects skip: NSNumber, limit: NSNumber, selectedStoreCategory: StoreCategory, radius: NSNumber, completionBlock: @escaping (_ storeObjects: [Store]?, _ error: String?) -> ()) {
+        
+        let dataQuery = BackendlessDataQuery()
+        
+        let queryOptions = QueryOptions()
+        queryOptions.relationsDepth = 1
+        
+        dataQuery.whereClause = "StoreCategory[stores].objectId = \'\(selectedStoreCategory.objectId!)\' AND distance(\(userCoordinate.latitude), \(userCoordinate.longitude), location.latitude, location.longitude ) < km(2000)"
+        
+        queryOptions.related = ["location"]
+        queryOptions.pageSize = limit
+        queryOptions.offset = skip
+        
+        print("Clause: \(dataQuery.whereClause!)")
+        
+        dataStore?.find(dataQuery, response: { (collection) in
+            let sortedObjects = self.sortObjectsManuallyByDistance(collection?.data as! [Store])
+            completionBlock(sortedObjects, nil)
+        }, error: { (fault) in
+            print(fault)
+            completionBlock(nil, fault?.description)
+        })
+    }
     
     /**
     Download Store objects
@@ -40,7 +72,7 @@ class LocationsDownloadManager : NSObject {
             queryOptions.sortBy = ["\(selectedSortedOption.sortingKey!.rawValue).desc"]
         }
         
-        queryOptions.related = ["parentCategory", "location"]
+        queryOptions.related = ["parentCategories", "location"]
         queryOptions.pageSize = limit
         queryOptions.offset = skip
         query.queryOptions = queryOptions
@@ -48,6 +80,7 @@ class LocationsDownloadManager : NSObject {
         // 반경 2000km로 쿼리
         query.whereClause = "distance(\(userCoordinate.latitude), \(userCoordinate.longitude), location.latitude, location.longitude ) < km(2000)"
         
+        print("selected Store Category is: \(selectedStoreCategory!)")
         if let selectedStoreCategory = selectedStoreCategory {
             query.whereClause = "AND parentCategory.objectId = \'\(selectedStoreCategory.objectId!)\'"
         }
