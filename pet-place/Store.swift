@@ -35,8 +35,11 @@ class Store: NSObject {
     var imageURL: String?
     /// images of the store
     var imageArray: String?
+    /// Array to hold all the downloaded categories
+    var StoreCategory: [StoreCategory] = []
+    
     /// Category of the Store object (pension, cafe, etc.)
-    var parentCategory: StoreCategory?
+//    var parentCategory: StoreCategory?
     /// Categories of the Store objects - moved to the StoreCategory
 //    var parentCategories: [StoreCategory] = []
     

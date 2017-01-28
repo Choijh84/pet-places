@@ -38,9 +38,9 @@ class StoryboardManager: NSObject {
         return UIStoryboard(name: "Account", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
     }
     
-//    class func newsNavigationController() -> NewsNavigationController {
-//        return UIStoryboard(name: "News", bundle: nil).instantiateViewController(withIdentifier: "NewsNavigationController") as! NewsNavigationController
-//    }
+    class func newsNavigationController() -> NewsNavigationController {
+        return UIStoryboard(name: "News", bundle: nil).instantiateViewController(withIdentifier: "NewsNavigationController") as! NewsNavigationController
+    }
     
     class func accountNavigationController() -> UINavigationController {
         return UIStoryboard(name: "Account", bundle: nil).instantiateViewController(withIdentifier: "myprofileNavigationController") as! UINavigationController

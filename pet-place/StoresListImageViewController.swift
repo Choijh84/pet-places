@@ -329,13 +329,33 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         storeCell.nameLabel.text = storeObject.name
         storeCell.locationLabel.text = storeObject.address
         storeCell.distanceLabel.text = storeObject.distanceString()
+        storeCell.categoriesLabel.text = selectedStoreCategory.name
         
-        storeCell.categoriesLabel.text = selectedStoreType!.name
+        /// store의 모든 카테고리 타입을 모두 보여줘야 하나?
+//        storeCell.categoriesLabel.text = combineString(inputArray: storeObject.StoreCategory)
         
         if let imageURL = storeObject.imageURL {
             storeCell.storeImageView.hnk_setImage(from: URL(string: imageURL))
         }
         return storeCell
+    }
+    
+    /**
+     Combine the String in the storeObject.
+     : parameter:   StoreCategory Array in the store object
+     : return   :   concatenated String
+     */
+    func combineString(inputArray: Array<StoreCategory>) -> String {
+        var combined: [String] = []
+        
+        for i in 0 ..< inputArray.count {
+            combined.append(inputArray[i].name!)
+        }
+        
+        let result = combined.joined(separator: ",")
+        print("This is concatenated String: \(result)")
+        return result
+        
     }
     
     /**

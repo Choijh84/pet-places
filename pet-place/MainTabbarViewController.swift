@@ -19,8 +19,8 @@ class MainTabbarViewController: UITabBarController {
         super.viewDidLoad()
         
         /// Adds the news navigation controller to the tabbar
-        // let newsNavigationController = StoryboardManager.newsNavigationController()
-        // addChildViewController(newsNavigationController)
+         let newsNavigationController = StoryboardManager.newsNavigationController()
+         addChildViewController(newsNavigationController)
         
         // Adds the account viewController to the tabbar
         let accountNavigationController = StoryboardManager.accountNavigationController()
