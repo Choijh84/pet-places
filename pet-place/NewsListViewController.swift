@@ -61,6 +61,7 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         headerView.backgroundColor = UIColor.globalTintColor()
         navigationController?.isToolbarHidden = true
+        title = "News"
         
         // set up the dynamic cell size
         tableView.estimatedRowHeight = 200.0

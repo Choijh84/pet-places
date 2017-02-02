@@ -53,7 +53,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         addMotionEffectToCompanyLogo()
         
-        
         loginButton.layer.cornerRadius = 4.0
         facebookLoginButton.layer.cornerRadius = 4.0
         signupButton.layer.cornerRadius = 4.0

@@ -75,7 +75,6 @@ class ProfileViewController: UIViewController {
         } else {
             loggedInEmailLabel.text = UserManager.currentUser()?.name as String?
         }
-        
         logoutButton.layer.cornerRadius = 4.0
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// Custom view that displays when a user adds a Car to the Garage (Saves it locally)
+/// Custom view that displays when a user saves it locally
 class OverlayView: UIView {
 
     /// Visual effectView for having a blurry background
