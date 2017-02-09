@@ -10,6 +10,9 @@ target 'pet-place' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
   pod 'Backendless'
+  pod 'Fabric'
+  pod 'Digits'
+  pod 'GoogleMaps'
 
   # Pods for pet-place
 
