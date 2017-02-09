@@ -38,6 +38,20 @@ class Store: NSObject {
     /// Array to hold all the downloaded categories
     var StoreCategory: [StoreCategory] = []
     
+    /// 서비스 카테고리 
+    var serviceCategory: String? 
+    /// opeartion Time 
+    var operationTime: String?
+    /// serviceable Pet 
+    var serviceablePet: String?
+    /// available size of Pet 
+    var petSize: String?
+    /// information about the price
+    var priceInfo: String?
+    /// note for the precautions
+    var note: String?
+    
+    
     /// Category of the Store object (pension, cafe, etc.)
 //    var parentCategory: StoreCategory?
     /// Categories of the Store objects - moved to the StoreCategory

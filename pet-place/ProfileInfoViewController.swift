@@ -21,7 +21,8 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     /// Label that show the email address of the user
     @IBOutlet weak var loggedInEmailLabel: UILabel!
     //// The logout Button
-    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var logoutButton: UIBarButtonItem!
+    
     
     var isProfilePictureChanged = false
     
@@ -108,7 +109,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         } else {
             print("User hasn't been logged")
         }    
-        logoutButton.layer.cornerRadius = 4.0
+        
     }
     
 

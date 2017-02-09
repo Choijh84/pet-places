@@ -55,6 +55,11 @@ class StoreDetailViewController: UIViewController {
     fileprivate let kTableHeaderHeight: CGFloat = 240
     /// Headerview reference to be able to create the stretchy headerView effect
     var headerView: UIView!
+    /// Expandable Bolean
+    var isExpanded: Bool = false
+    /// Detail Info Button Expand or Collapse
+    var detailInfoButton: StoreDetailSectionDatasource<ReviewOptionsTableViewCell>!
+    
     
     /// Dismisses the view when the back button is pressed
     @IBAction func backButtonPressed() {
@@ -89,7 +94,7 @@ class StoreDetailViewController: UIViewController {
     }
     
     /**
-     Update the headerView when the layout changes
+     Update the headerView and tableview when the layout changes
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -108,7 +113,7 @@ class StoreDetailViewController: UIViewController {
         
         tableView.estimatedRowHeight = 60.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        
+    
         setupDatasource()
         
         storeNameLabel.text = storeToDisplay.name
@@ -125,16 +130,29 @@ class StoreDetailViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: .zero)
         
         // Hide the navigation Bar
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.hidesBarsOnTap = true
         
-//        navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Hide the navigation bar on the this view controller
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Show the navigation bar on other view controllers
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewDidLayoutSubviews()
     }
-    
     
     /**
      Set up the datasource for the tableView
@@ -163,8 +181,27 @@ class StoreDetailViewController: UIViewController {
             cell.separatorInset = UIEdgeInsets.zero
         }
         
-        let infoSection = StoreDetailSectionDatasource<InfoWithIconTableViewCell>(cellIdentifier: "infoWithIcon", numberOfRows: 3, setupBlock: { (cell, row) in
+        let infoSection = StoreDetailSectionDatasource<InfoWithIconTableViewCell>(cellIdentifier: "infoWithIcon", numberOfRows: 4, setupBlock: { (cell, row) in
             self.configureInfoSectionCell(cell, row: row)
+        }) { (cell, row) in
+            self.infoSectionCellWasSelected(cell, row: row)
+        }
+        
+        detailInfoButton = StoreDetailSectionDatasource<ReviewOptionsTableViewCell>(cellIdentifier: "reviewButtons", numberOfRows: 1, setupBlock: { (cell, row) -> () in
+            self.configureDetailInfoButtonCell(cell, row: row)
+        }) { (cell, row) -> () in
+            // add method here to handle cell selection - no need
+        }
+        
+        // Detail Info Section
+        let detailInfoSectionHeaderRow = StoreDetailRowDatasource<UITableViewCell>(identifier: "sectionHeaderSpaceCell") { (cell) in
+            cell.textLabel?.text = "Detail Info"
+            cell.layoutMargins = UIEdgeInsets.zero
+            cell.separatorInset = UIEdgeInsets.zero
+        }
+        
+        let detailInfoSection = StoreDetailSectionDatasource<InfoWithIconTableViewCell>(cellIdentifier: "infoWithIcon", numberOfRows: 5, setupBlock: { (cell, row) in
+            self.configureDetailInfoSectionCell(cell, row: row)
         }) { (cell, row) in
             self.infoSectionCellWasSelected(cell, row: row)
         }
@@ -180,7 +217,6 @@ class StoreDetailViewController: UIViewController {
             DispatchQueue.main.async(execute: { 
                 self.configureStorePhotoCell(cell)
             })
-            
         }
         
         // Map Section
@@ -225,15 +261,19 @@ class StoreDetailViewController: UIViewController {
             // add method here to handle cell selection
         }
         
-        dataSource = StoreDetailViewDatasource(sectionSources: [aboutSectionHeaderRow, aboutSection, infoSectionHeaderRow, infoSection, photoSectionHeaderRow, photoSection, locationSectionHeaderRow, mapInfoSection, mapSection, reviewSectionHeaderRow, reviewsSection, reviewButtonSection])
-        
-        // Need to add: reviewSectionHeaderRow, reviewSection, reviewButtonSection
+        if isExpanded == false {
+            dataSource = StoreDetailViewDatasource(sectionSources: [aboutSectionHeaderRow, aboutSection, infoSectionHeaderRow, infoSection, detailInfoButton, photoSectionHeaderRow, photoSection, locationSectionHeaderRow, mapInfoSection, mapSection, reviewSectionHeaderRow, reviewsSection, reviewButtonSection])
+            
+        } else {
+            dataSource = StoreDetailViewDatasource(sectionSources: [aboutSectionHeaderRow, aboutSection, infoSectionHeaderRow, infoSection, detailInfoButton, detailInfoSectionHeaderRow, detailInfoSection, photoSectionHeaderRow, photoSection, locationSectionHeaderRow, mapInfoSection, mapSection, reviewSectionHeaderRow, reviewsSection, reviewButtonSection])
+            
+        }
         
         dataSource.tableView = tableView
         tableView.dataSource = dataSource
-        tableView.reloadData()
         
         downloadReviews()
+        tableView.reloadData()
     }
     
     /**
@@ -274,7 +314,7 @@ class StoreDetailViewController: UIViewController {
     }
     
     /**
-     Configures the info sectin cells, sets the phone number, website and email address
+     Configures the info sectin cells, sets the phone number, address, website and email address
      
      - parameter cell: cell to set
      - parameter row:  at which row
@@ -284,14 +324,71 @@ class StoreDetailViewController: UIViewController {
             cell.infoLabel.text = storeToDisplay.phoneNumber
             cell.iconImageView.image = UIImage(named: "phoneIcon")
         } else if row == 1 {
-            cell.infoLabel.text = storeToDisplay.emailAddress
-            cell.iconImageView.image = UIImage(named: "emailIcon")
-        } else {
-            cell.infoLabel.text = storeToDisplay.website
+            cell.infoLabel.text = storeToDisplay.address
             cell.iconImageView.image = UIImage(named: "visitIcon")
+        } else if row == 2 {
+            cell.infoLabel.text = storeToDisplay.website
+            cell.iconImageView.image = UIImage(named: "homepageIcon")
+        } else {
+            cell.infoLabel.text = storeToDisplay.operationTime
+            cell.iconImageView.image = UIImage(named: "clock")
         }
     }
     
+    /**
+     Configures the detail Info button cell
+     
+     - parameter cell: cell to configure
+     */
+    func configureDetailInfoButtonCell(_ cell: ReviewOptionsTableViewCell, row: Int) {
+        if isExpanded == false {
+            cell.changeButtonTitle("Show Detail Info")
+            cell.removeButtonTargets(self, action: #selector(self.buttonTapped))
+            cell.addButtonTarget(self, action: #selector(self.buttonTapped), forControlEvents: .touchUpInside)
+        } else {
+            cell.changeButtonTitle("Hide Detail Info")
+            cell.removeButtonTargets(self, action: #selector(self.buttonTapped))
+            cell.addButtonTarget(self, action: #selector(self.buttonTapped), forControlEvents: .touchUpInside)
+        }
+    }
+    
+    func buttonTapped() {
+        if isExpanded == false {
+            isExpanded = true
+            self.setupDatasource()
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        } else {
+            isExpanded = false
+            self.setupDatasource()
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        }
+    }
+    
+    /**
+     Configures the info sectin cells, sets the category, serviceable Pet, pet Size, price info and note
+     
+     - parameter cell: cell to set
+     - parameter row:  at which row
+     */
+    func configureDetailInfoSectionCell(_ cell: InfoWithIconTableViewCell, row: Int) {
+        if row == 0 {
+            cell.infoLabel.text = storeToDisplay.serviceCategory
+            cell.iconImageView.image = UIImage(named: "businesswoman")
+        } else if row == 1 {
+            cell.infoLabel.text = storeToDisplay.serviceablePet
+            cell.iconImageView.image = UIImage(named: "petIcon")
+        } else if row == 2 {
+            cell.infoLabel.text = storeToDisplay.petSize
+            cell.iconImageView.image = UIImage(named: "sizeIcon")
+        } else if row == 3 {
+            cell.infoLabel.text = storeToDisplay.priceInfo
+            cell.iconImageView.image = UIImage(named: "pricetagIcon")
+        } else {
+            cell.infoLabel.text = storeToDisplay.note
+            cell.iconImageView.image = UIImage(named: "noteIcon")
+        }
+    }
+
     /**
      Configures the store Photo cell
      - parameter cell: cell to configure
@@ -310,7 +407,7 @@ class StoreDetailViewController: UIViewController {
                     if let url = URL(string: storePhotos[i]) {
                         print("This is photo url: \(url)")
                         cell.storePhotoImage.contentMode = .scaleAspectFill
-                        cell.storePhotoImage.hnk_setImage(from: url, placeholder: UIImage(named: "loadingIndicator"), success: { (image) in
+                        cell.storePhotoImage.hnk_setImage(from: url, placeholder: UIImage(named: "imageplaceholder"), success: { (image) in
                             
                             let imageView = UIImageView()
                             imageView.image = image
@@ -318,7 +415,6 @@ class StoreDetailViewController: UIViewController {
                             imageView.frame = CGRect(x: xPosition, y: 0, width: cell.scrollView.frame.width, height: cell.scrollView.frame.height)
                             cell.scrollView.contentSize.width = cell.scrollView.frame.width * CGFloat(i+1)
                             cell.scrollView.addSubview(imageView)
-                            
                             
                         }, failure: { (error) in
                             print("there is an error on fetching store photos")
@@ -329,6 +425,7 @@ class StoreDetailViewController: UIViewController {
                     }
                 }
                 self.view.setNeedsLayout()
+                
             }
         } else {
             let imageArray = [#imageLiteral(resourceName: "backgroundImage")]
@@ -443,7 +540,23 @@ class StoreDetailViewController: UIViewController {
 //            webButtonPressed()
         }
     }
-
+    
+    /**
+     Called when any of the detailInfo section's row is selected
+     
+     - parameter cell: cell that was selected
+     - parameter row: which row was selected
+     */
+    func detailinfoSectionCellWasSelected(_ cell: InfoWithIconTableViewCell, row: Int) {
+        if row == 0 {
+//            callButtonPressed()
+        } else if row == 1 {
+            //            emailButtonPressed()
+        } else {
+            //            webButtonPressed()
+        }
+    }
+    
     /**
      Calls the datasource's section selection block when the user selected a row
      

@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Icon-App-60x60@1x.png",
+      "filename" : "dog.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Icon-App-60x60@2x.png",
+      "filename" : "dog (3).png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Icon-App-60x60@3x.png",
+      "filename" : "dog (4).png",
       "scale" : "3x"
     }
   ],

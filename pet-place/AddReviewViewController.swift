@@ -10,7 +10,7 @@ import UIKit
 import HCSStarRatingView
 
  /// ViewController that allows a user to leave a review for a selected Store
-class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     /// Custom rating view for handling ratings
     @IBOutlet weak var ratingView: HCSStarRatingView!
@@ -165,5 +165,6 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent
     }
+    
     
 }

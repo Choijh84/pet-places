@@ -63,7 +63,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="TFX-2V-M6k"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="reviewButton" destination="jLX-gh-OeK" id="NAU-ZB-yXs"/>
