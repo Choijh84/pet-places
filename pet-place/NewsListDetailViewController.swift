@@ -198,6 +198,7 @@ class NewsListDetailViewController: UIViewController, UINavigationControllerDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showViewElementsWithAnimation()
+        self.navigationController?.setToolbarHidden(true, animated: false)
     }
 
     /**
@@ -209,6 +210,7 @@ class NewsListDetailViewController: UIViewController, UINavigationControllerDele
         super.viewDidAppear(animated)
         navigationController?.delegate = self
         setTabbarVisibleWithAnimation(false)
+        self.navigationController?.setToolbarHidden(true, animated: false)
     }
     
     /**

@@ -8,7 +8,6 @@
 
 import UIKit
 import HCSStarRatingView
-
 /// A viewcontroller that displays the currently logged in user's information
 /// After this work, should work on the next views
 
@@ -42,6 +41,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
             self.logoutUser()
         }))
         present(alertView, animated: true, completion: nil)
+        
     }
     
     /**
@@ -83,9 +83,15 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
             if isProfilePictureChanged == false {
                 DispatchQueue.main.async(execute: {
                     if let profile = UserManager.currentUser()?.getProperty("profileURL") {
-                        let url = profile as! String
-                        self.profilePicture.hnk_setImage(from: URL(string: url))
-                        print("This is profileURL1: \(url)")
+                        if let url = profile as? String {
+                            if url == "<null>" {
+                                print("there is no profile pic")
+                            } else {
+                                self.profilePicture.hnk_setImage(from: URL(string: url))
+                                print("This is profileURL1: \(url)")
+                            }
+                        }
+                        
                     }
                 })
             } else {
@@ -101,8 +107,12 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
             }
             
             if let nickname = UserManager.currentUser()?.getProperty("nickname") {
-                nicknameLabel.text = nickname as! String
-                print("This is nickname: \(nickname)")
+                if nickname == nil {
+                    nicknameLabel.text = "no nickname"
+                } else {
+                    nicknameLabel.text = nickname as? String
+                    print("This is nickname: \(nickname)")
+                }
             } else {
                 nicknameLabel.text = UserManager.currentUser()?.name as String?
             }
@@ -119,7 +129,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
      */
     func presentLoginViewController() {
         if loginViewController.view.superview == nil {
-            loginViewController.view.frame = view.frame
+            loginViewController.view.frame = self.view.bounds
             loginViewController.willMove(toParentViewController: self)
             view.addSubview(loginViewController.view)
             loginViewController.didMove(toParentViewController: self)

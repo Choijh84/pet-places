@@ -72,6 +72,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         defaultFacebookButtonBottomConstraint = facebookButtonBottomConstraint.constant
         print("this is :\(defaultFacebookButtonBottomConstraint)")
         closeButton.isHidden = !displayCloseButton
+
     }
     
     /**
@@ -203,6 +204,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+
     
     /**
      Shows an alertView with a given errorMessage

@@ -215,7 +215,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     */
     func displayStoreObjects(_ stores: [Store]?) {
         if let stores = stores {
-            objectsArray = stores
+            objectsArray.append(contentsOf: stores)
         } else {
             objectsArray.removeAll()
         }
@@ -391,6 +391,11 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
                 }
                 detailViewController.hidesBottomBarWhenPushed = true
             }
+        }
+        
+        if segue.identifier == "showMapView" {
+            let destinationVC = segue.destination as! StoreMapViewController
+            destinationVC.selectedStoreType = selectedStoreCategory
         }
     }
     

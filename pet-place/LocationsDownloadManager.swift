@@ -51,7 +51,7 @@ class LocationsDownloadManager : NSObject {
             let sortedObjects = self.sortObjectsManuallyByDistance(collection?.data as! [Store])
             completionBlock(sortedObjects, nil)
         }, error: { (fault) in
-            print(fault)
+            print(fault ?? "There is an error dowloading store list")
             completionBlock(nil, fault?.description)
         })
     }
@@ -92,7 +92,7 @@ class LocationsDownloadManager : NSObject {
             let sortedObjects = self.sortObjectsManuallyByDistance(collection?.data as! [Store])
             completionBlock(sortedObjects, nil)
         }, error: { (fault) in
-            print(fault)
+            print(fault ?? "There is an error here in downloading stores")
             completionBlock(nil, fault?.description)
         })
     }

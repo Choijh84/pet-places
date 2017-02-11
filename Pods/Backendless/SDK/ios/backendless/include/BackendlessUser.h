@@ -31,7 +31,7 @@
 #define BACKENDLESS_USER_TOKEN @"user-token"
 #define BACKENDLESS_USER_REGISTERED @"user-registered"
 
-@interface BackendlessUser : NSObject
+@interface BackendlessUser : NSObject <NSCopying>
 
 @property (nonatomic, assign, getter = getObjectId, setter = setObjectId:) NSString *objectId;
 @property (nonatomic, assign, getter = getEmail, setter = setEmail:) NSString *email;
@@ -40,6 +40,7 @@
 
 -(id)initWithProperties:(NSDictionary<NSString*, id> *)props;
 
+-(BOOL)isUserRegistered;
 -(NSString *)getUserToken;
 -(void)assignProperties:(NSDictionary<NSString*, id> *)props;
 -(void)addProperties:(NSDictionary<NSString*, id> *)props;

@@ -33,9 +33,11 @@
 		BEA6BE8D1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE8B1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift */; };
 		BEA6BE8E1E3CCA7D00D75CEE /* NewsTransitionDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE8C1E3CCA7D00D75CEE /* NewsTransitionDismissalAnimator.swift */; };
 		BEA6BE931E3D0E2700D75CEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEA6BE921E3D0E2700D75CEE /* Main.storyboard */; };
+		BED601F01E4C535700EFB928 /* HomeDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED601EF1E4C535700EFB928 /* HomeDownloadManager.swift */; };
 		BEEB91701E3234C70089BE4D /* storePhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB916F1E3234C70089BE4D /* storePhotoTableViewCell.swift */; };
 		BEF2BE3E1E1B9C070044203E /* CategoryDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2BE3D1E1B9C070044203E /* CategoryDownloadManager.swift */; };
 		BEF2BE411E1BB4A70044203E /* StoreListImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2BE401E1BB4A70044203E /* StoreListImageTableViewCell.swift */; };
+		BEF8033C1E4DB22200F5FD44 /* StoreMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF8033B1E4DB22200F5FD44 /* StoreMapViewController.swift */; };
 		C6E04F711C401244AB82C13F /* Pods_pet_place.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 879F3A236BBF79457741F25C /* Pods_pet_place.framework */; };
 		EB2956C11E16D4E00024E3E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2956C01E16D4E00024E3E3 /* AppDelegate.swift */; };
 		EB2956C91E16D4E00024E3E3 /* pet_place.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EB2956C71E16D4E00024E3E3 /* pet_place.xcdatamodeld */; };
@@ -143,9 +145,11 @@
 		BEA6BE8B1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTransitionPresentAnimator.swift; sourceTree = "<group>"; };
 		BEA6BE8C1E3CCA7D00D75CEE /* NewsTransitionDismissalAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTransitionDismissalAnimator.swift; sourceTree = "<group>"; };
 		BEA6BE921E3D0E2700D75CEE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		BED601EF1E4C535700EFB928 /* HomeDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDownloadManager.swift; sourceTree = "<group>"; };
 		BEEB916F1E3234C70089BE4D /* storePhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = storePhotoTableViewCell.swift; sourceTree = "<group>"; };
 		BEF2BE3D1E1B9C070044203E /* CategoryDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDownloadManager.swift; sourceTree = "<group>"; };
 		BEF2BE401E1BB4A70044203E /* StoreListImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreListImageTableViewCell.swift; sourceTree = "<group>"; };
+		BEF8033B1E4DB22200F5FD44 /* StoreMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreMapViewController.swift; sourceTree = "<group>"; };
 		D3DBCE5A9B7B30A789BB8366 /* Pods-pet-place.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pet-place.release.xcconfig"; path = "Pods/Target Support Files/Pods-pet-place/Pods-pet-place.release.xcconfig"; sourceTree = "<group>"; };
 		E3768EE8BEE67DC86CBA546E /* Pods-pet-placeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pet-placeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-pet-placeUITests/Pods-pet-placeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EB2956BD1E16D4E00024E3E3 /* pet-place.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pet-place.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -523,6 +527,7 @@
 				EBD4821E1E1A8B9F00F2B8D5 /* StoresCategoryViewController.swift */,
 				EBD482251E1AB8EA00F2B8D5 /* StoresListImageViewController.swift */,
 				EB71A6921E1D335300948F41 /* StoreDetailViewController.swift */,
+				BEF8033B1E4DB22200F5FD44 /* StoreMapViewController.swift */,
 			);
 			name = Stores;
 			sourceTree = "<group>";
@@ -571,6 +576,7 @@
 		EBB619701E1960DE0061BCEB /* Download Manager */ = {
 			isa = PBXGroup;
 			children = (
+				BED601EF1E4C535700EFB928 /* HomeDownloadManager.swift */,
 				BEF2BE3D1E1B9C070044203E /* CategoryDownloadManager.swift */,
 				EBD482231E1AAECC00F2B8D5 /* LocationsDownloadManager.swift */,
 				EBB6198C1E197C4B0061BCEB /* UserManager.swift */,
@@ -646,6 +652,7 @@
 				EB2956BB1E16D4E00024E3E3 /* Resources */,
 				63BFC31F95A35D0C1A40C7C4 /* [CP] Embed Pods Frameworks */,
 				0322BB7EDF9639536D6A0364 /* [CP] Copy Pods Resources */,
+				BED601F11E4CABA600EFB928 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -901,6 +908,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pet-placeTests/Pods-pet-placeTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BED601F11E4CABA600EFB928 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
 		D5C4F0959E047236F638B27E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -937,6 +957,7 @@
 				EB71A6871E1CF09A00948F41 /* DescriptionTableViewCell.swift in Sources */,
 				BE3E04AF1E471D3B007735DF /* PlaceRegisterViewController.swift in Sources */,
 				EBB619871E197AE60061BCEB /* ReviewPresentAnimator.swift in Sources */,
+				BED601F01E4C535700EFB928 /* HomeDownloadManager.swift in Sources */,
 				EBB619581E194AF60061BCEB /* MainTabbarViewController.swift in Sources */,
 				EBB6198B1E197B2B0061BCEB /* UIImage+ImageEffects.m in Sources */,
 				BE3E04B71E47BEB3007735DF /* PlaceRow.swift in Sources */,
@@ -964,6 +985,7 @@
 				EB2956C11E16D4E00024E3E3 /* AppDelegate.swift in Sources */,
 				EBD4821F1E1A8B9F00F2B8D5 /* StoresCategoryViewController.swift in Sources */,
 				BE3E04BB1E47CBEE007735DF /* StoreCollectionViewCell.swift in Sources */,
+				BEF8033C1E4DB22200F5FD44 /* StoreMapViewController.swift in Sources */,
 				BE3346991E3138A500E23A88 /* ReviewsDetailViewController.swift in Sources */,
 				BE3E04B91E47C3D7007735DF /* PhotoCollectionViewCell.swift in Sources */,
 				BEEB91701E3234C70089BE4D /* storePhotoTableViewCell.swift in Sources */,

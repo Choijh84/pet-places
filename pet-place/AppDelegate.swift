@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 import FBSDKCoreKit
+import GoogleMaps
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -38,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.tintColor = UIColor.globalTintColor()
         
         backendless?.initApp(APP_ID, secret:SECRET_KEY, version:VERSION_NUM)
+        GMSServices.provideAPIKey("AIzaSyBwzZ6Mx2_3cn0mCFS4I2guim4T2Mu1IFs")
         
 //        if GeneralSettings.isOnboardingFinished() == false {
 //            window?.rootViewController = StoryboardManager.onboardingViewController()

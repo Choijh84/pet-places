@@ -10,7 +10,9 @@ import UIKit
 
 class PhotoRow: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
-    var photoList = [UIImage]()
+    @IBOutlet weak var promotionCollection: UICollectionView!
+    
+    var photoList = [FrontPromotion]()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -20,10 +22,11 @@ class PhotoRow: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCollectionViewCell
         
-//        photoList = cell.setupView()
+        let imageURL = photoList[indexPath.row].imageURL
+        print("this is promotions url: \(imageURL!)")
+        let url = URL(string: imageURL!)
         
-        let image = photoList[indexPath.row]
-        cell.imageView.image = image
+        cell.imageView.hnk_setImage(from: url, placeholder: UIImage(named: "placeholder"))
         
         return cell
         

@@ -1,17 +1,14 @@
 PODS:
-  - Backendless (3.0.27)
-  - Bolts (1.7.0):
-    - Bolts/AppLinks (= 1.7.0)
-    - Bolts/Tasks (= 1.7.0)
-  - Bolts/AppLinks (1.7.0):
+  - Backendless (3.0.44)
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
-  - Bolts/Tasks (1.7.0)
-  - Digits (2.7.0):
-    - TwitterCore (= 2.7.0)
-  - Fabric (1.6.11)
-  - FBSDKCoreKit (4.12.0):
+  - Bolts/Tasks (1.8.4)
+  - FBSDKCoreKit (4.19.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.12.0):
+  - FBSDKLoginKit (4.19.0):
     - FBSDKCoreKit
   - GoogleMaps (2.1.1):
     - GoogleMaps/Maps (= 2.1.1)
@@ -20,13 +17,9 @@ PODS:
     - GoogleMaps/Base
   - Haneke (1.0.2)
   - HCSStarRatingView (1.4.5)
-  - TwitterCore (2.7.0):
-    - Fabric
 
 DEPENDENCIES:
   - Backendless
-  - Digits
-  - Fabric
   - FBSDKCoreKit
   - FBSDKLoginKit
   - GoogleMaps
@@ -34,17 +27,14 @@ DEPENDENCIES:
   - HCSStarRatingView (~> 1.4.3)
 
 SPEC CHECKSUMS:
-  Backendless: 565a82d9aa6ec01257e904e0a5c0146ffdb503ed
-  Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
-  Digits: 67a14dea7cd470b2438380a09371bcdadc50d94e
-  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
-  FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
-  FBSDKLoginKit: 03f68a8d48c2c8bb81d7eb8097973d483543e1f6
+  Backendless: bd77ad90cbd16fbd85fda03b3659b46a2c8f3179
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  FBSDKCoreKit: 894b2b6eda6a4c8c4204e92e59cc355709ef045c
+  FBSDKLoginKit: 83ca4d8f12a2022570af9fd6aacf27f6b425b99f
   GoogleMaps: a5b5bbe47734e2443bde781a6aa64e69fdb6d785
   Haneke: 01454a67322faa0dd9d81fc0f447885044e71521
   HCSStarRatingView: bff3f89314d3b5013ce826ea11897d3129ff6b8c
-  TwitterCore: fbdbeaf6d2d20cf7c7aa4136fe5173c1c85df2e2
 
-PODFILE CHECKSUM: e88d6b116da69333ed250bbe3357999ff8d41b39
+PODFILE CHECKSUM: fcd52b81012f48d28f04760fbbce62d28bf99845
 
 COCOAPODS: 1.2.0.beta.3

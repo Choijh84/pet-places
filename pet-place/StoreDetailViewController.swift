@@ -131,7 +131,7 @@ class StoreDetailViewController: UIViewController {
         
         // Hide the navigation Bar
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.navigationController?.hidesBarsOnTap = true
+//        self.navigationController?.hidesBarsOnTap = true
         
     }
     

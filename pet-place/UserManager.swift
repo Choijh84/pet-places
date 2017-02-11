@@ -49,6 +49,15 @@ class UserManager: NSObject {
         }
     }
     
+    class func updateUser(phoneNumber: String, completionBlock: @escaping (_ successful: Bool, _ errorMessage: String?) -> ()) {
+        let user = self.currentUser()
+        if (user != nil) {
+            user?.setProperty(phoneNumber, object: nil)
+        } else {
+            print("User hasn't been logged")
+        }
+    }
+    
     /**
     Launches facebook login
     - parameter completionBlock: black to call after the request finished

@@ -10,8 +10,9 @@ import UIKit
 import MapKit
 
 /// Custom tableViewCell that displays a mapView inside it
-class StoreMapTableViewCell: UITableViewCell, MKMapViewDelegate {
+class StoreMapTableViewCell: UITableViewCell, MKMapViewDelegate  {
 
+    
     /// Map to display the store's location
     @IBOutlet weak var mapView: MKMapView!
     
@@ -47,6 +48,7 @@ class StoreMapTableViewCell: UITableViewCell, MKMapViewDelegate {
      - parameter storeObject: store object to use
      */
     func zoomMapToStoreLocation(_ storeObject: Store) {
+        
         let annotationPoint = StoreLocationAnnotationPoint()
         annotationPoint.coordinate = storeObject.coordinate()
         mapView.addAnnotation(annotationPoint)
