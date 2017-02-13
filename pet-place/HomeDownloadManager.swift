@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Custom Class which can download the contents in the home screen
 class HomeDownloadManager: NSObject {
     
     /// Store object that handles downloading of FrontPromotion objects
@@ -20,10 +21,6 @@ class HomeDownloadManager: NSObject {
      */
     func downloadFrontPromotions(_ completionBlock: @escaping (_ fronts: [FrontPromotion]?, _ errorMessage: NSString?) -> Void) {
         let query = BackendlessDataQuery()
-        
-        let queryOptions = QueryOptions()
-//        queryOptions.sortBy = ["created"]
-        query.queryOptions = queryOptions
         
         dataStore1?.find(query, response: { (collection) in
             completionBlock((collection?.data as! [FrontPromotion]), nil)
@@ -42,13 +39,9 @@ class HomeDownloadManager: NSObject {
     func downloadRecommendStores(_ completionBlock: @escaping (_ categories: [Recommendations]?, _ errorMessage: NSString?) -> Void )  {
         let query = BackendlessDataQuery()
         
-        let queryOptions = QueryOptions()
-        queryOptions.related = ["store"]
-        query.queryOptions = queryOptions
-        
         dataStore2?.find(query, response: { (collection) in
-            print("Stores have been retrieved: \(collection?.data)")
-            completionBlock((collection?.data as! [Recommendations]), nil)
+            let storeArray = collection?.data as! [Recommendations]
+            completionBlock((storeArray), nil)
         }, error: { (Fault) in
             completionBlock(nil, Fault?.description as NSString?)
         })

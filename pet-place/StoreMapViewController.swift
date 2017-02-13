@@ -33,6 +33,12 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
     /// Objects that needs to be displayed
     var objectsArray: [Store] = []
     
+    /// Selected store on the map
+    var selectedStore: Store?
+    
+    ///
+    var didTapped: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "MAPS"
@@ -41,6 +47,12 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
         locationManager.requestWhenInUseAuthorization()
         lastCoordinate = mapView.camera.target
         print("This is camera center: \(lastCoordinate)")
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     /**
@@ -103,9 +115,21 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
         }
     }
     
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        print("Did tap at Marker: \(marker.title)")
-        return true
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        for object in objectsArray {
+            if object.name == marker.title! {
+                selectedStore = object
+            }
+        }
+        
+        performSegue(withIdentifier: "showStore", sender: selectedStore)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showStore" {
+            let detailViewController = segue.destination as! StoreDetailViewController
+            detailViewController.storeToDisplay = selectedStore
+        }
     }
     
     /**
@@ -141,6 +165,7 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
                 let storeLocation = CLLocationCoordinate2DMake(lat, long)
                 let marker = GMSMarker(position: storeLocation)
                 marker.title = store.name
+                marker.icon = UIImage(named: "pin")
                 marker.map = mapView
             }
         } else {

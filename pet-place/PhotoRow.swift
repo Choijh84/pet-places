@@ -23,7 +23,6 @@ class PhotoRow: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectio
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCollectionViewCell
         
         let imageURL = photoList[indexPath.row].imageURL
-        print("this is promotions url: \(imageURL!)")
         let url = URL(string: imageURL!)
         
         cell.imageView.hnk_setImage(from: url, placeholder: UIImage(named: "placeholder"))

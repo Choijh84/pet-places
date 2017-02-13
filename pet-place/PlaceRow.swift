@@ -22,22 +22,21 @@ class PlaceRow: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlaceCell", for: indexPath) as! StoreCollectionViewCell
         
-        let store = storeList[indexPath.row].recommendStore
-        let imageURL = store?.imageURL!
-        print("this is imageURL: \(imageURL!)")
+        let store = storeList[indexPath.row].store
+        let imageURL = store?.imageURL
         let url = URL(string: imageURL!)
         cell.storeImage.hnk_setImage(from: url!, placeholder: UIImage(named: "placeholder"))
-        
         cell.storeTitle.text = store?.name!
+        cell.tag = indexPath.row
         
         return cell
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (collectionView.frame.width/2)-10
-        return CGSize(width: width, height: 172)
-        
+        return CGSize(width: width, height: width)
     }
+    
+    
 }
 

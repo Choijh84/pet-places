@@ -33,7 +33,10 @@ class StoreDetailViewController: UIViewController {
     @IBOutlet var customNavigationBarView: GradientHeaderView!
     /// Back Button 
     @IBOutlet var backButton: UIButton!
-    
+    /// Favorite Button
+    @IBOutlet weak var isFavorite: UIButton!
+    /// Boolean value for the store to check in the user's favorite list
+    var isFavorited: Bool?
     
     /// the store object we want to display
     var storeToDisplay: Store!
@@ -64,6 +67,49 @@ class StoreDetailViewController: UIViewController {
     /// Dismisses the view when the back button is pressed
     @IBAction func backButtonPressed() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    /// Check the Favorite button pressed
+    @IBAction func isFavoritButtonPressed(_ sender: Any) {
+        let user = UserManager.currentUser()
+        print(storeToDisplay.favoriteList)
+        
+        let dataStore = Backendless.sharedInstance().data.of(Store.ofClass())
+        
+        if isFavorited == false {
+            let randomNum : UInt32 = arc4random_uniform(2)
+            if randomNum == 0 {
+                isFavorite.setImage(#imageLiteral(resourceName: "redHeart"), for: .normal)
+            } else {
+                isFavorite.setImage(#imageLiteral(resourceName: "pawprint"), for: .normal)
+            }
+            
+            isFavorited = true
+            storeToDisplay.favoriteList.append(user!)
+            dataStore?.save(storeToDisplay, response: { (Store) in
+                print("Successfully added")
+                print(self.storeToDisplay.favoriteList)
+            }, error: { (Fault) in
+                print("There is a server error: \(Fault?.description)")
+            })
+        } else {
+            isFavorite.setImage(#imageLiteral(resourceName: "emptyHeart"), for: .normal)
+            isFavorited = false
+            
+            for list in storeToDisplay.favoriteList {
+                if list.objectId == user?.objectId {
+                    let index = storeToDisplay.favoriteList.index(of: list)
+                    storeToDisplay.favoriteList.remove(at: index!)
+                }
+            }
+            
+            dataStore?.save(storeToDisplay, response: { (Store) in
+                print("Successfully removed")
+                print(self.storeToDisplay.favoriteList)
+            }, error: { (Fault) in
+                print("There is a server error: \(Fault?.description)")
+            })
+        }
     }
     
     /**
@@ -133,6 +179,27 @@ class StoreDetailViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
 //        self.navigationController?.hidesBarsOnTap = true
         
+        
+        /// Favorite List Check 
+        let user = UserManager.currentUser()
+        for list in storeToDisplay.favoriteList {
+            if list.objectId == user?.objectId {
+                isFavorited = true
+            }
+        }
+        isFavorited = false
+        print("This is initial isFavorited: \(isFavorited!)")
+        
+        if isFavorited == true {
+            let randomNum : UInt32 = arc4random_uniform(2)
+            if randomNum == 0 {
+                isFavorite.setImage(#imageLiteral(resourceName: "redHeart"), for: .normal)
+            } else {
+                isFavorite.setImage(#imageLiteral(resourceName: "pawprint"), for: .normal)
+            }
+        } else {
+            isFavorite.imageView?.image = #imageLiteral(resourceName: "emptyHeart")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -227,11 +294,17 @@ class StoreDetailViewController: UIViewController {
         }
         
         let mapSection = StoreDetailRowDatasource<StoreMapTableViewCell>(identifier: "mapCell", setupBlock: { (cell) in
-            DispatchQueue.main.async(execute: {
                 self.configureMapCell(cell)
-            })
         }) {
             // add method here to handle cell selection
+        }
+        
+        let googleMapSection = StoreDetailRowDatasource<StoreGoogleMapTableViewCell>(identifier: "googleMapCell", setupBlock: { (cell) in
+                DispatchQueue.main.async(execute: {
+                    self.configureGoogleMapCell(cell)
+                })
+        }) { 
+            print("This is Google Map")
         }
         
         let mapInfoSection = StoreDetailRowDatasource<InfoWithIconTableViewCell>(identifier:"infoWithIcon", setupBlock: { (cell) in
@@ -262,10 +335,10 @@ class StoreDetailViewController: UIViewController {
         }
         
         if isExpanded == false {
-            dataSource = StoreDetailViewDatasource(sectionSources: [aboutSectionHeaderRow, aboutSection, infoSectionHeaderRow, infoSection, detailInfoButton, photoSectionHeaderRow, photoSection, locationSectionHeaderRow, mapInfoSection, mapSection, reviewSectionHeaderRow, reviewsSection, reviewButtonSection])
+            dataSource = StoreDetailViewDatasource(sectionSources: [aboutSectionHeaderRow, aboutSection, infoSectionHeaderRow, infoSection, detailInfoButton, photoSectionHeaderRow, photoSection, locationSectionHeaderRow, mapInfoSection, googleMapSection,reviewSectionHeaderRow, reviewsSection, reviewButtonSection])
             
         } else {
-            dataSource = StoreDetailViewDatasource(sectionSources: [aboutSectionHeaderRow, aboutSection, infoSectionHeaderRow, infoSection, detailInfoButton, detailInfoSectionHeaderRow, detailInfoSection, photoSectionHeaderRow, photoSection, locationSectionHeaderRow, mapInfoSection, mapSection, reviewSectionHeaderRow, reviewsSection, reviewButtonSection])
+            dataSource = StoreDetailViewDatasource(sectionSources: [aboutSectionHeaderRow, aboutSection, infoSectionHeaderRow, infoSection, detailInfoButton, detailInfoSectionHeaderRow, detailInfoSection, photoSectionHeaderRow, photoSection, locationSectionHeaderRow, mapInfoSection, googleMapSection,reviewSectionHeaderRow, reviewsSection, reviewButtonSection])
             
         }
         
@@ -398,35 +471,37 @@ class StoreDetailViewController: UIViewController {
         cell.scrollView.delaysContentTouches = false
         
         if storeToDisplay.imageArray != nil {
-            if let imageArray = storeToDisplay.imageArray {
-                
-                let storePhotos = imageArray.components(separatedBy: ",")
-                
-                for i in 0..<(storePhotos.count) {
+            DispatchQueue.main.async(execute: { 
+                if let imageArray = self.storeToDisplay.imageArray {
+    
+                    let storePhotos = imageArray.components(separatedBy: ",")
                     
-                    if let url = URL(string: storePhotos[i]) {
-                        print("This is photo url: \(url)")
-                        cell.storePhotoImage.contentMode = .scaleAspectFill
-                        cell.storePhotoImage.hnk_setImage(from: url, placeholder: UIImage(named: "imageplaceholder"), success: { (image) in
-                            
-                            let imageView = UIImageView()
-                            imageView.image = image
-                            let xPosition = self.view.frame.width * CGFloat(i)
-                            imageView.frame = CGRect(x: xPosition, y: 0, width: cell.scrollView.frame.width, height: cell.scrollView.frame.height)
-                            cell.scrollView.contentSize.width = cell.scrollView.frame.width * CGFloat(i+1)
-                            cell.scrollView.addSubview(imageView)
-                            
-                        }, failure: { (error) in
-                            print("there is an error on fetching store photos")
-                        })
+                    for i in 0..<(storePhotos.count) {
                         
-                    } else {
-                        print("url is nil")
+                        if let url = URL(string: storePhotos[i]) {
+                            // print("This is photo url: \(url)")
+                            cell.storePhotoImage.contentMode = .scaleAspectFill
+                            cell.storePhotoImage.hnk_setImage(from: url, placeholder: UIImage(named: "imageplaceholder"), success: { (image) in
+                                
+                                let imageView = UIImageView()
+                                imageView.image = image
+                                let xPosition = self.view.frame.width * CGFloat(i)
+                                imageView.frame = CGRect(x: xPosition, y: 0, width: cell.scrollView.frame.width, height: cell.scrollView.frame.height)
+                                cell.scrollView.contentSize.width = cell.scrollView.frame.width * CGFloat(i+1)
+                                cell.scrollView.addSubview(imageView)
+                                cell.layoutSubviews()
+                                
+                            }, failure: { (error) in
+                                print("there is an error on fetching store photos")
+                            })
+                            
+                        } else {
+                            print("url is nil")
+                        }
                     }
+                    self.view.setNeedsLayout()
                 }
-                self.view.setNeedsLayout()
-                
-            }
+            })
         } else {
             let imageArray = [#imageLiteral(resourceName: "backgroundImage")]
             for i in 0..<(imageArray.count) {
@@ -450,6 +525,15 @@ class StoreDetailViewController: UIViewController {
      - parameter cell: cell to configure
      */
     func configureMapCell(_ cell: StoreMapTableViewCell) {
+        cell.zoomMapToStoreLocation(storeToDisplay)
+    }
+    
+    /**
+     Configures the Google map cell
+     
+     - parameter cell: cell to configure
+     */
+    func configureGoogleMapCell(_ cell: StoreGoogleMapTableViewCell) {
         cell.zoomMapToStoreLocation(storeToDisplay)
     }
     

@@ -11,6 +11,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Montserrat-Hairline.otf">
+            <string>Montserrat-Hairline</string>
+        </array>
         <array key="Montserrat-Light.otf">
             <string>Montserrat-Light</string>
         </array>
@@ -44,7 +47,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yfQ-YV-8Io" customClass="HomeViewController" customModule="pet_place" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="a5T-dR-qDy" customClass="LoadingTableView" customModule="pet_place" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -100,7 +103,7 @@
                                     <outlet property="promotionCollection" destination="7sl-Pc-LP7" id="2BW-3n-RPY"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderRow" rowHeight="50" id="bn9-Qf-m4r" userLabel="HeaderRow" customClass="HeaderRow" customModule="pet_place" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="HeaderRow" rowHeight="50" id="bn9-Qf-m4r" userLabel="HeaderRow" customClass="HeaderRow" customModule="pet_place" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="278" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bn9-Qf-m4r" id="Err-MH-eN1">
@@ -143,6 +146,10 @@
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
+                                            <imageView key="backgroundView" userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HomeBackGround1" highlightedImage="HomeBackGround" highlighted="YES" id="oyM-GR-c8S">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="349"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="PlaceCell" id="qID-Dl-Qrd" userLabel="PlaceCell" customClass="StoreCollectionViewCell" customModule="pet_place" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="172" height="172"/>
@@ -160,7 +167,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4O-x2-9ZD">
                                                                 <rect key="frame" x="8" y="143" width="156" height="21"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <fontDescription key="fontDescription" name="Montserrat-Hairline" family="Montserrat" pointSize="13"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -174,6 +181,7 @@
                                                     <connections>
                                                         <outlet property="storeImage" destination="Acu-oU-3P7" id="uvQ-Kr-EjK"/>
                                                         <outlet property="storeTitle" destination="U4O-x2-9ZD" id="dAf-sJ-lsS"/>
+                                                        <segue destination="m3k-HE-CDl" kind="show" identifier="showDetailStoreSegue" id="j5R-Km-aTC"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
@@ -201,7 +209,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Lue-dU-vyM"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="bLq-Nm-nYN">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -437,9 +444,7 @@
                             <constraint firstItem="KtH-Lt-D2Q" firstAttribute="leading" secondItem="SEu-Q6-80j" secondAttribute="leading" id="kTS-bZ-06V"/>
                         </constraints>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem title="Item" id="ALU-rC-Pkj"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="PLACES" id="zb5-k9-m8s">
                         <rightBarButtonItems>
                             <barButtonItem image="filter icon" id="YNK-e9-8d8"/>
@@ -487,6 +492,7 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="DX9-DD-eZW" id="KPZ-AY-B0I"/>
+                        <segue destination="m3k-HE-CDl" kind="show" identifier="showStore" id="ewW-cc-Py1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dCI-l8-mde" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -521,19 +527,19 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subtitle" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SwT-xb-tmP">
-                                            <rect key="frame" x="165.5" y="113.5" width="44.5" height="14"/>
+                                            <rect key="frame" x="165" y="113" width="45" height="15"/>
                                             <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 of 5 ratings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WwW-HY-Y9c">
-                                            <rect key="frame" x="150" y="150.5" width="76" height="15"/>
+                                            <rect key="frame" x="150" y="151" width="76" height="15"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.92156862750000001" green="0.77647058820000003" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QL1-eP-18R" customClass="HCSStarRatingView">
-                                            <rect key="frame" x="148" y="132.5" width="80" height="15"/>
+                                            <rect key="frame" x="148" y="133" width="80" height="15"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="15" id="HwA-Fz-68c"/>
@@ -671,8 +677,34 @@
                                             <outlet property="storePhotoImage" destination="bI6-qv-kBT" id="l4d-Sa-zBZ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mapCell" rowHeight="160" id="dyZ-BL-txa" customClass="StoreMapTableViewCell" customModule="pet_place" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="googleMapCell" rowHeight="160" id="dx0-xE-zrv" customClass="StoreGoogleMapTableViewCell" customModule="pet_place" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="552" width="375" height="160"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dx0-xE-zrv" id="BTA-tI-2iO">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="159"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eDo-hl-P6I" customClass="GMSMapView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="159"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="159" id="rC3-zq-xQL"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="eDo-hl-P6I" firstAttribute="leading" secondItem="BTA-tI-2iO" secondAttribute="leading" id="K7R-ZA-TLg"/>
+                                                <constraint firstItem="eDo-hl-P6I" firstAttribute="top" secondItem="BTA-tI-2iO" secondAttribute="top" id="Qo7-S2-hD2"/>
+                                                <constraint firstAttribute="trailing" secondItem="eDo-hl-P6I" secondAttribute="trailing" id="uGS-2j-5dT"/>
+                                                <constraint firstAttribute="bottom" secondItem="eDo-hl-P6I" secondAttribute="bottom" id="xox-kj-DTH"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="mapView" destination="eDo-hl-P6I" id="CSJ-0m-WFf"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mapCell" rowHeight="160" id="dyZ-BL-txa" customClass="StoreMapTableViewCell" customModule="pet_place" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="712" width="375" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dyZ-BL-txa" id="JAC-tL-2tf">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="159"/>
@@ -697,7 +729,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reviewButtons" rowHeight="50" id="KZ1-8y-cTQ" customClass="ReviewOptionsTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="712" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="872" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KZ1-8y-cTQ" id="GXP-ve-kHr">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -730,7 +762,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sectionHeaderSpaceCell" textLabel="vKh-8Y-jvR" rowHeight="40" style="IBUITableViewCellStyleDefault" id="wlB-zr-qtg" customClass="ReviewOptionsTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="762" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="922" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wlB-zr-qtg" id="0Xc-dj-b7x">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
@@ -782,6 +814,17 @@
                                             <action selector="shareStoreButtonPressed" destination="m3k-HE-CDl" eventType="touchUpInside" id="iSp-Ce-clT"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAk-T9-GPk">
+                                        <rect key="frame" x="303" y="33" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="Sxv-8L-SSq"/>
+                                            <constraint firstAttribute="height" constant="25" id="gva-2H-eUF"/>
+                                        </constraints>
+                                        <state key="normal" image="emptyHeart"/>
+                                        <connections>
+                                            <action selector="isFavoritButtonPressed:" destination="m3k-HE-CDl" eventType="touchUpInside" id="MOL-bz-4Gg"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -790,7 +833,9 @@
                                     <constraint firstItem="cyc-NR-Zjj" firstAttribute="leading" secondItem="nDe-rV-tLM" secondAttribute="leading" constant="5" id="JX7-0F-7KV"/>
                                     <constraint firstAttribute="bottom" secondItem="cyc-NR-Zjj" secondAttribute="bottom" constant="5" id="LPd-O0-uZv"/>
                                     <constraint firstItem="JmQ-2g-VDW" firstAttribute="centerY" secondItem="Jgg-On-mKv" secondAttribute="centerY" id="NK2-1L-ycY"/>
+                                    <constraint firstItem="cAk-T9-GPk" firstAttribute="centerY" secondItem="Jgg-On-mKv" secondAttribute="centerY" id="RGN-d4-WAb"/>
                                     <constraint firstItem="Jgg-On-mKv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cyc-NR-Zjj" secondAttribute="trailing" constant="10" id="Zkw-g8-rIW"/>
+                                    <constraint firstItem="JmQ-2g-VDW" firstAttribute="leading" secondItem="cAk-T9-GPk" secondAttribute="trailing" constant="2" id="fW1-MA-7Y0"/>
                                     <constraint firstItem="JmQ-2g-VDW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Jgg-On-mKv" secondAttribute="trailing" constant="10" id="fWq-BC-kNp"/>
                                     <constraint firstAttribute="trailing" secondItem="JmQ-2g-VDW" secondAttribute="trailing" constant="5" id="noD-FX-k6g"/>
                                     <constraint firstItem="Jgg-On-mKv" firstAttribute="centerX" secondItem="nDe-rV-tLM" secondAttribute="centerX" id="zFO-Aj-Eh1"/>
@@ -827,17 +872,49 @@
                     <connections>
                         <outlet property="backButton" destination="cyc-NR-Zjj" id="OJI-BK-C0s"/>
                         <outlet property="customNavigationBarView" destination="nDe-rV-tLM" id="YMa-F1-t7F"/>
+                        <outlet property="isFavorite" destination="cAk-T9-GPk" id="L3e-TH-LFl"/>
                         <outlet property="storeImageView" destination="zNA-ci-fgg" id="b3y-aC-UaZ"/>
                         <outlet property="storeNameLabel" destination="Jgg-On-mKv" id="Xbi-qB-qJl"/>
                         <outlet property="storeRatingLabel" destination="WwW-HY-Y9c" id="fmD-zD-Dbe"/>
                         <outlet property="storeRatingView" destination="QL1-eP-18R" id="x0q-Yl-QO3"/>
                         <outlet property="storeSubtitleLabel" destination="SwT-xb-tmP" id="l7a-UP-Ieo"/>
                         <outlet property="tableView" destination="urg-1L-m5q" id="bed-An-6DN"/>
+                        <segue destination="wm4-u8-GLS" kind="show" id="L9g-fD-dg1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SyS-JK-6p4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3632.8000000000002" y="1055.6221889055473"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="noH-pd-Kpg">
+            <objects>
+                <viewController id="wm4-u8-GLS" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Q2F-gV-dCP"/>
+                        <viewControllerLayoutGuide type="bottom" id="EeE-hl-4Tg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="f2L-cA-YXQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FVD-7x-r2L" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="FVD-7x-r2L" secondAttribute="trailing" id="fqV-gu-DDt"/>
+                            <constraint firstItem="FVD-7x-r2L" firstAttribute="top" secondItem="f2L-cA-YXQ" secondAttribute="top" id="n0A-mL-02r"/>
+                            <constraint firstItem="EeE-hl-4Tg" firstAttribute="top" secondItem="FVD-7x-r2L" secondAttribute="bottom" id="rMc-Rd-hDs"/>
+                            <constraint firstItem="FVD-7x-r2L" firstAttribute="leading" secondItem="f2L-cA-YXQ" secondAttribute="leading" id="x8G-ea-JvP"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wVI-Ll-hgG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4496.8000000000002" y="1056.5217391304348"/>
         </scene>
         <!--Filter View Controller-->
         <scene sceneID="XIv-6m-fkg">
@@ -966,7 +1043,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="HomeBackGround" width="750" height="1334"/>
+        <image name="HomeBackGround1" width="500" height="500"/>
         <image name="backButton" width="10" height="18"/>
+        <image name="emptyHeart" width="32" height="32"/>
         <image name="filter icon" width="19" height="18"/>
         <image name="homeIcon" width="24" height="23"/>
         <image name="imageplaceholder" width="500" height="500"/>
@@ -978,4 +1058,7 @@
         <image name="shareIcon" width="16" height="21"/>
         <image name="trash icon empty" width="22" height="26"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="j5R-Km-aTC"/>
+    </inferredMetricsTieBreakers>
 </document>

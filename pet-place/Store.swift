@@ -35,8 +35,6 @@ class Store: NSObject {
     var imageURL: String?
     /// images of the store
     var imageArray: String?
-    /// Array to hold all the downloaded categories
-    var StoreCategory: [StoreCategory] = []
     
     /// 서비스 카테고리 
     var serviceCategory: String? 
@@ -50,7 +48,10 @@ class Store: NSObject {
     var priceInfo: String?
     /// note for the precautions
     var note: String?
-    
+    /// Boolean for favorite or not
+    var isFavorited: Bool = false
+    /// array for Favorite List of users
+    var favoriteList: [BackendlessUser] = []
     
     /// Category of the Store object (pension, cafe, etc.)
 //    var parentCategory: StoreCategory?

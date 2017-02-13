@@ -25,7 +25,7 @@ class Recommendations: NSObject {
     /// ID
     var objectId: String?
     /// Reference
-    var recommendStore: Store!
+    var store: Store!
 }
 
 class HomeViewController: UITableViewController {
@@ -33,7 +33,7 @@ class HomeViewController: UITableViewController {
     @IBOutlet var tableInsideHome: LoadingTableView!
     
     var promotions = [FrontPromotion]()
-    var recommend = [Recommendations]()
+    var recommendStores = [Recommendations]()
     
     @IBOutlet weak var promotionCollection: UICollectionView!
     @IBOutlet weak var placeCollection: UICollectionView!
@@ -43,7 +43,7 @@ class HomeViewController: UITableViewController {
         title = "PET CITY HOME"
         
         downloadFrontPromotions()
-//        downloadRecommendations()
+        downloadRecommendations()
         
     }
     
@@ -80,7 +80,7 @@ class HomeViewController: UITableViewController {
     func downloadRecommendations() {
         self.tableInsideHome.showLoadingIndicator()
         let download = HomeDownloadManager()
-        download.downloadRecommendStores { (recommend, errorMessage) in
+        download.downloadRecommendStores { (recommends, errorMessage) in
             DispatchQueue.main.async(execute: { 
                 if let errorMessage = errorMessage {
                     let alertView = UIAlertController(title: "Error", message: errorMessage as String, preferredStyle: .alert)
@@ -90,15 +90,26 @@ class HomeViewController: UITableViewController {
                     }))
                     self.present(alertView, animated: true, completion: nil)
                 } else {
-                    if let recommend = recommend {
-                        print("recommend download done: \(recommend)")
-                        self.recommend = recommend
+                    if let recommends = recommends {
+                        self.recommendStores = recommends
                     }
                     self.tableInsideHome.reloadData()
                     self.tableInsideHome.hideLoadingIndicator()
                     
                 }
             })
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        /// Recommendation Places Tap Segue
+        if segue.identifier == "showDetailStoreSegue" {
+            if let collectionCell: StoreCollectionViewCell = sender as? StoreCollectionViewCell {
+                let indexPath = collectionCell.tag
+                    if let destination = segue.destination as? StoreDetailViewController {
+                        destination.storeToDisplay = recommendStores[indexPath].store
+                }
+            }
         }
     }
     
@@ -123,12 +134,18 @@ class HomeViewController: UITableViewController {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceRow", for: indexPath) as! PlaceRow
-            cell.storeList = recommend
+            cell.storeList = recommendStores
             cell.placeCollection.reloadData()
             return cell
         }
-        
     }
+    
+    /**
+        Tableview Height setting function
+        - parameter: tableView
+        - parameter: indexPath
+        row 0: 프로모션 이미지 place, row 1: 헤더, row 2: 추천 장소 콜렉션뷰 높이 계산
+     */
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.row == 0) {
@@ -136,15 +153,32 @@ class HomeViewController: UITableViewController {
         } else if (indexPath.row == 1) {
             return 40
         } else if (indexPath.row == 2) {
-            let number = 5
-            if number%2==0 {
-                return CGFloat(180*(number/2))
-            } else {
-                let multi = Double(number/2) + 1
-                return CGFloat(180*multi)
-            }
+            let number = ceil(Double(recommendStores.count/2))+1
+            print("This is collectionView Height: \(200*number)")
+            return CGFloat(200*number)
         } else {
             return 300
         }
+    }
+    
+    /**
+     Set the navigation bar visible
+     
+     - parameter animated: animated
+     */
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        
+    }
+    
+    
+    /**
+     Which statusbar style to display, white in this case.
+     
+     - returns: White statusbar.
+     */
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
 }
