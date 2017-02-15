@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DKImagePickerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FBSDKCoreKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -25,6 +30,11 @@
 			<false/>
 		</dict>
 		<key>Haneke.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>IQKeyboardManagerSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -57,7 +67,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>654630BDBF9943F06BCB72068A9908CC</key>
+		<key>4DC059E04CBA98AEDDB5C34E02D551E9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>55D4092BCCF9B8819FF465FD22D744A0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -83,6 +98,11 @@
 			<true/>
 		</dict>
 		<key>C429C87A0422D85AB9057918AEA4368E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D29ECE69EF439D1FF5B5E9EB40FDFFE0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

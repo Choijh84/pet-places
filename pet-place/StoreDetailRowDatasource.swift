@@ -82,6 +82,4 @@ class StoreDetailRowDatasource<CellClass: UITableViewCell>: StoreSectionDataSour
             selectionBlock()
         }
     }
-
-    
 }

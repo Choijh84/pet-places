@@ -8,18 +8,17 @@
 
 import UIKit
 import HCSStarRatingView
+import DKImagePickerController
+
 
  /// ViewController that allows a user to leave a review for a selected Store
-class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
 
     /// Custom rating view for handling ratings
     @IBOutlet weak var ratingView: HCSStarRatingView!
     /// TextView for the review's body
     @IBOutlet weak var reviewField: UITextView!
-    /// ImageView to display the selected image
-    @IBOutlet weak var reviewImageView: UIImageView!
-    /// Height constraint of the reviewImageView
-    @IBOutlet weak var reviewImageViewHeightConstraint: NSLayoutConstraint!
+    
     /// Button to select an image
     @IBOutlet weak var selectButton: UIButton!
     
@@ -29,6 +28,13 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
     var selectedStore: Store!
     /// Object that helps selecting an image
     let imagePicker = UIImagePickerController()
+    /// Imagepicker by DKImagePickerController
+    var pickerController: DKImagePickerController!
+    
+    var assets: [DKAsset]?
+    var imageArray: [UIImage]?
+    
+    @IBOutlet weak var previewView: UICollectionView?
     
     /// Overlay view to be shown while creating a new review
     lazy var overlayView: OverlayView = {
@@ -44,7 +50,7 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
         
         overlayView.displayView(view, text: "Sending Review...")
         
-        reviewManager.uploadNewReview(reviewField.text, selectedFile: reviewImageView.image, rating: (ratingView.value) as NSNumber, store: selectedStore) { (completed, store, errorMessage) in
+        reviewManager.uploadNewReview(reviewField.text, selectedFile: nil, rating: (ratingView.value) as NSNumber, store: selectedStore) { (completed, store, errorMessage) in
             self.overlayView.hideView()
             
             if completed == true {
@@ -68,18 +74,37 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
         let actionsheet = UIAlertController(title: "Choose source", message: nil, preferredStyle: .actionSheet)
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             actionsheet.addAction(UIAlertAction(title: "Take a picture", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-                self.imagePicker.sourceType = .camera
-                self.presentImagePicker()
+                self.pickerController.sourceType = .camera
+                self.showImagePicker()
             }))
         }
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             actionsheet.addAction(UIAlertAction(title: "Choose photo", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-                self.imagePicker.sourceType = .photoLibrary
-                self.presentImagePicker()
+                self.pickerController.assetType = .allPhotos
+                self.showImagePicker()
             }))
         }
         actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(actionsheet, animated: true, completion: nil)
+    }
+    
+    // MARK: DKIMAGE PICKER
+    func showImagePicker() {
+        
+        pickerController.showsCancelButton = true
+        
+        pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
+            print("didSelectAssets")
+            
+            self.assets = assets
+            self.previewView?.reloadData()
+        }
+        
+        if UI_USER_INTERFACE_IDIOM() == .pad {
+            pickerController.modalPresentationStyle = .formSheet
+        }
+        
+        self.present(pickerController, animated: true) {}
     }
     
     /**
@@ -100,11 +125,11 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
      */
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            reviewImageView.image = pickedImage
+//            reviewImageView.image = pickedImage
         }
         
         dismiss(animated: true) { () -> Void in
-            self.reviewImageViewHeightConstraint.constant = 100.0
+//            self.reviewImageViewHeightConstraint.constant = 100.0
             self.view.layoutIfNeeded()
         }
     }
@@ -122,22 +147,27 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
         sendBarButton.tintColor = UIColor.rgbColor(red: 235.0, green: 198.0, blue: 16.0)
         navigationItem.rightBarButtonItem = sendBarButton
         
+        // 별점 반개 allow
+        ratingView.allowsHalfStars = true
+        ratingView.value = 4.5
+        
         reviewField.text = ""
         reviewField.layer.borderColor = UIColor.rgbColor(red: 179, green: 179, blue: 179).withAlphaComponent(0.2).cgColor
         reviewField.layer.borderWidth = 1.0
         reviewField.layer.cornerRadius = 4.0
         reviewField.becomeFirstResponder()
         
-        reviewImageView.layer.cornerRadius = 4.0
         selectButton.layer.cornerRadius = 4.0
         
-        reviewImageViewHeightConstraint.constant = 0.0
         view.layoutIfNeeded()
         
         // Add tap recongizer to the view, so keyboard can be closed easily
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddReviewViewController.viewTapped))
         tapRecognizer.numberOfTapsRequired = 1
         view.addGestureRecognizer(tapRecognizer)
+        
+        pickerController = DKImagePickerController()
+        
     }
 
     /**
@@ -165,6 +195,38 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent
     }
+    
+    // MARK: - UICollectionViewDataSource, UICollectionViewDelegate methods
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.assets?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let asset = self.assets![indexPath.row]
+        var cell: UICollectionViewCell?
+        var imageView: UIImageView?
+        
+        if asset.isVideo {
+            print("This is Video")
+        } else {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CellImage", for: indexPath)
+            imageView = cell?.contentView.viewWithTag(1) as? UIImageView
+        }
+        
+        if let cell = cell, let imageView = imageView {
+            let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+            let tag = indexPath.row + 1
+            cell.tag = tag
+            print("This is tag: \(tag)")
+            asset.fetchImageWithSize(layout.itemSize.toPixel(), completeBlock: { (image, info) in
+                if cell.tag == tag {
+                    imageView.image = image
+                }
+            })
+        }
+        return cell!
+    }
+    
     
     
 }

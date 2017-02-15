@@ -11,6 +11,14 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Light.otf">
+            <string>Montserrat-Light</string>
+        </array>
+        <array key="Montserrat-Regular.ttf">
+            <string>Montserrat-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Reviews View Controller-->
         <scene sceneID="bEO-zx-Hve">
@@ -87,7 +95,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oTJ-vx-aNp" customClass="HCSStarRatingView">
-                                <rect key="frame" x="102.5" y="15" width="170" height="30"/>
+                                <rect key="frame" x="103" y="15" width="170" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="56L-Pw-hox"/>
@@ -114,89 +122,116 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your review below" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfg-HS-GuF">
-                                <rect key="frame" x="92.5" y="65" width="190" height="22"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                <color key="textColor" red="0.078431372550000003" green="0.01176470588" blue="0.20000000000000001" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add an image to your review" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GM5-4S-jhW">
-                                <rect key="frame" x="74.5" y="252" width="226" height="22"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <rect key="frame" x="95" y="65" width="185" height="18.5"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                 <color key="textColor" red="0.078431372550000003" green="0.01176470588" blue="0.20000000000000001" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FxB-TB-ONj">
-                                <rect key="frame" x="87.5" y="394" width="200" height="50"/>
-                                <color key="backgroundColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="87" y="281.5" width="200" height="50"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="4oc-YI-ygD"/>
                                     <constraint firstAttribute="width" constant="200" id="RFB-bg-HXq"/>
                                     <constraint firstAttribute="height" constant="50" id="cHb-22-hxY"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="zdo-Cf-ChI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                <state key="normal" title="Select an image">
-                                    <color key="titleColor" red="0.92156862750000001" green="0.77647058820000003" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="+ 사진 고르기">
+                                    <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="addImageButtonPressed" destination="DMM-K5-PTO" eventType="touchUpInside" id="Y5a-WO-5RB"/>
                                     <action selector="closeButtonPressed" destination="K5w-88-XP9" eventType="touchUpInside" id="Fhr-NK-fcD"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Em0-BW-Wqo">
-                                <rect key="frame" x="137.5" y="284" width="100" height="100"/>
-                                <color key="backgroundColor" red="0.98823529409999999" green="0.99215686270000003" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="SAI-qr-KmH"/>
-                                    <constraint firstAttribute="width" secondItem="Em0-BW-Wqo" secondAttribute="height" multiplier="1:1" id="hec-J6-CIl"/>
-                                </constraints>
-                            </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5Qd-AK-vE8">
-                                <rect key="frame" x="15" y="95" width="345" height="140"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Please write an review in detail" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5Qd-AK-vE8">
+                                <rect key="frame" x="15" y="91.5" width="345" height="120"/>
                                 <color key="backgroundColor" red="0.98039215686274506" green="0.98431372549019602" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="140" id="PQ9-hz-DKx"/>
+                                    <constraint firstAttribute="height" constant="120" id="PQ9-hz-DKx"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                 <connections>
                                     <outlet property="delegate" destination="DMM-K5-PTO" id="68X-Kb-acB"/>
                                 </connections>
                             </textView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Q3G-cF-kbs">
+                                <rect key="frame" x="15" y="221.5" width="345" height="50"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="0.37264554794520549" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="PDS-EO-Aw5"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="GlM-EX-oCR">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CellImage" id="FtE-1y-oMt">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p8J-Py-AeR">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="p8J-Py-AeR" firstAttribute="top" secondItem="FtE-1y-oMt" secondAttribute="top" id="42I-UB-Ify"/>
+                                            <constraint firstAttribute="bottom" secondItem="p8J-Py-AeR" secondAttribute="bottom" id="G4a-za-aeZ"/>
+                                            <constraint firstItem="p8J-Py-AeR" firstAttribute="leading" secondItem="FtE-1y-oMt" secondAttribute="leading" id="SnZ-Hz-wVD"/>
+                                            <constraint firstAttribute="trailing" secondItem="p8J-Py-AeR" secondAttribute="trailing" id="nsA-JK-HXl"/>
+                                        </constraints>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="DMM-K5-PTO" id="BB6-19-CKH"/>
+                                    <outlet property="delegate" destination="DMM-K5-PTO" id="lwg-P7-98c"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="GM5-4S-jhW" firstAttribute="centerX" secondItem="kqB-vk-cuq" secondAttribute="centerX" id="3RP-WJ-d9C"/>
                             <constraint firstItem="oTJ-vx-aNp" firstAttribute="top" secondItem="efi-aq-EyI" secondAttribute="bottom" constant="15" id="44C-HI-fcX"/>
                             <constraint firstItem="5Qd-AK-vE8" firstAttribute="top" secondItem="gfg-HS-GuF" secondAttribute="bottom" constant="8" id="9JY-FF-ef9"/>
                             <constraint firstItem="gfg-HS-GuF" firstAttribute="top" secondItem="oTJ-vx-aNp" secondAttribute="bottom" constant="20" id="Acp-jp-XhA"/>
                             <constraint firstItem="oTJ-vx-aNp" firstAttribute="centerX" secondItem="kqB-vk-cuq" secondAttribute="centerX" id="AkN-r2-96J"/>
                             <constraint firstItem="5Qd-AK-vE8" firstAttribute="leading" secondItem="kqB-vk-cuq" secondAttribute="leading" constant="15" id="QPM-pe-Fak"/>
-                            <constraint firstItem="GM5-4S-jhW" firstAttribute="top" secondItem="5Qd-AK-vE8" secondAttribute="bottom" constant="17" id="SOz-JS-VYc"/>
+                            <constraint firstItem="FxB-TB-ONj" firstAttribute="top" secondItem="Q3G-cF-kbs" secondAttribute="bottom" constant="10" id="TCJ-iv-x58"/>
+                            <constraint firstItem="Q3G-cF-kbs" firstAttribute="leading" secondItem="kqB-vk-cuq" secondAttribute="leading" constant="15" id="UlE-9z-Emx"/>
                             <constraint firstItem="5Qd-AK-vE8" firstAttribute="centerX" secondItem="kqB-vk-cuq" secondAttribute="centerX" id="Xt5-kI-EQI"/>
-                            <constraint firstItem="byz-2x-o3f" firstAttribute="top" relation="greaterThanOrEqual" secondItem="FxB-TB-ONj" secondAttribute="bottom" constant="5" id="gRE-cb-AUb"/>
-                            <constraint firstItem="Em0-BW-Wqo" firstAttribute="top" secondItem="GM5-4S-jhW" secondAttribute="bottom" constant="10" id="hVi-CD-kAZ"/>
-                            <constraint firstItem="Em0-BW-Wqo" firstAttribute="centerX" secondItem="kqB-vk-cuq" secondAttribute="centerX" id="ieT-d0-Sr9"/>
                             <constraint firstAttribute="trailing" secondItem="5Qd-AK-vE8" secondAttribute="trailing" constant="15" id="lyT-UT-L7v"/>
                             <constraint firstItem="FxB-TB-ONj" firstAttribute="centerX" secondItem="kqB-vk-cuq" secondAttribute="centerX" id="vva-RY-qjj"/>
-                            <constraint firstItem="FxB-TB-ONj" firstAttribute="top" secondItem="Em0-BW-Wqo" secondAttribute="bottom" constant="10" id="wbb-Ns-8kg"/>
+                            <constraint firstItem="Q3G-cF-kbs" firstAttribute="top" secondItem="5Qd-AK-vE8" secondAttribute="bottom" constant="10" id="yOA-fm-Rlt"/>
+                            <constraint firstAttribute="trailing" secondItem="Q3G-cF-kbs" secondAttribute="trailing" constant="15" id="ycK-Ly-fwf"/>
                             <constraint firstItem="gfg-HS-GuF" firstAttribute="centerX" secondItem="kqB-vk-cuq" secondAttribute="centerX" id="z48-Vm-lnf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="3Ii-XK-yAd"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="previewView" destination="Q3G-cF-kbs" id="gst-7r-TRl"/>
                         <outlet property="ratingView" destination="oTJ-vx-aNp" id="kwn-Xg-tif"/>
                         <outlet property="reviewField" destination="5Qd-AK-vE8" id="aHT-IX-tND"/>
-                        <outlet property="reviewImageView" destination="Em0-BW-Wqo" id="ERk-Su-8EW"/>
-                        <outlet property="reviewImageViewHeightConstraint" destination="SAI-qr-KmH" id="Lgu-BK-l7o"/>
                         <outlet property="selectButton" destination="FxB-TB-ONj" id="Zg4-SV-f9D"/>
                         <segue destination="Rnp-GL-sSb" kind="unwind" identifier="unwindToReviews" unwindAction="unwindFromAddNewReviewController:" id="PPd-lM-hB1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1NI-m2-tKp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <collectionViewFlowLayout scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="6d3-Dj-ndb">
+                    <size key="itemSize" width="50" height="50"/>
+                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                </collectionViewFlowLayout>
                 <exit id="Rnp-GL-sSb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1447" y="-18"/>
+            <point key="canvasLocation" x="1548.5" y="-53.5"/>
         </scene>
         <!--Reviews Detail View Controller-->
         <scene sceneID="R91-HS-ob0">
@@ -308,7 +343,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F63-HM-p26" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1447" y="636"/>
+            <point key="canvasLocation" x="1549" y="746"/>
         </scene>
     </scenes>
     <resources>

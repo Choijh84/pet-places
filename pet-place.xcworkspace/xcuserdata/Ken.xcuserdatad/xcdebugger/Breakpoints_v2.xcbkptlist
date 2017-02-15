@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoreDetailViewController.swift"
-            timestampString = "508612008.987616"
+            timestampString = "508757926.804963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "504"
@@ -464,6 +464,22 @@
             startingLineNumber = "54"
             endingLineNumber = "54"
             landmarkName = "downloadStores(skippingNumberOfObjects:limit:selectedStoreCategory:radius:completionBlock:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "pet-place/AddReviewViewController.swift"
+            timestampString = "508868850.669566"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

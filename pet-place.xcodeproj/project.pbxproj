@@ -22,6 +22,7 @@
 		BE3346991E3138A500E23A88 /* ReviewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3346981E3138A500E23A88 /* ReviewsDetailViewController.swift */; };
 		BE33469B1E31397400E23A88 /* AddReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE33469A1E31397400E23A88 /* AddReviewViewController.swift */; };
 		BE33469D1E31440700E23A88 /* StoreDetailActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE33469C1E31440700E23A88 /* StoreDetailActionButton.swift */; };
+		BE3C8C011E51FA86005C21E5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE3C8C001E51FA86005C21E5 /* Launch Screen.storyboard */; };
 		BE3E04AD1E471CAA007735DF /* PetProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E04AC1E471CAA007735DF /* PetProfileViewController.swift */; };
 		BE3E04AF1E471D3B007735DF /* PlaceRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E04AE1E471D3B007735DF /* PlaceRegisterViewController.swift */; };
 		BE3E04B31E47BE98007735DF /* HeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E04B21E47BE97007735DF /* HeaderRow.swift */; };
@@ -135,6 +136,7 @@
 		BE3346981E3138A500E23A88 /* ReviewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsDetailViewController.swift; sourceTree = "<group>"; };
 		BE33469A1E31397400E23A88 /* AddReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddReviewViewController.swift; sourceTree = "<group>"; };
 		BE33469C1E31440700E23A88 /* StoreDetailActionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDetailActionButton.swift; sourceTree = "<group>"; };
+		BE3C8C001E51FA86005C21E5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		BE3E04AC1E471CAA007735DF /* PetProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetProfileViewController.swift; sourceTree = "<group>"; };
 		BE3E04AE1E471D3B007735DF /* PlaceRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceRegisterViewController.swift; sourceTree = "<group>"; };
 		BE3E04B21E47BE97007735DF /* HeaderRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderRow.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				EBB6197F1E197A010061BCEB /* Reviews.storyboard */,
 				EBB619811E197A060061BCEB /* News.storyboard */,
 				EBB6197D1E1979220061BCEB /* Account.storyboard */,
+				BE3C8C001E51FA86005C21E5 /* Launch Screen.storyboard */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -766,6 +769,7 @@
 				EBB619971E1996060061BCEB /* OverlayView.xib in Resources */,
 				EB2956CB1E16D4E00024E3E3 /* Assets.xcassets in Resources */,
 				EBB619821E197A060061BCEB /* News.storyboard in Resources */,
+				BE3C8C011E51FA86005C21E5 /* Launch Screen.storyboard in Resources */,
 				BEA6BE931E3D0E2700D75CEE /* Main.storyboard in Resources */,
 				EBB6197E1E1979220061BCEB /* Account.storyboard in Resources */,
 				BE3346901E31252A00E23A88 /* ReviewTableViewCell.xib in Resources */,

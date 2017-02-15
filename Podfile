@@ -11,6 +11,9 @@ target 'pet-place' do
   pod 'FBSDKLoginKit'
   pod 'Backendless'
   pod 'GoogleMaps'
+  pod 'DKImagePickerController'
+  pod 'IQKeyboardManagerSwift'
+  pod 'SKPhotoBrowser'
 
   # Pods for pet-place
 

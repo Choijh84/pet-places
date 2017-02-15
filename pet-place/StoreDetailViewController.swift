@@ -156,9 +156,9 @@ class StoreDetailViewController: UIViewController {
         super.viewDidLoad()
 
         /// set up the Self-Sizing Table View Cells
-        
-        tableView.estimatedRowHeight = 60.0
+        /// Should set the label line as 0
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 60.0
     
         setupDatasource()
         

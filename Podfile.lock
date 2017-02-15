@@ -6,6 +6,11 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
+  - DKImagePickerController (3.5.0):
+    - DKImagePickerController/Camera (= 3.5.0)
+    - DKImagePickerController/ImageManager (= 3.5.0)
+  - DKImagePickerController/Camera (3.5.0)
+  - DKImagePickerController/ImageManager (3.5.0)
   - FBSDKCoreKit (4.19.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.19.0):
@@ -17,24 +22,29 @@ PODS:
     - GoogleMaps/Base
   - Haneke (1.0.2)
   - HCSStarRatingView (1.4.5)
+  - IQKeyboardManagerSwift (4.0.8)
 
 DEPENDENCIES:
   - Backendless
+  - DKImagePickerController
   - FBSDKCoreKit
   - FBSDKLoginKit
   - GoogleMaps
   - Haneke (~> 1.0)
   - HCSStarRatingView (~> 1.4.3)
+  - IQKeyboardManagerSwift
 
 SPEC CHECKSUMS:
   Backendless: bd77ad90cbd16fbd85fda03b3659b46a2c8f3179
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  DKImagePickerController: 0fccc62b047a6b0c64d81e7b64a3deab22b86839
   FBSDKCoreKit: 894b2b6eda6a4c8c4204e92e59cc355709ef045c
   FBSDKLoginKit: 83ca4d8f12a2022570af9fd6aacf27f6b425b99f
   GoogleMaps: a5b5bbe47734e2443bde781a6aa64e69fdb6d785
   Haneke: 01454a67322faa0dd9d81fc0f447885044e71521
   HCSStarRatingView: bff3f89314d3b5013ce826ea11897d3129ff6b8c
+  IQKeyboardManagerSwift: c04bc9f68473823f825eb44d958fce98d921bead
 
-PODFILE CHECKSUM: fcd52b81012f48d28f04760fbbce62d28bf99845
+PODFILE CHECKSUM: daa4d6672c0e634ba19b06c0644b4a6f260e2b4c
 
 COCOAPODS: 1.2.0.beta.3

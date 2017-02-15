@@ -22,4 +22,5 @@ class Review: NSObject {
     var creator: BackendlessUser?
     /// Image url of the review
     var fileURL: String?
+    
 }
