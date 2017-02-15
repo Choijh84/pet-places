@@ -54,9 +54,19 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SKPhotoBrowser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0B604B4BB52B33048A494375B5905019</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>44CAD6CE523055ED339E87154473A254</key>
 		<dict>
 			<key>primary</key>
@@ -68,11 +78,6 @@
 			<true/>
 		</dict>
 		<key>4DC059E04CBA98AEDDB5C34E02D551E9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>55D4092BCCF9B8819FF465FD22D744A0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -103,6 +108,11 @@
 			<true/>
 		</dict>
 		<key>D29ECE69EF439D1FF5B5E9EB40FDFFE0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E33CF0B18564B95471290282F5CB7E1D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

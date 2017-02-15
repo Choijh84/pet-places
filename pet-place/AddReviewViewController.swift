@@ -9,7 +9,7 @@
 import UIKit
 import HCSStarRatingView
 import DKImagePickerController
-
+import SKPhotoBrowser
 
  /// ViewController that allows a user to leave a review for a selected Store
 class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -32,7 +32,7 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
     var pickerController: DKImagePickerController!
     
     var assets: [DKAsset]?
-    var imageArray: [UIImage]?
+    var imageArray = [UIImage]()
     
     @IBOutlet weak var previewView: UICollectionView?
     
@@ -98,6 +98,7 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
             
             self.assets = assets
             self.previewView?.reloadData()
+            self.fromAssetToImage()
         }
         
         if UI_USER_INTERFACE_IDIOM() == .pad {
@@ -105,6 +106,16 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
         }
         
         self.present(pickerController, animated: true) {}
+    }
+    
+    func fromAssetToImage() {
+        imageArray.removeAll()
+        for asset in self.assets! {
+            asset.fetchOriginalImageWithCompleteBlock({ (image, info) in
+                self.imageArray.append(image!)
+                print("HOW MANY: \(self.imageArray.count)")
+            })
+        }
     }
     
     /**
@@ -162,16 +173,19 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
         view.layoutIfNeeded()
         
         // Add tap recongizer to the view, so keyboard can be closed easily
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddReviewViewController.viewTapped))
-        tapRecognizer.numberOfTapsRequired = 1
-        view.addGestureRecognizer(tapRecognizer)
+        // Close this action bcs collectionView Tap should be active
+        /**
+            let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddReviewViewController.viewTapped))
+            tapRecognizer.numberOfTapsRequired = 1
+            view.addGestureRecognizer(tapRecognizer)
+          */
         
         pickerController = DKImagePickerController()
-        
+        previewView?.allowsSelection = true
     }
 
     /**
-     Dismisses the keyboard if the view is tapped
+     Dismisses the keyboard if the view is tapped - disabled
      */
     func viewTapped() {
         reviewField.resignFirstResponder()
@@ -210,6 +224,9 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
             print("This is Video")
         } else {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CellImage", for: indexPath)
+            cell?.layer.cornerRadius = 3.0
+            cell?.layer.borderColor = UIColor.lightGray.cgColor
+            cell?.layer.borderWidth = CGFloat(2.0)
             imageView = cell?.contentView.viewWithTag(1) as? UIImageView
         }
         
@@ -224,9 +241,23 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
                 }
             })
         }
+        
         return cell!
     }
     
-    
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        
+        if cell?.isSelected == true {
+            var images = [SKPhoto]()
+            for image in imageArray {
+                let photo = SKPhoto.photoWithImage(image)
+                images.append(photo)
+            }
+            
+            let browser = SKPhotoBrowser(photos: images)
+            browser.initializePageIndex(indexPath.row)
+            present(browser, animated: true, completion: nil)
+        }
+    }
 }
