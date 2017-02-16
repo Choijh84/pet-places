@@ -50,16 +50,35 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
         
         overlayView.displayView(view, text: "Sending Review...")
         
-        reviewManager.uploadNewReview(reviewField.text, selectedFile: nil, rating: (ratingView.value) as NSNumber, store: selectedStore) { (completed, store, errorMessage) in
-            self.overlayView.hideView()
-            
-            if completed == true {
-                // if it completed, it will pop this viewController and refresh the reviews
-                self.performSegue(withIdentifier: "unwindToReviews", sender: nil)
-            } else {
-                let alertView = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
-                alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alertView, animated: true, completion: nil)
+        if imageArray.count == 0 {
+            reviewManager.uploadNewReview(self.reviewField.text, fileURL: nil, rating: (self.ratingView.value) as NSNumber, store: self.selectedStore, completionBlock: { (success, store, errorMessage) in
+                if success == true {
+                    self.performSegue(withIdentifier: "unwindToReviews", sender: nil)
+                } else {
+                    let alertView = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+                    alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alertView, animated: true, completion: nil)
+                }
+            })
+        } else {
+            reviewManager.uploadPhotos(selectedImages: imageArray) { (success, fileURL, error) in
+                if error == nil {
+                    print("This is FILEURL: \(fileURL)")
+                    self.overlayView.hideView()
+                    self.reviewManager.uploadNewReview(self.reviewField.text, fileURL: fileURL, rating: (self.ratingView.value) as NSNumber, store: self.selectedStore, completionBlock:
+                        { (success, store, errorMessage) in
+                            if success == true {
+                                // if it completed, it will pop this viewController and refresh the reviews
+                                self.performSegue(withIdentifier: "unwindToReviews", sender: nil)
+                            } else {
+                                let alertView = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+                                alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                                self.present(alertView, animated: true, completion: nil)
+                            }
+                    })
+                } else {
+                    print("ERROR on uploading the photos")
+                }
             }
         }
     }
@@ -94,7 +113,6 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
         pickerController.showsCancelButton = true
         
         pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
-            print("didSelectAssets")
             
             self.assets = assets
             self.previewView?.reloadData()
@@ -113,7 +131,6 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
         for asset in self.assets! {
             asset.fetchOriginalImageWithCompleteBlock({ (image, info) in
                 self.imageArray.append(image!)
-                print("HOW MANY: \(self.imageArray.count)")
             })
         }
     }
@@ -195,10 +212,12 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
      Set the navigation bar visible
      
      - parameter animated: animated
+     Need to fix the scroll
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        
     }
     
     /**
@@ -211,6 +230,7 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
     }
     
     // MARK: - UICollectionViewDataSource, UICollectionViewDelegate methods
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.assets?.count ?? 0
     }
@@ -234,7 +254,6 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
             let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
             let tag = indexPath.row + 1
             cell.tag = tag
-            print("This is tag: \(tag)")
             asset.fetchImageWithSize(layout.itemSize.toPixel(), completeBlock: { (image, info) in
                 if cell.tag == tag {
                     imageView.image = image

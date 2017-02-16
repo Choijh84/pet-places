@@ -60,7 +60,10 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.register(UINib(nibName: "ReviewTableViewCell", bundle: nil), forCellReuseIdentifier: "reviewCell")
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-        loadReviews()
+        DispatchQueue.main.async { 
+            self.loadReviews()
+        }
+        
     }
     
     /**
@@ -133,12 +136,31 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if let fileURL = reviewObject.fileURL {
             reviewCell.setReviewImageViewHidden(false)
-            reviewCell.reviewImageView.hnk_setImage(from: URL(string: fileURL))
+            let imageArray = fileURL.components(separatedBy: ",")
+            if imageArray.count == 1 {
+                reviewCell.reviewImageView.hnk_setImage(from: URL(string: fileURL))
+            } else {
+                reviewCell.reviewImageView.hnk_setImage(from: URL(string: imageArray[0]))
+                // Add UIView which can explain the number of photos behind
+                let myLabel = UILabel(frame: CGRect(x: reviewCell.reviewImageView.frame.width-30, y: reviewCell.reviewImageView.frame.height-30, width: 30, height: 30))
+                myLabel.textAlignment = .center
+                myLabel.backgroundColor = UIColor(red: 211, green: 211, blue: 211, alpha: 0.8)
+                myLabel.text = "+\(imageArray.count-1)"
+                myLabel.font = UIFont(name: "Avenir", size: 12)
+                reviewCell.reviewImageView.addSubview(myLabel)
+                reviewCell.reviewImageView.bringSubview(toFront: myLabel)
+            }
         } else {
             reviewCell.setReviewImageViewHidden(true)
         }
         
         return reviewCell
+    }
+    
+    // Create a overlay UIView
+    func placeUIView(_ count: Int) {
+        
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

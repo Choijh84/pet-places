@@ -11,6 +11,9 @@ import UIKit
 /// Object that helps to download reviews for the selected Shop
 class ReviewManager: NSObject {
     
+    
+    var backendless = Backendless.sharedInstance()
+    
     /// Store object that handles downloading of Reviews
     let dataStore = Backendless.sharedInstance().data.of(Review.self)
     
@@ -32,6 +35,32 @@ class ReviewManager: NSObject {
         }
     }
     
+    func uploadPhotos(selectedImages: [UIImage]?, completionBlock: @escaping (_ completion: Bool, _ fileURL: String, _ errorMessage: String?) -> ()) {
+        var totalFileURL = ""
+        
+        if let images = selectedImages {
+            for var i in 0..<images.count {
+                let fileName = String(format: "%0.0f\(i).jpeg", Date().timeIntervalSince1970)
+                let filePath = "reviewImages/\(fileName)"
+                let content = UIImageJPEGRepresentation(images[i], 1.0)
+                
+                Backendless.sharedInstance().fileService.saveFile(filePath, content: content, response: { (uploadedFile) in
+                    let fileURL = uploadedFile?.fileURL
+                    if i == (images.count-1) {
+                        totalFileURL.append(fileURL!)
+                        completionBlock(true, totalFileURL, nil)
+                    } else {
+                        totalFileURL.append(fileURL!+",")
+                        i = i+1
+                    }
+                }, error: { (fault) in
+                    completionBlock(false, "", fault?.description)
+                })
+            }
+            
+        }
+    }
+    
     /**
      Uploads a new review
      
@@ -41,7 +70,7 @@ class ReviewManager: NSObject {
      - parameter completionBlock: called after the review has been uploaded
      - parameter error:           error if any
      */
-    fileprivate func uploadNewReview(_ text: String, fileURL: String?, rating: NSNumber, store: Store, completionBlock: @escaping (_ completed: Bool, _ store: Store?, _ errorMessage: String?) -> ()) {
+    func uploadNewReview(_ text: String, fileURL: String?, rating: NSNumber, store: Store, completionBlock: @escaping (_ completed: Bool, _ store: Store?, _ errorMessage: String?) -> ()) {
         let review = Review()
         review.rating = rating
         review.text = text
@@ -49,13 +78,23 @@ class ReviewManager: NSObject {
         review.creator = UserManager.currentUser()
         
         store.reviewCount = (store.reviews.count+1) as NSNumber
-        store.reviews = [review]
+        store.reviews.append(review)
         
-        Backendless.sharedInstance().persistenceService.save(store, response: { (storeObject) in
-            completionBlock(true, store, nil)
-        }) { (fault) in
-            completionBlock(false, nil, fault?.description)
+        var error: Fault?
+        let result = Backendless.sharedInstance().data.save(store, error: &error) as? Store
+        if error == nil {
+            print("PhoneBook havs been updated: \(result)")
+            completionBlock(true, result, nil)
+        } else {
+            print("Server reported an error: \(error)")
+            completionBlock(false, nil, error?.description)
         }
+        
+//        Backendless.sharedInstance().persistenceService.save(store, response: { (storeObject) in
+//            completionBlock(true, store, nil)
+//        }) { (fault) in
+//            completionBlock(false, nil, fault?.description)
+//        }
     }
     
     /**

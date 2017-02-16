@@ -63,6 +63,12 @@ class StoreDetailViewController: UIViewController {
     /// Detail Info Button Expand or Collapse
     var detailInfoButton: StoreDetailSectionDatasource<ReviewOptionsTableViewCell>!
     
+    /// Lazy getter for the dateformatter that formats the date property of each review to the desired format
+    lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter
+    }()
     
     /// Dismisses the view when the back button is pressed
     @IBAction func backButtonPressed() {
@@ -252,6 +258,7 @@ class StoreDetailViewController: UIViewController {
             self.configureInfoSectionCell(cell, row: row)
         }) { (cell, row) in
             self.infoSectionCellWasSelected(cell, row: row)
+            print("INFO SECTION SELECTED")
         }
         
         detailInfoButton = StoreDetailSectionDatasource<ReviewOptionsTableViewCell>(cellIdentifier: "reviewButtons", numberOfRows: 1, setupBlock: { (cell, row) -> () in
@@ -557,10 +564,24 @@ class StoreDetailViewController: UIViewController {
         let review = downloadedReviews[row]
         cell.reviewTextLabel.text = review.text
         cell.setRating(review.rating)
+        cell.dateLabel.text = dateFormatter.string(from: review.created as Date)
         
         if let fileURL = review.fileURL {
             cell.setReviewImageViewHidden(false)
-            cell.reviewImageView.hnk_setImage(from: URL(string: fileURL))
+            let imageArray = fileURL.components(separatedBy: ",")
+            if imageArray.count == 1 {
+                cell.reviewImageView.hnk_setImage(from: URL(string: fileURL))
+            } else {
+                cell.reviewImageView.hnk_setImage(from: URL(string: imageArray[0]))
+                // Add UIView which can explain the number of photos behind
+                let myLabel = UILabel(frame: CGRect(x: cell.reviewImageView.frame.width-30, y: cell.reviewImageView.frame.height-30, width: 30, height: 30))
+                myLabel.textAlignment = .center
+                myLabel.backgroundColor = UIColor(red: 211, green: 211, blue: 211, alpha: 0.8)
+                myLabel.text = "+\(imageArray.count-1)"
+                myLabel.font = UIFont(name: "Avenir", size: 12)
+                cell.reviewImageView.addSubview(myLabel)
+                cell.reviewImageView.bringSubview(toFront: myLabel)
+            }
         } else {
             cell.setReviewImageViewHidden(true)
         }
@@ -618,6 +639,7 @@ class StoreDetailViewController: UIViewController {
     func infoSectionCellWasSelected(_ cell: InfoWithIconTableViewCell, row: Int) {
         if row == 0 {
             callButtonPressed()
+            print("IS IT WORKING?")
         } else if row == 1 {
 //            emailButtonPressed()
         } else {
@@ -633,7 +655,7 @@ class StoreDetailViewController: UIViewController {
      */
     func detailinfoSectionCellWasSelected(_ cell: InfoWithIconTableViewCell, row: Int) {
         if row == 0 {
-//            callButtonPressed()
+            //            callButtonPressed()
         } else if row == 1 {
             //            emailButtonPressed()
         } else {

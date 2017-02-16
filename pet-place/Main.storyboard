@@ -146,7 +146,7 @@
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
-                                            <imageView key="backgroundView" userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HomeBackGround1" highlightedImage="HomeBackGround" highlighted="YES" id="oyM-GR-c8S">
+                                            <imageView key="backgroundView" userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HomeBackGround1" highlighted="YES" id="oyM-GR-c8S">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="349"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
@@ -227,7 +227,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6pL-A6-Zoc" customClass="StoresListNavigationController" customModule="pet_place" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Stores" image="locationsIcon" id="JeJ-8n-V8R"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="g3i-Ht-iB7">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="g3i-Ht-iB7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -527,7 +527,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subtitle" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SwT-xb-tmP">
-                                            <rect key="frame" x="165.5" y="113.5" width="44.5" height="14"/>
+                                            <rect key="frame" x="168" y="113.5" width="39.5" height="14"/>
                                             <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -1028,7 +1028,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qWw-9E-QcN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="homeIcon" id="Fhn-EQ-x02"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="EG7-Sh-hMs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EG7-Sh-hMs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1043,7 +1043,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="HomeBackGround" width="750" height="1334"/>
         <image name="HomeBackGround1" width="500" height="500"/>
         <image name="backButton" width="10" height="18"/>
         <image name="emptyHeart" width="32" height="32"/>

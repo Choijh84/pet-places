@@ -8,15 +8,22 @@
 
 import UIKit
 import HCSStarRatingView
+import SKPhotoBrowser
 
 /// Custom viewcontroller that displays a selected review
-class ReviewsDetailViewController: UIViewController {
+class ReviewsDetailViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     /// Selected review to be displayed
     var reviewToDisplay: Review!
     
-    /// ImageView to display the review's image
-    @IBOutlet weak var reviewImageView: LoadingImageView!
+    /// creator Profile Image View
+    @IBOutlet weak var creatorProfileImageView: LoadingImageView!
+    /// crator name
+    @IBOutlet weak var creatorName: UILabel!
+    /// creator timeline Label
+    @IBOutlet weak var timeLineLabel: UILabel!
+    
+    
     /// Star view that displays the rating value of the review
     @IBOutlet weak var ratingView: HCSStarRatingView!
     /// Label that displays the review's text
@@ -25,11 +32,26 @@ class ReviewsDetailViewController: UIViewController {
     @IBOutlet weak var closeButton: UIButton!
     /// View that contains all the ui elements
     @IBOutlet weak var containerView: UIView!
-    /// Height constraint for the reviewImageView
-    @IBOutlet weak var reviewImageViewHeightConstraint: NSLayoutConstraint!
-
+    /// Collectionview for photo view
+    @IBOutlet weak var photoView: UICollectionView!
+    /// Contraint on collectionview Height
+    @IBOutlet weak var reviewCollectionHeight: NSLayoutConstraint!
+    
+    /// Datasource array for photo URLs
+    var imageURL : [String] = [""]
+    
+    /// UIImage array 
+    var imageArray = [UIImage]()
+    
+    /// Lazy getter for the dateformatter that formats the date property of each review to the desired format
+    lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter
+    }()
+    
     /**
-     <#Description#>
+     
      */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,20 +59,39 @@ class ReviewsDetailViewController: UIViewController {
         ratingView.value = CGFloat(reviewToDisplay.rating)
         reviewTextLabel.text = reviewToDisplay.text
         
-        if let imageURL = reviewToDisplay.fileURL {
-            reviewImageView.hnk_setImage(from: URL(string: imageURL))
-        } else {
-            hideReviewImageView()
+        if let imageArray = reviewToDisplay.fileURL {
+            imageURL = imageArray.components(separatedBy: ",")
+            if imageURL.count == 0 {
+                hideReviewImageView()
+            }
         }
+        creatorProfileImageView.layer.cornerRadius = (creatorProfileImageView.layer.frame.width/2)
+        creatorProfileImageView.clipsToBounds = true
+        creatorProfileImageView.contentMode = .scaleAspectFit
         
+        configureProfile()
         addShadowsToViews()
+    }
+    
+    func configureProfile() {
+        let user = reviewToDisplay.creator
+        if let user = user {
+            let nickname = user.getProperty("nickname") as! String
+            creatorName.text = nickname
+            
+            let profileURL = user.getProperty("profileURL") as! String
+            DispatchQueue.main.async(execute: { 
+                self.creatorProfileImageView.hnk_setImage(fromFile: profileURL)
+            })
+        }
+        timeLineLabel.text = dateFormatter.string(from: reviewToDisplay.created as Date)
     }
 
     /**
-     Hides the imageView if the review doesn't have an image
+     Hides the collectionView if the review doesn't have an image
      */
     func hideReviewImageView() {
-        reviewImageViewHeightConstraint.constant = 0.0
+        reviewCollectionHeight.constant = 0.0
         view.layoutIfNeeded()
     }
 
@@ -58,7 +99,6 @@ class ReviewsDetailViewController: UIViewController {
      Adds shadows to the close button and the container view
      */
     func addShadowsToViews() {
-        reviewImageView.layer.cornerRadius = 4.0
         
         containerView.layer.cornerRadius = 4.0
         containerView.layer.shadowColor = UIColor.black.cgColor
@@ -87,6 +127,44 @@ class ReviewsDetailViewController: UIViewController {
      */
     override var prefersStatusBarHidden : Bool {
         return true
+    }
+    
+    // MARK: - UICollectionViewDataSource, UICollectionViewDelegate methods
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imageURL.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CellImage", for: indexPath) as! ReviewDetailPhotosCVC
+        
+        print("This is IMAGEURL: \(imageURL[indexPath.row])")
+        let url = URL(string: imageURL[indexPath.row])
+        cell.reviewPhotos.hnk_setImage(from: url, placeholder: nil, success: { (image) in
+            self.imageArray.append(image!)
+            cell.reviewPhotos.image = image
+        }) { (error) in
+            print("There is an error to fetch the image in review")
+        }
+        
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        
+        if cell?.isSelected == true {
+            var images = [SKPhoto]()
+            for image in imageArray {
+                let photo = SKPhoto.photoWithImage(image)
+                images.append(photo)
+            }
+            
+            let browser = SKPhotoBrowser(photos: images)
+            browser.initializePageIndex(indexPath.row)
+            present(browser, animated: true, completion: nil)
+        }
     }
 
 }
