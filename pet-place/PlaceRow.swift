@@ -26,7 +26,12 @@ class PlaceRow: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectio
         let imageURL = store?.imageURL
         let url = URL(string: imageURL!)
         cell.storeImage.hnk_setImage(from: url!, placeholder: UIImage(named: "placeholder"))
+        
+        let textData = store?.name?.data(using: .utf16)
+        let text = NSString(data: textData!, encoding: String.Encoding.init(rawValue: 0x80000003).rawValue)
+        print("This is text: \(text)")
         cell.storeTitle.text = store?.name!
+        
         cell.tag = indexPath.row
         
         return cell

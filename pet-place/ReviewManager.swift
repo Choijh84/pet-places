@@ -46,12 +46,17 @@ class ReviewManager: NSObject {
                 
                 Backendless.sharedInstance().fileService.saveFile(filePath, content: content, response: { (uploadedFile) in
                     let fileURL = uploadedFile?.fileURL
+                    print("This is totelFileURL:\(totalFileURL)")
                     if i == (images.count-1) {
                         totalFileURL.append(fileURL!)
+                        print("This is FINAL I: \(i)")
+                        print("FINAL totalFILEURL: \(totalFileURL)")
                         completionBlock(true, totalFileURL, nil)
                     } else {
                         totalFileURL.append(fileURL!+",")
                         i = i+1
+                        print("This is I: \(i)")
+                        print("ON THE WAY OF totalFILEURL: \(totalFileURL)")
                     }
                 }, error: { (fault) in
                     completionBlock(false, "", fault?.description)

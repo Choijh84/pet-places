@@ -30,6 +30,7 @@
 		BE3E04B71E47BEB3007735DF /* PlaceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E04B61E47BEB3007735DF /* PlaceRow.swift */; };
 		BE3E04B91E47C3D7007735DF /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E04B81E47C3D7007735DF /* PhotoCollectionViewCell.swift */; };
 		BE3E04BB1E47CBEE007735DF /* StoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E04BA1E47CBEE007735DF /* StoreCollectionViewCell.swift */; };
+		BE842C9E1E59A5B500246A39 /* ShowStreetMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */; };
 		BEA6BE8A1E3CCA4700D75CEE /* NewsListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE891E3CCA4700D75CEE /* NewsListDetailViewController.swift */; };
 		BEA6BE8D1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE8B1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift */; };
 		BEA6BE8E1E3CCA7D00D75CEE /* NewsTransitionDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE8C1E3CCA7D00D75CEE /* NewsTransitionDismissalAnimator.swift */; };
@@ -145,6 +146,7 @@
 		BE3E04B61E47BEB3007735DF /* PlaceRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceRow.swift; sourceTree = "<group>"; };
 		BE3E04B81E47C3D7007735DF /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		BE3E04BA1E47CBEE007735DF /* StoreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreCollectionViewCell.swift; sourceTree = "<group>"; };
+		BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowStreetMapViewController.swift; sourceTree = "<group>"; };
 		BEA6BE891E3CCA4700D75CEE /* NewsListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsListDetailViewController.swift; sourceTree = "<group>"; };
 		BEA6BE8B1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTransitionPresentAnimator.swift; sourceTree = "<group>"; };
 		BEA6BE8C1E3CCA7D00D75CEE /* NewsTransitionDismissalAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTransitionDismissalAnimator.swift; sourceTree = "<group>"; };
@@ -537,6 +539,7 @@
 				EBD482251E1AB8EA00F2B8D5 /* StoresListImageViewController.swift */,
 				EB71A6921E1D335300948F41 /* StoreDetailViewController.swift */,
 				BEF8033B1E4DB22200F5FD44 /* StoreMapViewController.swift */,
+				BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */,
 			);
 			name = Stores;
 			sourceTree = "<group>";
@@ -978,6 +981,7 @@
 				EB71A68B1E1CF54400948F41 /* StoreMapTableViewCell.swift in Sources */,
 				BE3346921E31272800E23A88 /* ReviewOptionsTableViewCell.swift in Sources */,
 				BE270FBB1E3CB09200DE1DF5 /* NewsNavigationController.swift in Sources */,
+				BE842C9E1E59A5B500246A39 /* ShowStreetMapViewController.swift in Sources */,
 				EBB6194E1E1944390061BCEB /* Store.swift in Sources */,
 				EBD482221E1A94B800F2B8D5 /* StoreCategoryListTableViewCell.swift in Sources */,
 				BEA6BE8A1E3CCA4700D75CEE /* NewsListDetailViewController.swift in Sources */,

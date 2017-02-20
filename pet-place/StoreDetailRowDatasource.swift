@@ -80,6 +80,7 @@ class StoreDetailRowDatasource<CellClass: UITableViewCell>: StoreSectionDataSour
     func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
         if let selectionBlock = selectionBlock {
             selectionBlock()
+            print("This is selection BLOCK: \(indexPath)")
         }
     }
 }

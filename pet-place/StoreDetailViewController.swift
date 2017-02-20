@@ -12,7 +12,7 @@ import HCSStarRatingView
 import MessageUI
 
 
-class StoreDetailViewController: UIViewController {
+class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
     /// Datasource object that is responsible for managing data for the tableView
     var dataSource: StoreDetailViewDatasource!
@@ -206,7 +206,49 @@ class StoreDetailViewController: UIViewController {
         } else {
             isFavorite.imageView?.image = #imageLiteral(resourceName: "emptyHeart")
         }
+        
+        /// Set the gesture recognizer, doubleTap for present new view
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTap(recognizer:)))
+        recognizer.numberOfTapsRequired = 2
+        self.tableView.addGestureRecognizer(recognizer)
     }
+    
+    /** 
+        Detect the tap and take action 
+        - parameter: recognizer
+        
+        Check the indexPath
+     */
+    func didTap(recognizer: UIGestureRecognizer) {
+        let tapLocation = recognizer.location(in: self.tableView)
+        if let tapIndexPath = tableView.indexPathForRow(at: tapLocation) {
+            if self.tableView.cellForRow(at: tapIndexPath) != nil {
+                /// Phone call Initiation
+                if tapIndexPath == [3,0] {
+                    callButtonPressed()
+                } else if tapIndexPath == [3,2] {
+                    /// Safari View Loading for website
+                    var str = storeToDisplay.website!
+            
+                    if str.lowercased().hasPrefix("http") == false {
+                        str = "http://".appending(str)
+                    }
+                    print("This is url: \(str)")
+                    if let url = URL(string: str) {
+                        let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+                        vc.delegate = self
+                        
+                        present(vc, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+    }
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -243,8 +285,9 @@ class StoreDetailViewController: UIViewController {
         
         let aboutSection = StoreDetailRowDatasource<DescriptionTableViewCell>(identifier: "descriptionCell", setupBlock: { (cell) in
             self.configureDescriptionCell(cell)
-        }) { 
+        }) { () -> () in
             // add method here to handle cell selection
+            print("About Section has selected")
         }
         
         // Info Section
@@ -258,13 +301,13 @@ class StoreDetailViewController: UIViewController {
             self.configureInfoSectionCell(cell, row: row)
         }) { (cell, row) in
             self.infoSectionCellWasSelected(cell, row: row)
-            print("INFO SECTION SELECTED")
         }
         
         detailInfoButton = StoreDetailSectionDatasource<ReviewOptionsTableViewCell>(cellIdentifier: "reviewButtons", numberOfRows: 1, setupBlock: { (cell, row) -> () in
             self.configureDetailInfoButtonCell(cell, row: row)
         }) { (cell, row) -> () in
             // add method here to handle cell selection - no need
+            print("Detail Info has selected")
         }
         
         // Detail Info Section
@@ -294,10 +337,13 @@ class StoreDetailViewController: UIViewController {
         }
         
         // Map Section
-        let locationSectionHeaderRow = StoreDetailRowDatasource<UITableViewCell>(identifier: "sectionHeaderSpaceCell") { (cell) in
+        
+        let locationSectionHeaderRow = StoreDetailRowDatasource<UITableViewCell>(identifier: "sectionHeaderSpaceCell", setupBlock: { (cell) in
             cell.textLabel?.text = "Location"
             cell.layoutMargins = UIEdgeInsets.zero
             cell.separatorInset = UIEdgeInsets.zero
+        }) { 
+            print("Location Header")
         }
         
         let mapSection = StoreDetailRowDatasource<StoreMapTableViewCell>(identifier: "mapCell", setupBlock: { (cell) in
@@ -333,12 +379,14 @@ class StoreDetailViewController: UIViewController {
             self.configureReviewsCells(cell, row: row)
         }) { (cell, row) -> () in
             // add method here to handle cell selection
+            print("review section has selected")
         }
         
         reviewButtonSection = StoreDetailSectionDatasource<ReviewOptionsTableViewCell>(cellIdentifier: "reviewButtons", numberOfRows: 1, setupBlock: { (cell, row) -> () in
             self.configureReviewButtonsCell(cell, row: row)
         }) { (cell, row) -> () in
             // add method here to handle cell selection
+            print("review button has selected")
         }
         
         if isExpanded == false {
@@ -639,11 +687,13 @@ class StoreDetailViewController: UIViewController {
     func infoSectionCellWasSelected(_ cell: InfoWithIconTableViewCell, row: Int) {
         if row == 0 {
             callButtonPressed()
-            print("IS IT WORKING?")
+            print("Being Called")
         } else if row == 1 {
 //            emailButtonPressed()
+            print("Being Called")
         } else {
 //            webButtonPressed()
+            print("Being Called")
         }
     }
     
@@ -672,16 +722,21 @@ class StoreDetailViewController: UIViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         dataSource.sectionSources[indexPath.section].tableView(tableView, didSelectRowAtIndexPath: indexPath)
+        print("This is selected section: \(indexPath.section) and indexPath: \(indexPath)")
     }
     
     /**
      Presents an alertView to be able to call the store's phoneNumber
      */
     func callButtonPressed () {
-        let alertViewController = UIAlertController(title: NSLocalizedString("Call", comment: ""), message: "\(storeToDisplay.phoneNumber)", preferredStyle: .alert)
+        let alertViewController = UIAlertController(title: NSLocalizedString("Call", comment: ""), message: "\(storeToDisplay.phoneNumber!)", preferredStyle: .alert)
         alertViewController.addAction(UIAlertAction(title: "Call", style: .default, handler: { (alertAction) -> Void in
-            let phoneNumberString = "telprompt://\(self.storeToDisplay.phoneNumber)"
-            UIApplication.shared.open(URL(string: phoneNumberString)!, options: [:], completionHandler: nil)
+            let replaced = self.storeToDisplay.phoneNumber!.replacingOccurrences(of: "-", with: "")
+            let phoneNumberString = "telprompt://\(replaced)"
+            print("This is phonenumber: \(phoneNumberString)")
+            if let url = URL(string: "telprompt://\(replaced)") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         }))
         alertViewController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) -> Void in
             alertViewController.dismiss(animated: true, completion: nil)

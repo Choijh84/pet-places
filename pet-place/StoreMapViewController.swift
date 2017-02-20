@@ -121,7 +121,6 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
                 selectedStore = object
             }
         }
-        
         performSegue(withIdentifier: "showStore", sender: selectedStore)
     }
     

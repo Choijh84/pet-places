@@ -103,7 +103,4 @@ class StoreDetailViewDatasource: NSObject, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         sectionSources[indexPath.section].tableView(tableView, didSelectRowAtIndexPath: indexPath)
     }
-    
-    
-    
 }

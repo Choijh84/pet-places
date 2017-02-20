@@ -58,6 +58,7 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
                     let alertView = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
                     alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                     self.present(alertView, animated: true, completion: nil)
+                    self.overlayView.hideView()
                 }
             })
         } else {
@@ -81,6 +82,7 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
                 }
             }
         }
+        
     }
     
     // MARK: image picker
