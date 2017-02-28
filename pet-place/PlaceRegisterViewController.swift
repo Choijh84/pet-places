@@ -24,29 +24,8 @@ class PlaceRegisterViewController: UIViewController, UITextFieldDelegate {
         locationTextField.layer.cornerRadius = 5.0
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        
-//        // load text from NSUserDefaults
-//        let defaults = UserDefaults.standard
-//        if let textFieldContents = defaults.string(forKey: textFieldContentsKey) {
-//            nameTextField.text = textFieldContents
-//            locationTextField.text = textFieldContents
-//        } else {
-//            // focus on the text field if it's empty
-//            nameTextField.becomeFirstResponder()
-//            locationTextField.becomeFirstResponder()
-//        }
-//    }
-//    
-//    func saveText() {
-//        let defaults = UserDefaults.standard
-//        defaults.setValue(nameTextField.text, forKey: textFieldContentsKey)
-//        defaults.setValue(locationTextField.text, forKey: textFieldContentsKey)
-//    }
-    
     /** 
-      버튼 액션을 정의, 우선 AlertView를 작업하고 향후 이메일 보내는 것과 연동
+      Define the action when user tap the submit button
      */
     
     @IBAction func submitOnTap(_ sender: Any) {
@@ -59,11 +38,32 @@ class PlaceRegisterViewController: UIViewController, UITextFieldDelegate {
         } else {
             let alertView = UIAlertController(title: "제출 완료", message: "제출되었습니다", preferredStyle: .alert)
             alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.sendEmail()
             self.present(alertView, animated: true, completion: { 
                 self.nameTextField.text = ""
                 self.locationTextField.text = ""
                 self.reasonTextView.text = ""
             })
+        }
+    }
+    
+    /**
+     Send email to designated person 
+     - param:
+     */
+    
+    func sendEmail() {
+        let userEmail = Backendless.sharedInstance().userService.currentUser.email
+        let name = nameTextField.text
+        let reason = reasonTextView.text
+        
+        let subject = "Recommendation from User"
+        let body = "This is an email sent by \(userEmail!).\n User recommends this place: \(name!) and the reason is like this - \(reason!)"
+        let recipient = "ourpro.choi@gmail.com"
+        Backendless.sharedInstance().messagingService.sendHTMLEmail(subject, body: body, to: [recipient], response: { (response) in
+            print("Email has sent")
+        }) { (Fault) in
+            print("Server reported an error: \(Fault?.description)")
         }
     }
     

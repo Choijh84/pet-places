@@ -47,8 +47,8 @@ open class DKAsset: NSObject {
 		}
 	}
 	
-    open var image: UIImage?
-	public init(image: UIImage) {
+	private var image: UIImage?
+	internal init(image: UIImage) {
         self.localIdentifier = String(image.hash)
 		super.init()
         

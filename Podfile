@@ -14,6 +14,8 @@ target 'pet-place' do
   pod 'DKImagePickerController'
   pod 'IQKeyboardManagerSwift'
   pod 'SKPhotoBrowser'
+  pod 'Eureka', '~> 2.0'
+  pod 'SCLAlertView'
 
   # Pods for pet-place
 

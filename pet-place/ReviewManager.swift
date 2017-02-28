@@ -11,7 +11,6 @@ import UIKit
 /// Object that helps to download reviews for the selected Shop
 class ReviewManager: NSObject {
     
-    
     var backendless = Backendless.sharedInstance()
     
     /// Store object that handles downloading of Reviews

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Cat</key>
+	<array>
+		<string>Abyssinian</string>
+		<string>Aegean</string>
+		<string>American Curl</string>
+		<string>American Bobtail</string>
+		<string>American Shorthair</string>
+		<string>American Wirehair</string>
+		<string>Arabian Mau</string>
+		<string>Australian Mist</string>
+		<string>Asian</string>
+		<string>Asian Semi-longhair</string>
+		<string>Balinese</string>
+		<string>Bambino</string>
+		<string>Bengal</string>
+		<string>Birman</string>
+		<string>Bombay</string>
+		<string>Brazilian Shorthair</string>
+		<string>British Semi-longhair</string>
+		<string>British Shorthair</string>
+		<string>British Longhair</string>
+		<string>Burmese</string>
+		<string>Burmilla</string>
+		<string>California Spangled</string>
+		<string>Chantilly-Tiffany</string>
+		<string>Chartreux</string>
+		<string>Chausie</string>
+		<string>Cheetoh</string>
+		<string>Colorpoint Shorthair</string>
+		<string>Cornish Rex</string>
+		<string>Cymric</string>
+		<string>Cyprus</string>
+		<string>Devon Rex</string>
+		<string>Donskoy</string>
+		<string>Dragon Li</string>
+		<string>Dwarf cat</string>
+		<string>Egyptian Mau</string>
+		<string>European Shorthair</string>
+		<string>Exotic Shorthair</string>
+		<string>Foldex</string>
+		<string>German Rex</string>
+		<string>Havana Brown</string>
+	</array>
+	<key>Dog</key>
+	<array>
+		<string>Labrador Retriever</string>
+		<string>German Shepherd</string>
+		<string>Golden Retriever</string>
+		<string>Bulldog</string>
+		<string>Beagle</string>
+		<string>French Bulldog</string>
+		<string>Yorkshire Terrier</string>
+		<string>Poodle</string>
+		<string>Rottweiler</string>
+		<string>Boxer</string>
+		<string>German Shorthaired Pointer</string>
+		<string>Siberian Husky</string>
+		<string>Dachshund</string>
+		<string>Doberman Pinscher</string>
+		<string>Great Dane</string>
+		<string>Miniature Schnauzer</string>
+		<string>Australian Shepherd</string>
+		<string>Cavalier King Charles Spaniel</string>
+		<string>Shih Tzu</string>
+		<string>Pembroke Welsh Corgi</string>
+		<string>Pomeranian</string>
+		<string>Boston Terrier</string>
+		<string>Shetland Sheepdog</string>
+		<string>Havanese</string>
+		<string>English Mastiff</string>
+		<string>French Brittany</string>
+		<string>English Springer Spaniel</string>
+		<string>Chihuahua</string>
+		<string>Bernese Mountain Dog</string>
+		<string>American Cocker Spaniel</string>
+		<string>Maltese</string>
+		<string>Vizsla</string>
+		<string>Pug</string>
+		<string>Weimaraner</string>
+		<string>Cane Corso</string>
+		<string>Collie</string>
+		<string>Newfoundland</string>
+		<string>Border Collie</string>
+		<string>Basset Hound</string>
+		<string>Rhodesian Ridgeback</string>
+		<string>West Highland White Terrier</string>
+		<string>Chesapeake Bay Retriever</string>
+		<string>Bullmastiff</string>
+		<string>Bichon Frise</string>
+		<string>Shiba Inu</string>
+		<string>Akita</string>
+		<string>Soft Coated Wheaten Terrier</string>
+		<string>Papillon</string>
+		<string>Bloodhound</string>
+		<string>St. Bernard</string>
+		<string>Belgian Malinois</string>
+		<string>Portuguese Water Dog</string>
+		<string>Airedale Terrier</string>
+		<string>Alaskan Malamute</string>
+		<string>Bull Terrier</string>
+		<string>Australian Cattle Dog</string>
+		<string>Whippet</string>
+		<string>Scottish Terrier</string>
+		<string>Shar-Pei</string>
+		<string>English Cocker Spaniel</string>
+		<string>Samoyed</string>
+		<string>Dalmatian</string>
+		<string>Dogue de Bordeaux</string>
+		<string>Miniature Pinscher</string>
+		<string>Lhasa Apso</string>
+		<string>Wirehaired Pointing Griffon</string>
+		<string>Great Pyrenees</string>
+		<string>German Wirehaired Pointer</string>
+		<string>Irish Wolfhound</string>
+		<string>Cairn Terrier</string>
+		<string>Italian Greyhound</string>
+		<string>Irish Setter</string>
+		<string>Chow Chow</string>
+		<string>Old English Sheepdog</string>
+		<string>Chinese Crested</string>
+		<string>Cardigan Welsh Corgi
+Cardigan Welsh Corgi</string>
+		<string>American Staffordshire Terrier</string>
+		<string>Greater Swiss Mountain Dog</string>
+		<string>Staffordshire Bull Terrier</string>
+		<string>Pekingese</string>
+	</array>
+</dict>
+</plist>

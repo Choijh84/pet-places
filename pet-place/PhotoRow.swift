@@ -36,4 +36,10 @@ class PhotoRow: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectio
         return 0
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = UIScreen.main.bounds.size.width
+        let height = width * 0.65
+        return CGSize(width: width, height: height)
+    }
+    
 }

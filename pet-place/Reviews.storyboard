@@ -143,7 +143,6 @@
                                 </state>
                                 <connections>
                                     <action selector="addImageButtonPressed" destination="DMM-K5-PTO" eventType="touchUpInside" id="Y5a-WO-5RB"/>
-                                    <action selector="closeButtonPressed" destination="K5w-88-XP9" eventType="touchUpInside" id="Fhr-NK-fcD"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Please write an review in detail" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5Qd-AK-vE8">

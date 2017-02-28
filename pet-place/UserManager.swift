@@ -125,5 +125,9 @@ class UserManager: NSObject {
     class func currentUser() -> BackendlessUser? {
         return Backendless.sharedInstance().userService.currentUser
     }
+    
+    /**
+        Download all user's pet profiles 
+     */
 
 }

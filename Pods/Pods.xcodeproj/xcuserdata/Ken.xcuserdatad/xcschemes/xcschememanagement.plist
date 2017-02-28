@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Eureka.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FBSDKCoreKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -54,6 +59,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SCLAlertView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SKPhotoBrowser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,7 +72,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0B604B4BB52B33048A494375B5905019</key>
+		<key>05D52E067AAB4AA10CDC063F36B96A79</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -78,6 +88,21 @@
 			<true/>
 		</dict>
 		<key>4DC059E04CBA98AEDDB5C34E02D551E9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>675A114988AE198732ED4AD726408964</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7EA10F548BF476C150FB48663D2AE8E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>842FF31A365FBF6604E8D0867F0C33CA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -108,11 +133,6 @@
 			<true/>
 		</dict>
 		<key>D29ECE69EF439D1FF5B5E9EB40FDFFE0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E33CF0B18564B95471290282F5CB7E1D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

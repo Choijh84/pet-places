@@ -22,6 +22,14 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     //// The logout Button
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     
+    /// Buttons for the next View
+    @IBOutlet weak var favorietListButton: UIButton!
+    @IBOutlet weak var petProfileButton: UIButton!
+    @IBOutlet weak var myInfoButton: UIButton!
+    @IBOutlet weak var inquiryButton: UIButton!
+    @IBOutlet weak var recommendButton: UIButton!
+    @IBOutlet weak var myReviewButton: UIButton!
+    
     
     var isProfilePictureChanged = false
     
@@ -30,7 +38,43 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         let loginViewController = StoryboardManager.loginViewController()
         return loginViewController
     }()
-     
+    
+    /// Pet Profile Show, Done
+    @IBAction func petProfileButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "showPetProfile", sender: nil)
+    }
+    
+    /// Favorite List Show, Done
+    @IBAction func favoriteListButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "showFavoriteList", sender: nil)
+    }
+    
+    @IBAction func myReviewButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "showMyReview", sender: nil)
+    }
+    
+    /// Place Recommendation Show, Done
+    @IBAction func recommendButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "showPlaceRegister", sender: nil)
+    }
+    
+    @IBAction func inquiryButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "showInquiry", sender: nil)
+    }
+    
+    @IBAction func myInfoButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "showMyInfo", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showPetProfile" {
+//            let destinationVC = segue.destination as! PetProfileViewController
+            print("This is Pet Profile Page")
+        } else if segue.identifier == "showPlaceRegister" {
+            
+        }
+    }
+    
     /**
      Called when user taps on logout button, present an alertview asking for confirmation
      */
@@ -59,10 +103,10 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     }
     
     /**
-     <#Description#>
+     Display alert
      
-     - parameter message: <#message description#>
-     - parameter title:   <#title description#>
+     - parameter message: message to user
+     - parameter title:   alert title
      */
     func displayAlertView(_ message: String, title: String) {
         let alertView = UIAlertController(title: title, message: message, preferredStyle: .alert)
