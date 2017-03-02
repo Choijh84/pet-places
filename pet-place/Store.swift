@@ -48,11 +48,12 @@ class Store: NSObject {
     var priceInfo: String?
     /// note for the precautions
     var note: String?
-    /// Boolean for favorite or not
-    var isFavorited: Bool = false
     /// array for Favorite List of users
     var favoriteList: [BackendlessUser] = []
     
+    
+    /// Boolean for favorite or not
+//    var isFavorited: Bool = false
     /// Category of the Store object (pension, cafe, etc.)
 //    var parentCategory: StoreCategory?
     /// Categories of the Store objects - moved to the StoreCategory

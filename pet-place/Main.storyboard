@@ -46,7 +46,7 @@
         <scene sceneID="Fen-iz-Fco">
             <objects>
                 <tableViewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yfQ-YV-8Io" customClass="HomeViewController" customModule="pet_place" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="a5T-dR-qDy" customClass="LoadingTableView" customModule="pet_place" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="45" sectionHeaderHeight="28" sectionFooterHeight="28" id="a5T-dR-qDy" customClass="LoadingTableView" customModule="pet_place" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -207,6 +207,111 @@
                                     <outlet property="placeCollection" destination="bZX-30-KEA" id="leS-SZ-Snu"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BusinessInfoRow" rowHeight="250" id="SAp-ww-s7p" customClass="BusinessInfoRow" customModule="pet_place" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="678" width="375" height="250"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SAp-ww-s7p" id="vXm-tU-YTA">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="249"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ama-lg-5qv">
+                                            <rect key="frame" x="18" y="18" width="339" height="214"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Iev-Ui-kbX">
+                                                    <rect key="frame" x="0.0" y="0.0" width="339" height="30"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(주)프레스에스" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfy-zy-W8I">
+                                                            <rect key="frame" x="0.0" y="0.0" width="82" height="30"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Pt-bY-cKM">
+                                                            <rect key="frame" x="260" y="0.0" width="79" height="30"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
+                                                            <state key="normal" title="사업자정보 ▲">
+                                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="G2W-EY-aKs">
+                                                    <rect key="frame" x="0.0" y="75" width="339" height="44"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="대표이사: 최정훈 | 사업자등록번호: 371-88-00609 통신판매업: 서울 강남-03976호  주소: 서울시 강남구 강남대로 342, 5층(역삼동, 역삼빌딩)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9f-F8-asm">
+                                                            <rect key="frame" x="0.0" y="0.0" width="339" height="44"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="sA8-Eb-dmj">
+                                                    <rect key="frame" x="0.0" y="165" width="339" height="49"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LBu-Nx-abL">
+                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="49"/>
+                                                            <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.68763377568493156" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="80" id="yFa-Dm-xRK"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                                                            <state key="normal" title="이용약관">
+                                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="MQ0-3e-HiL">
+                                                            <rect key="frame" x="130" y="0.0" width="80" height="49"/>
+                                                            <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.68763377568493156" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="80" id="NG0-fq-xvA"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                                                            <state key="normal">
+                                                                <string key="title">개인정보 처리방침</string>
+                                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="uZB-Nv-E8x">
+                                                            <rect key="frame" x="259" y="0.0" width="80" height="49"/>
+                                                            <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.68763377568493156" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="80" id="jUl-qY-msL"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                                                            <state key="normal" title="사업자  정보 확인">
+                                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="sA8-Eb-dmj" firstAttribute="leading" secondItem="Ama-lg-5qv" secondAttribute="leading" id="BZ6-Ai-Xkq"/>
+                                                <constraint firstItem="Iev-Ui-kbX" firstAttribute="leading" secondItem="Ama-lg-5qv" secondAttribute="leading" id="Ihv-Xg-bo9"/>
+                                                <constraint firstAttribute="trailing" secondItem="sA8-Eb-dmj" secondAttribute="trailing" id="NY7-rT-4Kz"/>
+                                                <constraint firstAttribute="trailing" secondItem="Iev-Ui-kbX" secondAttribute="trailing" id="ggu-av-b17"/>
+                                                <constraint firstItem="G2W-EY-aKs" firstAttribute="leading" secondItem="Ama-lg-5qv" secondAttribute="leading" id="oaN-cy-oxY"/>
+                                                <constraint firstAttribute="trailing" secondItem="G2W-EY-aKs" secondAttribute="trailing" id="qgY-4s-YMG"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Ama-lg-5qv" secondAttribute="bottom" constant="10" id="adY-Kc-Xvi"/>
+                                        <constraint firstItem="Ama-lg-5qv" firstAttribute="top" secondItem="vXm-tU-YTA" secondAttribute="topMargin" constant="10" id="sIp-rw-tGS"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Ama-lg-5qv" secondAttribute="trailing" constant="10" id="uAv-za-kUr"/>
+                                        <constraint firstItem="Ama-lg-5qv" firstAttribute="leading" secondItem="vXm-tU-YTA" secondAttribute="leadingMargin" constant="10" id="ylH-aX-C5Z"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="businessInfoButton" destination="uZB-Nv-E8x" id="gbK-ld-jZF"/>
+                                    <outlet property="businessInfoShowButton" destination="9Pt-bY-cKM" id="e0R-SQ-hVZ"/>
+                                    <outlet property="businessInfoStack" destination="G2W-EY-aKs" id="5iS-vS-DYw"/>
+                                    <outlet property="privacyAgreementButton" destination="MQ0-3e-HiL" id="u94-68-JPp"/>
+                                    <outlet property="userAgreementButton" destination="LBu-Nx-abL" id="i5a-aD-qUk"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="yfQ-YV-8Io" id="Ax6-xy-M1v"/>
@@ -232,7 +337,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6pL-A6-Zoc" customClass="StoresListNavigationController" customModule="pet_place" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Stores" image="locationsIcon" id="JeJ-8n-V8R"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="g3i-Ht-iB7">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="g3i-Ht-iB7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -532,7 +637,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subtitle" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SwT-xb-tmP">
-                                            <rect key="frame" x="165.5" y="113.5" width="44.5" height="14"/>
+                                            <rect key="frame" x="168" y="113.5" width="39.5" height="14"/>
                                             <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -1033,7 +1138,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qWw-9E-QcN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="homeIcon" id="Fhn-EQ-x02"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="EG7-Sh-hMs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EG7-Sh-hMs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1063,6 +1168,6 @@
         <image name="trash icon empty" width="22" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="j5R-Km-aTC"/>
+        <segue reference="KNJ-ew-pAG"/>
     </inferredMetricsTieBreakers>
 </document>

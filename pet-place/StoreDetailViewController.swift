@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import HCSStarRatingView
 import MessageUI
-
+import SCLAlertView
 
 class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
@@ -36,7 +36,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
     /// Favorite Button
     @IBOutlet weak var isFavorite: UIButton!
     /// Boolean value for the store to check in the user's favorite list
-    var isFavorited: Bool?
+    var isFavorited = false
     
     /// the store object we want to display
     var storeToDisplay: Store!
@@ -92,6 +92,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
             
             isFavorited = true
             storeToDisplay.favoriteList.append(user!)
+            print("This is favorite list: \(storeToDisplay.favoriteList)")
             dataStore?.save(storeToDisplay, response: { (Store) in
                 print("Successfully added")
                 print(self.storeToDisplay.favoriteList)
@@ -193,8 +194,6 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                 isFavorited = true
             }
         }
-        isFavorited = false
-        print("This is initial isFavorited: \(isFavorited!)")
         
         if isFavorited == true {
             let randomNum : UInt32 = arc4random_uniform(2)
@@ -228,18 +227,21 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                     callButtonPressed()
                 } else if tapIndexPath == [3,2] {
                     /// Safari View Loading for website
-                    var str = storeToDisplay.website!
-            
-                    if str.lowercased().hasPrefix("http") == false {
-                        str = "http://".appending(str)
+                    if var website = storeToDisplay.website {
+                        if website.lowercased().hasPrefix("http") == false {
+                            website = "http://".appending(website)
+                        }
+                        print("This is url: \(website)")
+                        if let url = URL(string: website) {
+                            let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+                            vc.delegate = self
+                            
+                            present(vc, animated: true, completion: nil)
+                        }
+                    } else {
+                        SCLAlertView().showNotice("No Website", subTitle: "Please wait")
                     }
-                    print("This is url: \(str)")
-                    if let url = URL(string: str) {
-                        let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
-                        vc.delegate = self
-                        
-                        present(vc, animated: true, completion: nil)
-                    }
+                    
                 }
             }
         }

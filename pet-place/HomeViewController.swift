@@ -35,8 +35,8 @@ class HomeViewController: UITableViewController {
     var promotions = [FrontPromotion]()
     var recommendStores = [Recommendations]()
     
-    @IBOutlet weak var promotionCollection: UICollectionView!
-    @IBOutlet weak var placeCollection: UICollectionView!
+    var isShowBusinessInfo = false
+    var reloadIndexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,7 +118,7 @@ class HomeViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -132,12 +132,36 @@ class HomeViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderRow", for: indexPath) as! HeaderRow
             cell.title.text = "추천 장소"
             return cell
-        } else {
+        } else if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceRow", for: indexPath) as! PlaceRow
             cell.storeList = recommendStores
             cell.placeCollection.reloadData()
             return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessInfoRow", for: indexPath) as! BusinessInfoRow
+            
+            reloadIndexPath = indexPath
+            
+            /// detail business info 보여주기/숨기기
+            cell.businessInfoShowButton.addTarget(self, action: #selector(HomeViewController.showBusinessInfo), for: .touchUpInside)
+            
+            if isShowBusinessInfo == false {
+                cell.businessInfoStack.isHidden = true
+                cell.businessInfoShowButton.setTitle("사업자 정보 보기", for: .normal)
+            } else {
+                cell.businessInfoShowButton.setTitle("사업자 정보 숨기기", for: .normal)
+                UIView.animate(withDuration: 0.3, animations: { 
+                    cell.businessInfoStack.isHidden = false
+                })
+            }
+
+            return cell
         }
+    }
+    
+    func showBusinessInfo() {
+        isShowBusinessInfo = !isShowBusinessInfo
+         self.tableView.reloadRows(at: [reloadIndexPath!], with: .automatic)
     }
     
     /**
@@ -157,7 +181,11 @@ class HomeViewController: UITableViewController {
             print("This is collectionView Height: \(200*number)")
             return CGFloat(200*number)
         } else {
-            return 300
+            if isShowBusinessInfo == false {
+                return 150
+            } else {
+                return 200
+            }
         }
     }
     
