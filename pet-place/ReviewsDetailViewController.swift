@@ -60,7 +60,8 @@ class ReviewsDetailViewController: UIViewController, UICollectionViewDataSource,
         reviewTextLabel.text = reviewToDisplay.text
         
         if let imageArray = reviewToDisplay.fileURL {
-            imageURL = imageArray.components(separatedBy: ",")
+            imageURL = imageArray.components(separatedBy: ",").sorted()
+            print("Review Detail view imageUrl: \(imageURL)")
             if imageURL.count == 0 {
                 hideReviewImageView()
             }
@@ -76,13 +77,21 @@ class ReviewsDetailViewController: UIViewController, UICollectionViewDataSource,
     func configureProfile() {
         let user = reviewToDisplay.creator
         if let user = user {
-            let nickname = user.getProperty("nickname") as! String
-            creatorName.text = nickname
+            if let nickname = user.getProperty("nickname") as? String {
+                creatorName.text = nickname
+            } else {
+                creatorName.text = "닉네임"
+            }
             
-            let profileURL = user.getProperty("profileURL") as! String
-            DispatchQueue.main.async(execute: { 
-                self.creatorProfileImageView.hnk_setImage(fromFile: profileURL)
-            })
+            if let profile = user.getProperty("profileURL") as? String {
+                let url = URL(string: profile)
+                DispatchQueue.main.async(execute: {
+                    self.creatorProfileImageView.hnk_setImage(from: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"))
+                })
+            } else {
+                self.creatorProfileImageView.image = #imageLiteral(resourceName: "imageplaceholder")
+            }
+            
         }
         timeLineLabel.text = dateFormatter.string(from: reviewToDisplay.created as Date)
     }
@@ -146,8 +155,6 @@ class ReviewsDetailViewController: UIViewController, UICollectionViewDataSource,
         }) { (error) in
             print("There is an error to fetch the image in review")
         }
-        
-        
         return cell
     }
     

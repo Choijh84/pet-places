@@ -36,31 +36,28 @@ class ReviewManager: NSObject {
     
     func uploadPhotos(selectedImages: [UIImage]?, completionBlock: @escaping (_ completion: Bool, _ fileURL: String, _ errorMessage: String?) -> ()) {
         var totalFileURL = ""
+        let myGroup = DispatchGroup()
         
         if let images = selectedImages {
             for var i in 0..<images.count {
+                myGroup.enter()
                 let fileName = String(format: "%0.0f\(i).jpeg", Date().timeIntervalSince1970)
                 let filePath = "reviewImages/\(fileName)"
                 let content = UIImageJPEGRepresentation(images[i], 1.0)
                 
                 Backendless.sharedInstance().fileService.saveFile(filePath, content: content, response: { (uploadedFile) in
                     let fileURL = uploadedFile?.fileURL
-                    print("This is totelFileURL:\(totalFileURL)")
-                    if i == (images.count-1) {
-                        totalFileURL.append(fileURL!)
-                        print("This is FINAL I: \(i)")
-                        print("FINAL totalFILEURL: \(totalFileURL)")
-                        completionBlock(true, totalFileURL, nil)
-                    } else {
-                        totalFileURL.append(fileURL!+",")
-                        i = i+1
-                        print("This is I: \(i)")
-                        print("ON THE WAY OF totalFILEURL: \(totalFileURL)")
-                    }
+                    totalFileURL.append(fileURL!+",")
+                    i = i+1
+                    myGroup.leave()
                 }, error: { (fault) in
                     completionBlock(false, "", fault?.description)
                 })
             }
+            myGroup.notify(queue: DispatchQueue.main, execute: { 
+                let finalURL = String(totalFileURL.characters.dropLast())
+                completionBlock(true, finalURL, nil)
+            })
             
         }
     }

@@ -136,7 +136,7 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if let fileURL = reviewObject.fileURL {
             reviewCell.setReviewImageViewHidden(false)
-            let imageArray = fileURL.components(separatedBy: ",")
+            let imageArray = fileURL.components(separatedBy: ",").sorted()
             if imageArray.count == 1 {
                 reviewCell.reviewImageView.hnk_setImage(from: URL(string: fileURL))
             } else {

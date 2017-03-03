@@ -42,6 +42,7 @@
 		BE554B081E62CFE30021A79D /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE554B071E62CFE30021A79D /* ImagePickerController.swift */; };
 		BE554B0A1E62CFE80021A79D /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE554B091E62CFE80021A79D /* ImageRow.swift */; };
 		BE842C9E1E59A5B500246A39 /* ShowStreetMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */; };
+		BEA4FB151E694CFB005578AE /* UIActivityViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA4FB141E694CFB005578AE /* UIActivityViewControllerExtension.swift */; };
 		BEA6BE8A1E3CCA4700D75CEE /* NewsListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE891E3CCA4700D75CEE /* NewsListDetailViewController.swift */; };
 		BEA6BE8D1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE8B1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift */; };
 		BEA6BE8E1E3CCA7D00D75CEE /* NewsTransitionDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE8C1E3CCA7D00D75CEE /* NewsTransitionDismissalAnimator.swift */; };
@@ -172,6 +173,7 @@
 		BE554B071E62CFE30021A79D /* ImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
 		BE554B091E62CFE80021A79D /* ImageRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRow.swift; sourceTree = "<group>"; };
 		BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowStreetMapViewController.swift; sourceTree = "<group>"; };
+		BEA4FB141E694CFB005578AE /* UIActivityViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIActivityViewControllerExtension.swift; sourceTree = "<group>"; };
 		BEA6BE891E3CCA4700D75CEE /* NewsListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsListDetailViewController.swift; sourceTree = "<group>"; };
 		BEA6BE8B1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTransitionPresentAnimator.swift; sourceTree = "<group>"; };
 		BEA6BE8C1E3CCA7D00D75CEE /* NewsTransitionDismissalAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTransitionDismissalAnimator.swift; sourceTree = "<group>"; };
@@ -662,6 +664,7 @@
 				EBB619891E197B2B0061BCEB /* UIImage+ImageEffects.h */,
 				EBB6198A1E197B2B0061BCEB /* UIImage+ImageEffects.m */,
 				EBE8A8A91E1C30C800902C75 /* ExtensionDistanceHelper.swift */,
+				BEA4FB141E694CFB005578AE /* UIActivityViewControllerExtension.swift */,
 			);
 			name = Categories/Extension;
 			sourceTree = "<group>";
@@ -1060,6 +1063,7 @@
 				BEB74FE41E65DD7A00DF0904 /* ShowTermsViewController.swift in Sources */,
 				BE0B062C1E60202200432300 /* PetProfileInputViewController.swift in Sources */,
 				EBB619651E194EEA0061BCEB /* OnboardingViewController.swift in Sources */,
+				BEA4FB151E694CFB005578AE /* UIActivityViewControllerExtension.swift in Sources */,
 				EBB619931E1993C80061BCEB /* CustomizeAppearance.swift in Sources */,
 				EBB6199B1E1996640061BCEB /* LoadingTableView.swift in Sources */,
 				BE3346951E3129FD00E23A88 /* ReviewsViewController.swift in Sources */,

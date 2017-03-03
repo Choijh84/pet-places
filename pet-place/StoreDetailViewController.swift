@@ -54,6 +54,9 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
     /// Section to display the Reviews headerView (which in our case is a simple Cell).
     var reviewSectionHeaderRow: StoreDetailRowDatasource<UITableViewCell>! = nil
     
+    /// Total number of review
+    var numberOfReviews = 0
+    
     /// The default headerView height
     fileprivate let kTableHeaderHeight: CGFloat = 240
     /// Headerview reference to be able to create the stretchy headerView effect
@@ -73,6 +76,20 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
     /// Dismisses the view when the back button is pressed
     @IBAction func backButtonPressed() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func shareButtonPressed(_ sender: UIButton) {
+        let storeName = storeToDisplay.name!
+        let storeWebsite = storeToDisplay.address
+        if let imageUrl = storeToDisplay.imageURL {
+            let activityViewController = UIActivityViewController(shareText: "Please check this store in PET PLACE APP and u can download here: ", storeName: storeName, imageUrl: imageUrl)
+            let vc = self.parent
+            vc?.present(activityViewController, animated: true, completion: nil)
+        } else {
+            let activityViewController = UIActivityViewController(shareText: "Please check this store in PET PLACE APP and u can download here: ", storeName: storeName, imageUrl: nil)
+            let vc = self.parent
+            vc?.present(activityViewController, animated: true, completion: nil)
+        }
     }
     
     /// Check the Favorite button pressed
@@ -415,6 +432,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
             if (reviews?.count)! > 0 {
                 self.downloadedReviews = reviews!
                 self.reviewsSection.numberOfRows = (limit < reviews!.count) ? limit : reviews!.count
+                self.numberOfReviews = (reviews?.count)!
                 
                 self.storeToDisplay.reviews = reviews!
                 self.storeRatingLabel.alpha = 1.0
@@ -531,7 +549,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
             DispatchQueue.main.async(execute: { 
                 if let imageArray = self.storeToDisplay.imageArray {
     
-                    let storePhotos = imageArray.components(separatedBy: ",")
+                    let storePhotos = imageArray.components(separatedBy: ",").sorted()
                     
                     for i in 0..<(storePhotos.count) {
                         
@@ -618,7 +636,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         
         if let fileURL = review.fileURL {
             cell.setReviewImageViewHidden(false)
-            let imageArray = fileURL.components(separatedBy: ",")
+            let imageArray = fileURL.components(separatedBy: ",").sorted()
             if imageArray.count == 1 {
                 cell.reviewImageView.hnk_setImage(from: URL(string: fileURL))
             } else {
@@ -648,7 +666,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
             cell.removeButtonTargets(self, action: #selector(StoreDetailViewController.leaveAReviewButtonPressed))
             cell.addButtonTarget(self, action: #selector(StoreDetailViewController.leaveAReviewButtonPressed), forControlEvents: .touchUpInside)
         } else {
-            cell.changeButtonTitle("Read more reviews")
+            cell.changeButtonTitle("Read more reviews(Total: \(numberOfReviews))")
             cell.removeButtonTargets(self, action: #selector(StoreDetailViewController.readMoreReviewsPressed))
             cell.addButtonTarget(self, action: #selector(StoreDetailViewController.readMoreReviewsPressed), forControlEvents: .touchUpInside)
         }
