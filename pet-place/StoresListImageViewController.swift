@@ -30,6 +30,11 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     
     /// Last saved location
     var lastLocation: CLLocation?
+    /// User Picked the location
+    var pickedLocation: CLLocation?
+    /// Variable to check whether user picked a location or not
+    var isConfirmedLocation = false
+    var isDownloaded = false
     
     /// The selected category from StoresCategoryView or from filterView
     var selectedStoreCategory: StoreCategory!
@@ -51,6 +56,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         findStoreCategoryByName()
         customizeViews()
         startLocationTracking()
+        
         title = "Places Nearby"
         
         tableView.showLoadingIndicator()
@@ -102,13 +108,13 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         locationHandler.locationHandlerProtocol = self
         locationHandler.startLocationTracking()
     }
-    
     /**
      Customize the view's look and feel
      */
     func customizeViews() {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.separatorColor = .separatorLineColor()
+        self.tabBarController?.tabBar.isTranslucent = false
         
         refreshControl = UIRefreshControl()
         refreshControl.tintColor = .globalTintColor()
@@ -120,7 +126,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     Downloads all the Store Object
     */
     func downloadStores() {
-        if lastLocation != nil {
+        if lastLocation != nil || isConfirmedLocation == true {
             isLoadingItems = true
             refreshControl.beginRefreshing()
             
@@ -132,26 +138,18 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
                     self.showAlertViewWithRedownloadOption(error)
                 } else {
                     self.displayStoreObjects(storeObjects)
-                    if let location = self.lastLocation {
-                        self.calculateDistanceBetweenStoreLocationsWithLocation(location)
+                    if self.lastLocation != nil {
+                        if let location = self.lastLocation {
+                            self.calculateDistanceBetweenStoreLocationsWithLocation(location)
+                        }
+                    } else {
+                        self.calculateDistanceBetweenStoreLocationsWithLocation(self.pickedLocation!)
                     }
+                    
                 }
                 self.tableView.reloadData()
                 self.tableView.hideLoadingIndicator()
             })
-            
-//            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 10, completionBlock: { (storeObjects, error) in
-//                self.isLoadingItems = false
-//                if let error = error {
-//                    self.showAlertViewWithRedownloadOption(error)
-//                } else {
-//                    self.displayStoreObjects(storeObjects)
-//                    if let location = self.lastLocation {
-//                        self.calculateDistanceBetweenStoreLocationsWithLocation(location)
-//                    }
-//                }
-//                self.tableView.hideLoadingIndicator()
-//            })
         }
     }
     
@@ -180,24 +178,6 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             self.tableView.reloadData()
             self.tableView.hideLoadingIndicator()
         }
-        
-//        downloadManager.downloadStores(skippingNumberOfObjects: temp, limit: 10, completionBlock: { (storeObjects, error) in
-//            if let error = error {
-//                self.showAlertViewWithRedownloadOption(error)
-//            } else {
-//                if let storeObjects = storeObjects {
-//                    self.objectsArray.append(contentsOf: storeObjects)
-//                }
-//                if let location = self.lastLocation {
-//                    self.calculateDistanceBetweenStoreLocationsWithLocation(location)
-//                }
-//            }
-//            
-//            self.isLoadingItems = false
-//            self.refreshControl.endRefreshing()
-//            self.tableView.reloadData()
-//            self.tableView.hideLoadingIndicator()
-//        })
     }
     
     /** 
@@ -245,21 +225,33 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
      :param: location the new location
      */
     func locationHandlerDidUpdateLocation(_ location: CLLocation) {
-        if let lastLocation = lastLocation {
-            // only request new store objects when the user moved 1000 meters or more, since the last saved location
-            if lastLocation.distance(from: location) > 1000 {
+        // User가 location을 정하지 않은 경우, GPS가 잡는 경우
+        if isConfirmedLocation == false {
+            if let lastLocation = lastLocation {
+                // only request new store objects when the user moved 1000 meters or more, since the last saved location
+                if lastLocation.distance(from: location) > 1000 {
+                    downloadManager.userCoordinate = location.coordinate
+                    downloadStores()
+                }
+                self.lastLocation = location
+            } else {
                 downloadManager.userCoordinate = location.coordinate
+                self.lastLocation = location
                 downloadStores()
             }
-            self.lastLocation = location
+            
+            calculateDistanceBetweenStoreLocationsWithLocation(location)
+            updateTopbarTitleLabelWithLocation(location)
         } else {
-            downloadManager.userCoordinate = location.coordinate
-            self.lastLocation = location
-            downloadStores()
+            // User가 location을 확정한 경우, 1번만 실행
+            if isDownloaded == false {
+                downloadManager.userCoordinate = pickedLocation?.coordinate
+                downloadStores()
+                
+                calculateDistanceBetweenStoreLocationsWithLocation(pickedLocation!)
+                isDownloaded = true
+            }
         }
-        
-        calculateDistanceBetweenStoreLocationsWithLocation(location)
-        updateTopbarTitleLabelWithLocation(location)
     }
     
     /**
@@ -396,10 +388,10 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         if segue.identifier == "showMapView" {
             let destinationVC = segue.destination as! StoreMapViewController
             destinationVC.selectedStoreType = selectedStoreCategory
+            destinationVC.lastLocation = pickedLocation
+            destinationVC.isConfirmedLocation = isConfirmedLocation
         }
     }
-    
-    
     
     /**
      Returns the preferred statusbar style, this case Light(White)

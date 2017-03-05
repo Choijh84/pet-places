@@ -10,6 +10,8 @@ target 'pet-place' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
   pod 'Backendless'
+  pod 'GooglePlaces'
+  pod 'GooglePlacePicker'
   pod 'GoogleMaps'
   pod 'DKImagePickerController'
   pod 'IQKeyboardManagerSwift'

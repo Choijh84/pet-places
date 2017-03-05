@@ -99,6 +99,13 @@ class Store: NSObject {
             print("Distance: \(distance!)")
         }
     }
+    
+    func calculationDistanceBetweenCoordinates(_ pickedCoordinate: CLLocationCoordinate2D?) {
+        let currentLocation = CLLocation(latitude: (pickedCoordinate?.latitude)!, longitude: (pickedCoordinate?.longitude)!)
+        let coordinate = self.coordinate()
+        distance = currentLocation.distance(from: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)) as Double
+        print("Distance: \(distance!)")
+    }
 
     /**
      Returns a formatted distance string, e.g.: 1,4 km away

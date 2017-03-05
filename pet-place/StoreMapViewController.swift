@@ -24,6 +24,9 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
     /// Last saved coordinate
     var lastCoordinate: CLLocationCoordinate2D?
     
+    /// Variable to check whether user picked a location or not
+    var isConfirmedLocation = false
+    
     /// Location download manager, that will download all the objects from the server
     let downloadManager: LocationsDownloadManager = LocationsDownloadManager()
     
@@ -35,9 +38,6 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
     
     /// Selected store on the map
     var selectedStore: Store?
-    
-    ///
-    var didTapped: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +67,6 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
             mapView.settings.myLocationButton = true
             // 나침반 기능 활성화
             mapView.settings.compassButton = true
-            
             // 스크롤 기능
             mapView.settings.scrollGestures = true
             // 제스처 기능
@@ -80,9 +79,13 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
         When the user location changes, update the map into that location
      */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        let location = locations.last
-        print("This is location: \(location!)")
+        let location: CLLocation?
+        if isConfirmedLocation == false {
+            location = locations.last
+            print("This is location: \(location!)")
+        } else {
+            location = lastLocation
+        }
         
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude:(location?.coordinate.longitude)!, zoom:13)
         mapView?.animate(to: camera)
@@ -94,7 +97,7 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
         Mapview delegate function when the camera change
         - get the center coordinate
         - if user moves the center of the map more than 5000m, 
-            - marker clear, coordinate reset, and store download
+        - marker clear, coordinate reset, and store download
      */
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         let lat = mapView.camera.target.latitude

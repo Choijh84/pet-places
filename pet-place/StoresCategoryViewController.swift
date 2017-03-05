@@ -8,18 +8,31 @@
 
 import UIKit
 
-class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LocationHandlerProtocol {
 
     @IBOutlet weak var tableView: LoadingTableView!
     
     /// Categories that needs to be displayed
     let section = ["PET PLACES"]
-//    let items = ["Pet Pension", "Pet Cafe", "Hotel with Pet", "Restaurant with Pet", "Pet Hospital", "Pet Shops"]
+    
+    /// A handler object that responsible for getting the user's location
+    var locationHandler: LocationHandler!
+    /// Last saved location
+    var lastLocation: CLLocation?
+    /// Variable to check whether user picked a location or not
+    var isConfirmedLocation = false
     
     /// Save the selected storeCategory as a reference
     var selectedCategory: StoreCategory?
     /// Array to hold all the downloaded categories
     var allStoreCategories: [StoreCategory] = []
+    
+    /// User selected Location(coordinate & address)
+    var selectedLocation = CLLocationCoordinate2D()
+    var selectedAddress = ""
+    
+    /// Address Presentation
+    @IBOutlet weak var formattedAddress: UILabel!
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.section[section]
@@ -28,7 +41,6 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 135.0
     }
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return section.count
@@ -59,8 +71,67 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "PLACES CATEGORY"
+        self.tabBarController?.tabBar.isTranslucent = false
         
         downloadStoreCategories()
+        checkLocation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        checkLocation()
+    }
+    
+    func checkLocation() {
+        locationHandler = LocationHandler()
+        locationHandler.locationHandlerProtocol = self
+        locationHandler.startLocationTracking()
+        
+        if isConfirmedLocation == false {
+            var userLocation = locationHandler.locationManager.location
+            print("userLocation: \(userLocation)")
+            if userLocation == nil {
+                userLocation = lastLocation
+                locationHandler.geocodeLocation(userLocation!) { (geocodedName, placeMark, error) -> () in
+                    if let geocodedName = geocodedName {
+                        self.formattedAddress.text = geocodedName
+                    } else {
+                        self.formattedAddress.text = "Example Address"
+                    }
+                }
+            } else {
+                locationHandler.geocodeLocation(userLocation!) { (geocodedName, placeMark, error) -> () in
+                    if let geocodedName = geocodedName {
+                        self.formattedAddress.text = geocodedName
+                    } else {
+                        self.formattedAddress.text = "Example Address"
+                    }
+                }
+            }
+        } else {
+            formattedAddress.text = selectedAddress
+        }
+    }
+    
+    // MARK: Location Handler Protocol
+    
+    func locationHandlerDidUpdateLocation(_ location: CLLocation) {
+        if isConfirmedLocation == false {
+            if let lastLocation = lastLocation {
+                // only request new store objects when the user moved 1000 meters or more, since the last saved location
+                if lastLocation.distance(from: location) > 1000 {
+                    //downloadManager.userCoordinate = location.coordinate
+                    //downloadStores()
+                }
+                self.lastLocation = location
+            } else {
+                //downloadManager.userCoordinate = location.coordinate
+                self.lastLocation = location
+            }
+        } else {
+            print("Fixed the location")
+        }
+        
     }
     
     /**
@@ -82,6 +153,7 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         /// segue name: findPlaces
+        
         if segue.identifier == "findPlaces" {
             let destinationVC  = segue.destination as! StoresListImageViewController
             if let sender = sender {
@@ -100,6 +172,10 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
                     let indexPath = tableView.indexPath(for: cell)
                     print("This is selected store type: \(allStoreCategories[(indexPath?.row)!])")
                     destinationVC.selectedStoreType = allStoreCategories[(indexPath?.row)!]
+                    if isConfirmedLocation == true {
+                        destinationVC.pickedLocation = CLLocation(latitude: selectedLocation.latitude, longitude: selectedLocation.longitude)
+                        destinationVC.isConfirmedLocation = isConfirmedLocation
+                    }
                 }
                 
             }
@@ -140,6 +216,24 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
      */
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent
+    }
+    
+    @IBAction func cancelToCategory (segue: UIStoryboardSegue) {
+        print("Cencelled")
+    }
+    
+    @IBAction func confirmLocation (segue: UIStoryboardSegue) {
+        let LocationControlVC = segue.source as! LocationControlViewController
+        let address = LocationControlVC.formattedAddress
+        let coordinate = LocationControlVC.coordinate
+        
+        if address == "" {
+            print("Address is nil")
+        } else {
+            selectedAddress = address
+            selectedLocation = coordinate
+            isConfirmedLocation = true
+        }
     }
 
 }

@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import FBSDKCoreKit
 import GoogleMaps
+import GooglePlaces
 import IQKeyboardManagerSwift
 
 
@@ -41,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.tintColor = UIColor.globalTintColor()
         
         backendless?.initApp(APP_ID, secret:SECRET_KEY, version:VERSION_NUM)
+        GMSPlacesClient.provideAPIKey("AIzaSyBwzZ6Mx2_3cn0mCFS4I2guim4T2Mu1IFs")
         GMSServices.provideAPIKey("AIzaSyBwzZ6Mx2_3cn0mCFS4I2guim4T2Mu1IFs")
         IQKeyboardManager.sharedManager().enable = true
         

@@ -21,6 +21,11 @@ PODS:
   - GoogleMaps/Base (2.2.0)
   - GoogleMaps/Maps (2.2.0):
     - GoogleMaps/Base
+  - GooglePlacePicker (2.2.0):
+    - GoogleMaps (= 2.2.0)
+    - GooglePlaces (= 2.2.0)
+  - GooglePlaces (2.2.0):
+    - GoogleMaps/Base (= 2.2.0)
   - Haneke (1.0.2)
   - HCSStarRatingView (1.4.5)
   - IQKeyboardManagerSwift (4.0.8)
@@ -34,6 +39,8 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - GoogleMaps
+  - GooglePlacePicker
+  - GooglePlaces
   - Haneke (~> 1.0)
   - HCSStarRatingView (~> 1.4.3)
   - IQKeyboardManagerSwift
@@ -48,12 +55,14 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 894b2b6eda6a4c8c4204e92e59cc355709ef045c
   FBSDKLoginKit: 83ca4d8f12a2022570af9fd6aacf27f6b425b99f
   GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
+  GooglePlacePicker: 345b1aabd42c9d6d9bf2369c1bae1234d903e764
+  GooglePlaces: bca867d5e9da15384c794b945e4226848bc6e9d9
   Haneke: 01454a67322faa0dd9d81fc0f447885044e71521
   HCSStarRatingView: bff3f89314d3b5013ce826ea11897d3129ff6b8c
   IQKeyboardManagerSwift: c04bc9f68473823f825eb44d958fce98d921bead
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
   SKPhotoBrowser: 3a7c6fc02aa1620ab17253a47a49fafda46536e8
 
-PODFILE CHECKSUM: 24f2e8b1dfe393474366aa929a2f744e1bed17a3
+PODFILE CHECKSUM: 2e3f6bc58ab823018de29dbc984ec2a3a6cf8b32
 
 COCOAPODS: 1.2.0

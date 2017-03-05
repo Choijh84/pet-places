@@ -136,6 +136,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 Copyright 2017 Google
 
+## GooglePlacePicker
+
+Copyright 2017 Google
+
+## GooglePlaces
+
+Copyright 2017 Google
+
 ## HCSStarRatingView
 
 Copyright (c) 2015 Hugo Sousa
