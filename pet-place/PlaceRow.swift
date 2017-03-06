@@ -25,11 +25,12 @@ class PlaceRow: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectio
         let store = storeList[indexPath.row].store
         let imageURL = store?.imageURL
         let url = URL(string: imageURL!)
+        cell.storeImage.layer.cornerRadius = 7.0
         cell.storeImage.hnk_setImage(from: url!, placeholder: UIImage(named: "placeholder"))
         
-        let textData = store?.name?.data(using: .utf16)
-        let text = NSString(data: textData!, encoding: String.Encoding.init(rawValue: 0x80000003).rawValue)
-        print("This is text: \(text)")
+        // let textData = store?.name?.data(using: .utf16)
+        // let text = NSString(data: textData!, encoding: String.Encoding.init(rawValue: 0x80000003).rawValue)
+        // print("This is text: \(text)")
         cell.storeTitle.text = store?.name!
         
         cell.tag = indexPath.row
@@ -38,8 +39,8 @@ class PlaceRow: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.frame.width/2)-10
-        return CGSize(width: width, height: width)
+        let width = (collectionView.frame.width/2)-30
+        return CGSize(width: width, height: 160)
     }
     
     

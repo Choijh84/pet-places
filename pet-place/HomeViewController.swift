@@ -134,6 +134,7 @@ class HomeViewController: UITableViewController {
             return cell
         } else if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceRow", for: indexPath) as! PlaceRow
+            
             cell.storeList = recommendStores
             cell.placeCollection.reloadData()
             return cell

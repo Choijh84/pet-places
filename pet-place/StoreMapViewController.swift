@@ -158,6 +158,13 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
         Display the downloaded Store Objects and mark on the map
      */
     func displayStoreObjects(_ stores: [Store]?) {
+        if lastLocation != nil {
+            let position = CLLocationCoordinate2DMake((lastLocation?.coordinate.latitude)!, (lastLocation?.coordinate.longitude)!)
+            let marker = GMSMarker(position: position)
+            marker.title = "Custom Location"
+            marker.icon = UIImage(named: "pin")
+            marker.map = mapView
+        }
         
         if let stores = stores {
             objectsArray = stores

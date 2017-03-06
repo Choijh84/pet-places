@@ -42,6 +42,7 @@
 		BE554B081E62CFE30021A79D /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE554B071E62CFE30021A79D /* ImagePickerController.swift */; };
 		BE554B0A1E62CFE80021A79D /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE554B091E62CFE80021A79D /* ImageRow.swift */; };
 		BE842C9E1E59A5B500246A39 /* ShowStreetMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */; };
+		BE91C4A71E6D59CB00B4C8B5 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE91C4A61E6D59CB00B4C8B5 /* FilterViewController.swift */; };
 		BEA4FB151E694CFB005578AE /* UIActivityViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA4FB141E694CFB005578AE /* UIActivityViewControllerExtension.swift */; };
 		BEA6BE8A1E3CCA4700D75CEE /* NewsListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE891E3CCA4700D75CEE /* NewsListDetailViewController.swift */; };
 		BEA6BE8D1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE8B1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift */; };
@@ -174,6 +175,7 @@
 		BE554B071E62CFE30021A79D /* ImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
 		BE554B091E62CFE80021A79D /* ImageRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRow.swift; sourceTree = "<group>"; };
 		BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowStreetMapViewController.swift; sourceTree = "<group>"; };
+		BE91C4A61E6D59CB00B4C8B5 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		BEA4FB141E694CFB005578AE /* UIActivityViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIActivityViewControllerExtension.swift; sourceTree = "<group>"; };
 		BEA6BE891E3CCA4700D75CEE /* NewsListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsListDetailViewController.swift; sourceTree = "<group>"; };
 		BEA6BE8B1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTransitionPresentAnimator.swift; sourceTree = "<group>"; };
@@ -414,9 +416,9 @@
 				EB2956FA1E16DA5F0024E3E3 /* GlobalApplicationKeys.swift */,
 				EBB619571E194AF60061BCEB /* MainTabbarViewController.swift */,
 				EB2956F61E16DA0D0024E3E3 /* Storyboard */,
+				EB2956F51E16D9CD0024E3E3 /* Custom Objects */,
 				EB2956F11E16D9A10024E3E3 /* Customization Classes */,
 				EB2956F21E16D9AA0024E3E3 /* Objects */,
-				EB2956F51E16D9CD0024E3E3 /* Custom Objects */,
 				EB2956F41E16D9B60024E3E3 /* Custom Views */,
 				EB2956F31E16D9AF0024E3E3 /* ViewControllers */,
 				EB2956F71E16DA1C0024E3E3 /* Supporting Files */,
@@ -597,6 +599,7 @@
 				BEF8033B1E4DB22200F5FD44 /* StoreMapViewController.swift */,
 				BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */,
 				BEB1F8951E6AB877002D273A /* LocationControlViewController.swift */,
+				BE91C4A61E6D59CB00B4C8B5 /* FilterViewController.swift */,
 			);
 			name = Stores;
 			sourceTree = "<group>";
@@ -1089,6 +1092,7 @@
 				BE35C05B1E650CAB00270766 /* InfoChangeViewController.swift in Sources */,
 				BE1482131E41FC8B006602E6 /* ProfileInfoViewController.swift in Sources */,
 				BEA6BE8E1E3CCA7D00D75CEE /* NewsTransitionDismissalAnimator.swift in Sources */,
+				BE91C4A71E6D59CB00B4C8B5 /* FilterViewController.swift in Sources */,
 				EB71A6891E1CF45700948F41 /* InfoWithIconTableViewCell.swift in Sources */,
 				EBB6196B1E1950C30061BCEB /* LocationHandler.swift in Sources */,
 				EB71A6961E1D388400948F41 /* StoreDetailViewDatasource.swift in Sources */,

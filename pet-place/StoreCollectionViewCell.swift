@@ -13,5 +13,4 @@ class StoreCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var storeImage: LoadingImageView!
     @IBOutlet weak var storeTitle: UILabel!
     
-    
 }

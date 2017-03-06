@@ -75,12 +75,12 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
     
     /// Dismisses the view when the back button is pressed
     @IBAction func backButtonPressed() {
-        navigationController?.popViewController(animated: true)
+        _ = navigationController?.popViewController(animated: true)
     }
     
     @IBAction func shareButtonPressed(_ sender: UIButton) {
         let storeName = storeToDisplay.name!
-        let storeWebsite = storeToDisplay.address
+        // let storeWebsite = storeToDisplay.address
         if let imageUrl = storeToDisplay.imageURL {
             let activityViewController = UIActivityViewController(shareText: "Please check this store in PET PLACE APP and u can download here: ", storeName: storeName, imageUrl: imageUrl)
             let vc = self.parent
@@ -178,7 +178,15 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        storeToDisplay.hits = storeToDisplay.hits + 1
+        
+        let dataStore = Backendless.sharedInstance().data.of(Store.ofClass())
+        dataStore?.save(storeToDisplay, response: { (response) in
+            print("Successfully saved the hits")
+        }, error: { (Fault) in
+            print("Error on saving hits")
+        })
+        
         /// set up the Self-Sizing Table View Cells
         /// Should set the label line as 0
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -190,7 +198,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         storeSubtitleLabel.text = storeToDisplay.storeSubtitle
         
         self.storeRatingView.alpha = 1.0
-        self.storeRatingView.value = CGFloat(storeToDisplay.reviewAverage ?? 0)
+        self.storeRatingView.value = CGFloat(storeToDisplay.reviewAverage)
         
         if let imageURL = storeToDisplay.imageURL {
             storeImageView.hnk_setImage(from: URL(string: imageURL))
@@ -436,7 +444,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                 
                 self.storeToDisplay.reviews = reviews!
                 self.storeRatingLabel.alpha = 1.0
-                self.storeRatingView.value = CGFloat(self.storeToDisplay.reviewAverage ?? 0)
+                self.storeRatingView.value = CGFloat(self.storeToDisplay.reviewAverage)
             } else {
                 // remove the review section header and reload the tableView if there are no reviews to show.
                 self.dataSource.removeSectionAtIndex((self.reviewSectionHeaderRow?.sectionIndex)!)
@@ -444,9 +452,14 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
             }
             
             if self.storeToDisplay.reviewCount != 0 {
-                self.storeRatingLabel.text = "\(String(format: "%.1f", self.storeToDisplay.reviewAverage!.floatValue)) of \(self.storeToDisplay.reviews.count) ratings"
+                let hit = self.storeToDisplay.hits
+                let reviewAverage = String(format: "%.1f", self.storeToDisplay.reviewAverage)
+                let reviewCount = self.storeToDisplay.reviews.count
+                self.storeRatingLabel.text = "조회수: \(hit), 평점: \(reviewAverage)점, 총 리뷰: \(reviewCount)개"
+                
             } else {
-                self.storeRatingLabel.text = ""
+                let hit = self.storeToDisplay.hits
+                self.storeRatingLabel.text = "조회수: \(hit)"
             }
         }
     }

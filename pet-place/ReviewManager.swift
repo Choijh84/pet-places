@@ -78,7 +78,7 @@ class ReviewManager: NSObject {
         review.fileURL = fileURL
         review.creator = UserManager.currentUser()
         
-        store.reviewCount = (store.reviews.count+1) as NSNumber
+        store.reviewCount = (store.reviews.count+1)
         store.reviews.append(review)
         
         var error: Fault?

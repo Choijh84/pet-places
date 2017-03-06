@@ -21,6 +21,11 @@ class LocationsDownloadManager : NSObject {
     /// selected sorting option
     var selectedSortedOption: SortingOption = SortingOption(name: "distance", sortingKey: SortingKey.distance)
     
+    /// selected pet type
+    var selectedPetType: String?
+    /// selected pet size
+    var selectedPetSize: String?
+    
     /// Store object that handles downloading of Store objects
     let dataStore = Backendless.sharedInstance().persistenceService.of(Store.self)
     
@@ -40,12 +45,18 @@ class LocationsDownloadManager : NSObject {
         queryOptions.relationsDepth = 1
         
         dataQuery.whereClause = "StoreCategory[stores].objectId = \'\(selectedStoreCategory.objectId!)\' AND distance(\(userCoordinate.latitude), \(userCoordinate.longitude), location.latitude, location.longitude ) < km(2000)"
+        if !((selectedPetType ?? "").isEmpty) {
+            dataQuery.whereClause = dataQuery.whereClause.appending("\(selectedPetType!)")
+        }
+        if !((selectedPetSize ?? "").isEmpty) {
+            dataQuery.whereClause = dataQuery.whereClause.appending("\(selectedPetSize!)")
+        }
         
         queryOptions.related = ["location"]
         queryOptions.pageSize = limit
         queryOptions.offset = skip
         
-        print("Clause: \(dataQuery.whereClause!)")
+        print("First Clause: \(dataQuery.whereClause!)")
         
         dataStore?.find(dataQuery, response: { (collection) in
             let sortedObjects = self.sortObjectsManuallyByDistance(collection?.data as! [Store])
@@ -103,7 +114,7 @@ class LocationsDownloadManager : NSObject {
      - parameter storeObjects: objects to sort
      
      - returns: sorted objects
-     */
+    */
     private func sortObjectsManuallyByDistance(_ storeObjects: [Store]) -> [Store] {
         var storeObjects = storeObjects
         if selectedSortedOption.sortingKey == SortingKey.distance {
@@ -121,6 +132,7 @@ class LocationsDownloadManager : NSObject {
         
         return storeObjects
     }
+ 
     
     /**
      Creates a location

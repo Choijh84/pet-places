@@ -50,6 +50,8 @@ class Store: NSObject {
     var note: String?
     /// array for Favorite List of users
     var favoriteList: [BackendlessUser] = []
+    /// the number of user looked at the store
+    var hits: Int = 0
     
     
     /// Boolean for favorite or not
@@ -66,14 +68,14 @@ class Store: NSObject {
             for review in reviews {
                 average += review.rating.doubleValue
             }
-            self.reviewAverage = NSNumber(value: average / Double(reviews.count))
-            self.reviewCount = reviews.count as NSNumber?
+            self.reviewAverage = Double(NSNumber(value: average / Double(reviews.count)))
+            self.reviewCount = Int((reviews.count as NSNumber?)!)
         }
     }
     /// Number of reviews
-    var reviewCount: NSNumber?
+    var reviewCount: Int = 0
     /// Average rating of reviews
-    var reviewAverage: NSNumber?
+    var reviewAverage: Double = 0.0
 
     /**
      Creates a coordinate of the Store from the location object, if no location object is found, creates a 0,0 coordinate

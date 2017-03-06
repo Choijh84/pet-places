@@ -36,7 +36,7 @@ class LocationControlViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        print(UserDefaults.standard.dictionaryRepresentation())
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

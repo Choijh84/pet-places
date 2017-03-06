@@ -70,8 +70,10 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "PLACES CATEGORY"
+        // title = "PLACES CATEGORY"
         self.tabBarController?.tabBar.isTranslucent = false
+        GlobalVar.filter1 = nil
+        GlobalVar.filter2 = nil
         
         downloadStoreCategories()
         checkLocation()
@@ -79,6 +81,9 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        GlobalVar.filter1 = nil
+        GlobalVar.filter2 = nil
+        
         checkLocation()
     }
     

@@ -36,16 +36,24 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     var isConfirmedLocation = false
     var isDownloaded = false
     
-    /// The selected category from StoresCategoryView or from filterView
+    /// The selected category from StoresCategoryView
     var selectedStoreCategory: StoreCategory!
     /// Array to hold all the downloaded categories
     var allStoreCategories: [StoreCategory] = []
     
-    /// The selected sorting option from filterview
-    var selectedSortingOption: SortingOption?
+    /// The selected sorting option from filterview - Pet Type: 강아지, 고양이 등 - Replaced by GlobalVar
+    /// var SortingPetType: String?
+    /// The selected sorting option from filterview - Pet Size: 소형, 중형, 대형 등 - Replaced by GlobalVar
+    /// var SortingPetSize: String?
     
     /// True, if we currently loading new products
     var isLoadingItems: Bool = false
+    
+    /// View which contains filter
+    @IBOutlet weak var filterView: UIView!
+    /// Label which shows Filter condition
+    @IBOutlet weak var filterConditionLabel: UILabel!
+    
     
     /**
      Called after the view has been loaded. Customise the view and download the store objects
@@ -55,9 +63,10 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         super.viewDidLoad()
         findStoreCategoryByName()
         customizeViews()
+        customizeFilterView()
         startLocationTracking()
         
-        title = "Places Nearby"
+        // title = "Places Nearby"
         
         tableView.showLoadingIndicator()
     }
@@ -91,12 +100,70 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     /**
+     Called when user applies a filter from the FilterViewController
+     
+     :param: segue apply the selected sorting option and download the Store objects again.
+     */
+    @IBAction func unwindFromFilterViewVC(_ segue: UIStoryboardSegue) {
+        /// let filterViewVC = segue.source as! FilterViewController
+        
+        if let petType = GlobalVar.filter1 {
+            downloadManager.selectedPetType = " AND serviceablePet LIKE '%\(petType)%'"
+        } else {
+            downloadManager.selectedPetType = ""
+        }
+        if let petSize = GlobalVar.filter2 {
+            downloadManager.selectedPetSize = " AND petSize LIKE '%\(petSize)%'"
+        } else {
+            downloadManager.selectedPetSize = ""
+        }
+        /**
+        if let petType = filterViewVC.selectedSortingOption1?.name {
+            SortingPetType = petType
+            downloadManager.selectedPetType = " AND serviceablePet LIKE '\(SortingPetType!)%'"
+        }
+        if let petSize = filterViewVC.selectedSortingOption2?.name {
+            SortingPetSize = petSize
+            downloadManager.selectedPetSize = " AND petSize LIKE '\(SortingPetSize!)%'"
+        }
+        */
+        downloadStores()
+    }
+    
+    /**
+     Customize View which shows Filter
+    */
+    func customizeFilterView() {
+        if GlobalVar.filter1 == nil && GlobalVar.filter2 == nil {
+            filterView.isHidden = true
+        } else {
+            UIView.animate(withDuration: 0.3, animations: { 
+                self.filterView.isHidden = false
+            })
+            configureFilterInfo()
+            
+        }
+    }
+    
+    func configureFilterInfo() {
+        var text = ""
+        if let petType = GlobalVar.filter1 {
+            text = text.appending(" 가능 반려동물: \(petType)")
+        }
+        if let petSize = GlobalVar.filter2 {
+            text = text.appending(" 가능 크기: \(petSize)")
+        }
+        filterConditionLabel.text = text
+    }
+    
+    /**
      Keep the navigation bar hidden, we don't need it
      
      - parameter animated: animated
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        customizeFilterView()
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
@@ -194,6 +261,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     Display the downloaded Store Objects 
     */
     func displayStoreObjects(_ stores: [Store]?) {
+        objectsArray.removeAll()
         if let stores = stores {
             objectsArray.append(contentsOf: stores)
         } else {
@@ -321,7 +389,17 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         storeCell.nameLabel.text = storeObject.name
         storeCell.locationLabel.text = storeObject.address
         storeCell.distanceLabel.text = storeObject.distanceString()
-        storeCell.categoriesLabel.text = selectedStoreCategory.name
+        // 조회수, 평점 보여주기
+        let hits = storeObject.hits
+        print("This is review average:\(storeObject.reviewAverage)")
+        if storeObject.reviewCount != 0 {
+            // let reviewAverage = String(format: "%.1f", storeObject.reviewAverage)
+            let text = "조회수: \(hits) | 리뷰개수: \(storeObject.reviewCount)"
+            storeCell.categoriesLabel.text = text
+        } else {
+            let text = "조회수: \(hits)"
+            storeCell.categoriesLabel.text = text
+        }
         
         /// store의 모든 카테고리 타입을 모두 보여줘야 하나?
 //        storeCell.categoriesLabel.text = combineString(inputArray: storeObject.StoreCategory)
@@ -383,13 +461,14 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
                 }
                 detailViewController.hidesBottomBarWhenPushed = true
             }
-        }
-        
-        if segue.identifier == "showMapView" {
+        } else if segue.identifier == "showMapView" {
             let destinationVC = segue.destination as! StoreMapViewController
             destinationVC.selectedStoreType = selectedStoreCategory
             destinationVC.lastLocation = pickedLocation
             destinationVC.isConfirmedLocation = isConfirmedLocation
+        } else if segue.identifier == "showFilterView" {
+            let destinationVC = segue.destination as! FilterViewController
+            destinationVC.selectedCategory = selectedStoreCategory
         }
     }
     
