@@ -246,10 +246,10 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="G2W-EY-aKs">
-                                                    <rect key="frame" x="0.0" y="75" width="339" height="44"/>
+                                                    <rect key="frame" x="0.0" y="75.5" width="339" height="43.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="대표이사: 최정훈 | 사업자등록번호: 371-88-00609 통신판매업: 서울 강남-03976호  주소: 서울시 강남구 강남대로 342, 5층(역삼동, 역삼빌딩)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9f-F8-asm">
-                                                            <rect key="frame" x="0.0" y="0.0" width="339" height="44"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="339" height="43.5"/>
                                                             <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -271,7 +271,7 @@
                                                             </state>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="MQ0-3e-HiL">
-                                                            <rect key="frame" x="130" y="0.0" width="80" height="49"/>
+                                                            <rect key="frame" x="129.5" y="0.0" width="80" height="49"/>
                                                             <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.68763377568493156" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="80" id="NG0-fq-xvA"/>
@@ -350,7 +350,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="g3i-Ht-iB7">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="g3i-Ht-iB7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -441,7 +441,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJl-hK-die">
-                                        <rect key="frame" x="10" y="6" width="75" height="19"/>
+                                        <rect key="frame" x="10" y="6.5" width="75" height="18.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="vun-rY-sBQ"/>
                                         </constraints>
@@ -450,7 +450,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="5bd-y3-Rzg">
-                                        <rect key="frame" x="90" y="8" width="150" height="14"/>
+                                        <rect key="frame" x="90" y="8.5" width="150" height="13"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="Wwb-EP-Bs9"/>
                                         </constraints>
@@ -629,7 +629,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter" textAlignment="natural" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="yvT-MT-o7q">
-                                                <rect key="frame" x="61" y="7" width="250" height="17"/>
+                                                <rect key="frame" x="61" y="6.5" width="250" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="250" id="e2d-jr-OPW"/>
                                                 </constraints>
@@ -1352,7 +1352,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EG7-Sh-hMs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="EG7-Sh-hMs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1381,6 +1381,6 @@
         <image name="trash icon empty" width="22" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KNJ-ew-pAG"/>
+        <segue reference="j5R-Km-aTC"/>
     </inferredMetricsTieBreakers>
 </document>

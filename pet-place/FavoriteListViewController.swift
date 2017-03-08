@@ -15,12 +15,15 @@ class FavoriteListViewController: UIViewController, UICollectionViewDataSource, 
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var uiView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        uiView.isHidden = true
         collectionView.delegate = self
         collectionView.dataSource = self
         // Do any additional setup after loading the view.
+        
         downloadFavoriteList()
         
     }
@@ -54,6 +57,11 @@ class FavoriteListViewController: UIViewController, UICollectionViewDataSource, 
                 }
             }
             self.collectionView.reloadData()
+            if self.favoriteList.count == 0 {
+                self.uiView.isHidden = false
+            } else {
+                self.uiView.isHidden = true
+            }
         }, error: { (Fault) in
             print("Server reported error: \(Fault?.description)")
         })
@@ -66,6 +74,7 @@ class FavoriteListViewController: UIViewController, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("count: \(favoriteList.count)")
+
         return favoriteList.count
     }
     

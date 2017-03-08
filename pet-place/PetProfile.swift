@@ -28,12 +28,12 @@ class PetProfile: NSObject {
     /// registration number
     var registration: String = ""
     /// sick History 
-    var sickHistory: String = ""
+    var sickHistory: String?
     /// species of the pet: Dog, Cat, Bird or sth else
     var species: String!
     /// weight of the pet
     var weight: Double = 0.0
     /// Vaccincation history 
-    var vaccination: String = ""
+    var vaccination: String?
     
 }

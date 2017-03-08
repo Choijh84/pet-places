@@ -20,6 +20,8 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var addView: UIView!
+    
     var petArray = [PetProfile]()
     
     /// Lazy getter for the dateformatter that formats the date property of each pet profile to the desired format
@@ -31,20 +33,50 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addView.isHidden = true
         self.navigationController?.title = "My Pet"
-        setupPetArray()
+        setupPetArray { (success) in
+            if success {
+                if self.petArray.count != 0 {
+                    self.addView.isHidden = true
+                } else {
+                    self.addView.isHidden = false
+                }
+            }
+        }
     }
     
-    func setupPetArray() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        collectionView.reloadData()
+    }
+    
+    func setupPetArray(completionHandler: @escaping (_ success: Bool) -> ()) {
         let user = UserManager.currentUser()
+        petArray.removeAll()
+        let myGroup = DispatchGroup()
         
         if (user != nil) {
             let petProfiles = user?.getProperty("petProfiles") as! [PetProfile]
             
             for petProfile in petProfiles {
-                petArray.append(petProfile)
-                dump(petProfile)
+                let dataStore = Backendless.sharedInstance().data.of(PetProfile.ofClass())
+                myGroup.enter()
+                
+                dataStore?.findID(petProfile.objectId, response: { (result) in
+                    let profile = result as! PetProfile
+                    self.petArray.append(profile)
+                    dump(profile)
+                    myGroup.leave()
+                }, error: { (Fault) in
+                    print("Server reported an error (2): \(Fault?.description)")
+                    completionHandler(false)
+                })
             }
+            myGroup.notify(queue: DispatchQueue.main, execute: {
+                completionHandler(true)
+                self.collectionView.reloadData()
+            })
         }
     }
     
@@ -60,6 +92,27 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
     
     func editPetProfile(sender: MyButton) {
         performSegue(withIdentifier: "PetProfileEdit", sender: sender)
+    }
+    
+    func deletePetProfile(sender: MyButton) {
+        let profile = petArray[sender.row!]
+        let user = Backendless.sharedInstance().userService.currentUser
+        
+        if user != nil {
+            var petProfiles = user?.getProperty("petProfiles") as! [PetProfile]
+            if let index = petProfiles.index(of: profile) {
+                petProfiles.remove(at: index)
+            }
+            user?.setProperty("petProfiles", object: petProfiles)
+            Backendless.sharedInstance().userService.update(user, response: { (user) in
+                SCLAlertView().showSuccess("Delete Pet Profile", subTitle: "OK")
+                _ = self.navigationController?.popViewController(animated: true)
+            }, error: { (Fault) in
+                print("Server reported an error on deleting pet profile: \(Fault?.description)")
+            })
+        } else {
+            print("There is no user u can save")
+        }
     }
     
     /**
@@ -90,15 +143,20 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
         cell.editButton.addTarget(self, action: #selector(PetProfileViewController.editPetProfile(sender:)), for: .touchUpInside)
         /// 편집 버튼에 row 저장
         cell.editButton.row = indexPath.row
+        /// 삭제 버튼
+        cell.deleteButton.addTarget(self, action: #selector(PetProfileViewController.deletePetProfile(sender:)), for: .touchUpInside)
+        /// 삭제 버튼에 row 저장
+        cell.deleteButton.row = indexPath.row
+        
         
         /// petArray의 petProfile에서 사진이 있는 경우
-        if petArray[indexPath.row].imagePic != nil {
+        if !petArray[indexPath.row].imagePic.isEmpty {
             let url = URL(string: petArray[indexPath.row].imagePic)
             DispatchQueue.main.async(execute: { 
                 cell.petProfileImageView.hnk_setImage(from: url)
             })
         } else {
-            /// 사진이 없는 경우
+            cell.petProfileImageView.image = #imageLiteral(resourceName: "imageplaceholder")
         }
         
         cell.nameLabel.text = petArray[indexPath.row].name
@@ -107,8 +165,9 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
         cell.speciesLabel.text = petArray[indexPath.row].species
         
         cell.birthdayLabel.text = dateFormatter.string(from: petArray[indexPath.row].birthday as Date)
-//        reviewCell.dateLabel.text = dateFormatter.string(from: reviewObject.created as Date)
+
         cell.registrationLabel.text = petArray[indexPath.row].registration
+        
         if petArray[indexPath.row].neutralized == true {
             cell.neutralizedLabel.text = "YES"
         } else if petArray[indexPath.row].neutralized == false {
@@ -117,7 +176,20 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
             cell.neutralizedLabel.text = "NIL"
         }
         
+        if let vaccination = petArray[indexPath.row].vaccination {
+            cell.vaccinationLabel.text = vaccination
+        } else {
+            cell.vaccinationLabel.text = "EMPTY"
+        }
+        
+        if let sickHistory = petArray[indexPath.row].sickHistory {
+            cell.historyLabel.text = sickHistory
+        } else {
+            cell.historyLabel.text = "EMPTY"
+        }
+        
         cell.pageNumber.text = "\(indexPath.row+1) of \(petArray.count)"
+        
         
         if isVaccinationShow == false {
             cell.vaccinationStackView.isHidden = true

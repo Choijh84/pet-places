@@ -32,6 +32,8 @@ class PetProfileCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var vaccinationShowHideButton: UIButton!
     /// Button to click to edit the pet's information
     @IBOutlet weak var editButton: MyButton!
+    /// Button to click to delete the pet profile
+    @IBOutlet weak var deleteButton: MyButton!
     
     /// Button to click to show or hide the history
     @IBOutlet weak var historyShowHideButton: UIButton!

@@ -27,17 +27,31 @@ class PetProfileInputViewController: FormViewController {
     
     /// To save the pet profile object
     @IBAction func saveObject(_ sender: Any) {
-        /// setup pet profile
-        setupPetProfile { (success) in
-            if success {
-                /// show alarm and dismiss
-                SCLAlertView().showSuccess("Success to save your Pet", subTitle: "Thanks you")
-                self.dismiss(animated: true, completion: nil)
-            } else {
-                /// show error
-                SCLAlertView().showError("Error on saving your pet", subTitle: "Please try once again")
+        /// To ask user to save or not 
+        let alertView = SCLAlertView()
+        alertView.addButton("Yes") { 
+            /// setup pet profile
+            self.setupPetProfile { (success) in
+                if success {
+                    /// show alarm and dismiss
+                    SCLAlertView().showSuccess("Success to save your Pet", subTitle: "저장되었습니다")
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    /// show error
+                    SCLAlertView().showError("Error on saving your pet", subTitle: "다시 시도해주세요")
+                }
             }
         }
+        alertView.addButton("No") { 
+            print("User says no")
+        }
+        alertView.showNotice("펫 프로필 저장", subTitle: "저장이 완료되면 알려드립니다")
+        _ = navigationController?.popViewController(animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
     }
     
     /// Initial View setup
@@ -53,7 +67,7 @@ class PetProfileInputViewController: FormViewController {
 //                $0.header = HeaderFooterView<HeaderImageView>(.class)
 //            }
             
-            <<< NameRow("name") {
+            <<< TextRow("name") {
                 $0.title = "Pet name"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
@@ -146,13 +160,13 @@ class PetProfileInputViewController: FormViewController {
             
         +++ Section("ExtraInfo 2")
         
-            <<< TextAreaRow() {
-                $0.placeholder = "Vaccination"
+            <<< TextAreaRow("vaccination") {
+                $0.placeholder = "예시: 2016년 12월 31일 1차 접종 완료"
                 $0.textAreaHeight = .dynamic(initialTextViewHeight: 110)
             }
             
             <<< TextAreaRow("sickHistory") {
-                $0.placeholder = "History"
+                $0.placeholder = "예시: 2017년 1월 8일 병원 진료"
                 $0.textAreaHeight = .dynamic(initialTextViewHeight: 110)
             }
     }
@@ -172,7 +186,8 @@ class PetProfileInputViewController: FormViewController {
     
     /**
      Upload photo
-     - parameter: 
+     :param: image
+     :param: name, 파일네임이 name+time 형태로 저장될 예정, 저장 루드: petProfileImages/
      */
     func uploadPhoto(image: UIImage!, name: String!, completionHandler: @escaping (_ success: Bool, _ url: String) -> ())   {
         
@@ -206,6 +221,9 @@ class PetProfileInputViewController: FormViewController {
         }
         if let breed = valueDictionary["breed"] as? String {
             tempPet.breed = breed
+        }
+        if let vaccination = valueDictionary["vaccination"] as? String {
+            tempPet.vaccination = vaccination
         }
         if let sickHistory = valueDictionary["sickHistory"] as? String {
             tempPet.sickHistory = sickHistory
@@ -261,15 +279,19 @@ class PetProfileInputViewController: FormViewController {
     func uploadPetProfile(profile: PetProfile, completionHandler: @escaping (_ success: Bool) -> ()) {
 
         let user = Backendless.sharedInstance().userService.currentUser
-
-        Backendless.sharedInstance().data.save(profile, response: { (result) in
-            print("PetProfile havs been added: \(result!)")
-            dump(result)
-            let _ = user?.addProperties(["petProfiles" : result!])
-            completionHandler(true)
-        }) { (Fault) in
-            print("Server reported an error: \(Fault?.description)")
-            completionHandler(false)
+        
+        if user != nil {
+            var petProfiles = user?.getProperty("petProfiles") as! [PetProfile]
+            _ = petProfiles.append(profile)
+            user?.setProperty("petProfiles", object: petProfiles)
+            Backendless.sharedInstance().userService.update(user, response: { (user) in
+                SCLAlertView().showSuccess("Save Pet Profile", subTitle: "OK")
+                _ = self.navigationController?.popViewController(animated: true)
+            }, error: { (Fault) in
+                print("Server reported an error on saving pet profile: \(Fault?.description)")
+            })
+        } else {
+            print("There is no user u can save")
         }
     }
 

@@ -18,6 +18,7 @@ target 'pet-place' do
   pod 'SKPhotoBrowser'
   pod 'Eureka', '~> 2.0'
   pod 'SCLAlertView'
+  pod 'AlamofireImage', '~> 3.1'
 
   # Pods for pet-place
 

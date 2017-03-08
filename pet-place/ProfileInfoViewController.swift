@@ -246,10 +246,6 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         title = "My Profile"
         
         // Do any additional setup after loading the view.
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(img:)))
-        profilePicture.isUserInteractionEnabled = true
-        profilePicture.addGestureRecognizer(tapGestureRecognizer)
-        
         announcementButtonCenter = announcementButton.center
         eventButtonCenter = eventButton.center
         envSettingButtonCenter = envSettingButton.center
@@ -297,11 +293,8 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .default
     }
-    
-    func imageTapped(img: AnyObject) {
-        print("Tapped on Image")
-    }
-    
+
+    /// When the pencil, the button to change the profile picture clicked
     @IBAction func profilePictureChange(_ sender: Any) {
         let controller = UIImagePickerController()
         controller.delegate = self
@@ -318,8 +311,10 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         
+        /// First, change the view
         profilePicture.image = selectedImage
         isProfilePictureChanged = true
+        /// Start the image upload
         DispatchQueue.main.async { 
             self.imageUploadAsync(image: selectedImage)
         }
@@ -341,10 +336,10 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
                 self.profilePicture.hnk_setImage(from: URL(string: fileURL!))
                 print("This is profileURL2: \(fileURL!)")
                 
-                let property = ["profileURL" : fileURL!]
-                UserManager.currentUser()!.updateProperties(property)
-                Backendless.sharedInstance().userService.update(UserManager.currentUser()!, response: { (updateUser) in
-                    print("Updated user: \(updateUser!)")
+                let user = Backendless.sharedInstance().userService.currentUser
+                _ = user?.setProperty("profileURL", object: fileURL)
+                Backendless.sharedInstance().userService.update(user, response: { (updateUser) in
+                    print("Change the profile Image")
                     self.isProfilePictureChanged = false
                 }, error: { (fault) in
                     print("Server reported an error (2): \(fault!)")

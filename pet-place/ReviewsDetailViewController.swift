@@ -75,14 +75,12 @@ class ReviewsDetailViewController: UIViewController, UICollectionViewDataSource,
     }
     
     func configureProfile() {
-        let user = reviewToDisplay.creator
-        if let user = user {
+        if let user = reviewToDisplay.creator {
             if let nickname = user.getProperty("nickname") as? String {
                 creatorName.text = nickname
-            } else {
+            } else{
                 creatorName.text = "닉네임"
             }
-            
             if let profile = user.getProperty("profileURL") as? String {
                 let url = URL(string: profile)
                 DispatchQueue.main.async(execute: {
@@ -91,7 +89,9 @@ class ReviewsDetailViewController: UIViewController, UICollectionViewDataSource,
             } else {
                 self.creatorProfileImageView.image = #imageLiteral(resourceName: "imageplaceholder")
             }
-            
+        } else {
+            creatorName.text = "닉네임"
+            self.creatorProfileImageView.image = #imageLiteral(resourceName: "imageplaceholder")
         }
         timeLineLabel.text = dateFormatter.string(from: reviewToDisplay.created as Date)
     }
