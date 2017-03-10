@@ -10,7 +10,7 @@ import UIKit
 
  /// ViewController that allows a user to login or signup using either Facebook or credentials
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController {
 
     /// Email field
     @IBOutlet weak var emailField: AccountTextField!
@@ -62,8 +62,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         companyLogoImageView.layer.shadowOpacity = 0.6
         companyLogoImageView.layer.shadowRadius = 10
         
-        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        // NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        // NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.viewWasTapped(_:)))
         tapRecognizer.numberOfTapsRequired = 1
@@ -102,7 +102,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         companyLogoImageView.addMotionEffect(motionEffectGroup)
     }
-    
+    /**
     // MARK: keyboard handling
     /**
      Called before showing the keyboard. Slides up all the elements in the view so it is easy to access any buttons/fields
@@ -143,6 +143,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             })
         }
     }
+     */
     
     // MARK: login methods
     /**
@@ -161,29 +162,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         // at this point, we should have a valid email and password
         UserManager.loginUser(withEmail: emailField.text!, password: passwordField.text!) { (successful, errorMessage) -> () in
-            if successful == true {
-                self.dismissView()
-            } else {
-                self.showAlertViewWithErrorMessage(errorMessage!)
-            }
-        }
-    }
-    
-    /**
-     Called when the user taps on Sign up button, checks if all the fields are edited and tries to sign them up.
-     */
-    @IBAction func signupUser() {
-        if emailField.text == nil {
-            self.showAlertViewWithErrorMessage("Email is missing")
-            return
-        }
-        
-        if passwordField.text == nil {
-            self.showAlertViewWithErrorMessage("Password is missing")
-            return
-        }
-        
-        UserManager.registerUser(withEmail: emailField.text!, password: passwordField.text!) { (successful, errorMessage) -> () in
             if successful == true {
                 self.dismissView()
             } else {
@@ -234,20 +212,4 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    // MARK: textfield delegate methods
-    /**
-     Called when the user taps on the Return key of the Keyboard.
-     
-     - parameter textField: textfield that was the first responder
-     
-     - returns: true if it should dismiss the keyboard
-     */
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == emailField {
-            passwordField.becomeFirstResponder()
-        } else {
-            textField.resignFirstResponder()
-        }
-        return true
-    }
 }

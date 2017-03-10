@@ -31,6 +31,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     @IBOutlet weak var recommendButton: UIButton!
     @IBOutlet weak var myReviewButton: UIButton!
     
+    /**
     @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var announcementButton: UIButton!
     @IBOutlet weak var eventButton: UIButton!
@@ -84,6 +85,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
             button.setImage(offImage, for: .normal)
         }
     }
+     */
     
     var isProfilePictureChanged = false
     
@@ -246,6 +248,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         title = "My Profile"
         
         // Do any additional setup after loading the view.
+        /**
         announcementButtonCenter = announcementButton.center
         eventButtonCenter = eventButton.center
         envSettingButtonCenter = envSettingButton.center
@@ -253,7 +256,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         announcementButton.center = moreButton.center
         eventButton.center = moreButton.center
         envSettingButton.center = moreButton.center
-        
+        */
         
     }
     

@@ -19,6 +19,7 @@ target 'pet-place' do
   pod 'Eureka', '~> 2.0'
   pod 'SCLAlertView'
   pod 'AlamofireImage', '~> 3.1'
+  pod 'M13Checkbox'
 
   # Pods for pet-place
 

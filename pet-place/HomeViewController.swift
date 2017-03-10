@@ -138,6 +138,7 @@ class HomeViewController: UITableViewController {
             cell.storeList = recommendStores
             cell.placeCollection.reloadData()
             return cell
+            
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessInfoRow", for: indexPath) as! BusinessInfoRow
             
