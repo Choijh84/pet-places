@@ -8,6 +8,8 @@
 
 import UIKit
 import HCSStarRatingView
+import SCLAlertView
+
 /// A viewcontroller that displays the currently logged in user's information
 /// After this work, should work on the next views
 
@@ -135,13 +137,16 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
      Called when user taps on logout button, present an alertview asking for confirmation
      */
     @IBAction func logoutButtonPressed() {
-        let alertView = UIAlertController(title: "Logout?", message: "Are you sure you want to log out?", preferredStyle: .alert)
-        alertView.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
-        alertView.addAction(UIAlertAction(title: "Log out", style: .default, handler: { (alertAction) -> Void in
-            self.logoutUser()
-        }))
-        present(alertView, animated: true, completion: nil)
-        
+        if UserManager.isUserLoggedIn() {
+            let alertView = UIAlertController(title: "Logout?", message: "Are you sure you want to log out?", preferredStyle: .alert)
+            alertView.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+            alertView.addAction(UIAlertAction(title: "Log out", style: .default, handler: { (alertAction) -> Void in
+                self.logoutUser()
+            }))
+            present(alertView, animated: true, completion: nil)
+        } else {
+            SCLAlertView().showWarning("사용자 정보", subTitle: "로그인이 되어 있지 않습니다")
+        }
     }
     
     /**

@@ -15,6 +15,7 @@
 		BE0B062C1E60202200432300 /* PetProfileInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B062B1E60202200432300 /* PetProfileInputViewController.swift */; };
 		BE0B062F1E607DAD00432300 /* PetProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B062E1E607DAD00432300 /* PetProfile.swift */; };
 		BE0B06321E61446B00432300 /* PetProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B06311E61446B00432300 /* PetProfileCollectionViewCell.swift */; };
+		BE0CA8E71E73BD6A0040A6F3 /* SMSVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA8E61E73BD6A0040A6F3 /* SMSVerification.swift */; };
 		BE1482131E41FC8B006602E6 /* ProfileInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1482121E41FC8B006602E6 /* ProfileInfoViewController.swift */; };
 		BE270FB91E3CAF3A00DE1DF5 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FB81E3CAF3A00DE1DF5 /* NewsTableViewCell.swift */; };
 		BE270FBB1E3CB09200DE1DF5 /* NewsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FBA1E3CB09200DE1DF5 /* NewsNavigationController.swift */; };
@@ -151,6 +152,7 @@
 		BE0B062B1E60202200432300 /* PetProfileInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetProfileInputViewController.swift; sourceTree = "<group>"; };
 		BE0B062E1E607DAD00432300 /* PetProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetProfile.swift; sourceTree = "<group>"; };
 		BE0B06311E61446B00432300 /* PetProfileCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		BE0CA8E61E73BD6A0040A6F3 /* SMSVerification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSVerification.swift; sourceTree = "<group>"; };
 		BE1482121E41FC8B006602E6 /* ProfileInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileInfoViewController.swift; sourceTree = "<group>"; };
 		BE270FB81E3CAF3A00DE1DF5 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		BE270FBA1E3CB09200DE1DF5 /* NewsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsNavigationController.swift; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 				EBB6194F1E1947420061BCEB /* Review.swift */,
 				EBB619511E1947CD0061BCEB /* SortingOption.swift */,
 				BE0B062E1E607DAD00432300 /* PetProfile.swift */,
+				BE0CA8E61E73BD6A0040A6F3 /* SMSVerification.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -1045,6 +1048,7 @@
 				EBB619671E194F070061BCEB /* HomeViewController.swift in Sources */,
 				BEE826F61E4F676D0004F750 /* StoreGoogleMapTableViewCell.swift in Sources */,
 				BE0001921E684E7000ED7B86 /* FavoriteListCollectionViewCell.swift in Sources */,
+				BE0CA8E71E73BD6A0040A6F3 /* SMSVerification.swift in Sources */,
 				EB2956FE1E16DABC0024E3E3 /* AppFonts.swift in Sources */,
 				EBB619911E198E690061BCEB /* LoadingImageView.swift in Sources */,
 				BEE804121E71C05A0012015F /* SMSVerficationViewController.swift in Sources */,

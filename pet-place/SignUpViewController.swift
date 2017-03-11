@@ -28,8 +28,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var agreementButton: BounceAndRoundButton!
     // 개인정보 수집이용 버튼
     @IBOutlet weak var privacyButton: BounceAndRoundButton!
-    // 전자금융거래 이용약관 동의 버튼
-    @IBOutlet weak var trancsactionButton: BounceAndRoundButton!
+    // 위치정보 서비스 동의 버튼
+    @IBOutlet weak var locationButton: BounceAndRoundButton!
     // 마케팅 약관 동의 버튼
     @IBOutlet weak var marketingButton: BounceAndRoundButton!
     
@@ -44,7 +44,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     // 약관 동의 변수 저장
     var isAgreement = false
     var isPrivacy = false
-    var isTransaction = false
+    var isLocation = false
     var isMarketing = false
     
     // UIColor 변수
@@ -67,11 +67,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                         print("This is nickname check result: \(isNickChecked)")
                         if isNickChecked {
                             // 약관 체크
-                            if isAgreement && isPrivacy && isTransaction {
+                            if isAgreement && isPrivacy && isLocation {
                                 // 회원가입 데이터베이스 처리
                                 let newUser = BackendlessUser()
                                 newUser.email = self.emailTextField.text as NSString!
-                                newUser.password = self.passwordTextField.text as NSString!
+                                // 패스워드는 가입하고 나서 retrieve가 불가능 
+                                let tempPassword = self.passwordTextField.text as NSString!
+                                newUser.password = tempPassword
                                 
                                 Backendless.sharedInstance().userService.registering(newUser, response: { (registeredUser) in
                                     
@@ -85,12 +87,21 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                                         registeredUser?.setProperty("isEmailReceive", object: true)
                                     }
                                     // 닉네임 설정
+                                    // 이름 동시 설정
                                     registeredUser?.setProperty("nickname", object: self.nicknameTextfield.text as NSString!)
+                                    registeredUser?.setProperty("name", object: self.nicknameTextfield.text as NSString!)
                                 
                                     // 위설정 내용으로 사용자 업데이트 진행 - 마케팅 및 닉네임 관련
                                     Backendless.sharedInstance().userService.update(registeredUser, response: { (updatedUser) in
                                         print("Updated user: \(updatedUser)")
                                         SCLAlertView().showSuccess("가입 완료", subTitle: "감사합니다")
+                                        // 바로 로그인
+                                        Backendless.sharedInstance().userService.login(newUser.email! as String!, password: tempPassword as String!, response: { (loggedUser) in
+                                            print("Logged In")
+                                        }, error: { (Fault) in
+                                            print("Server reported an error logging in user: \(Fault?.description)")
+                                        })
+                                        
                                     }, error: { (Fault) in
                                         print("Server reported an error updating user: \(Fault?.description)")
                                         SCLAlertView().showError("가입 실패", subTitle: "Retry")
@@ -102,8 +113,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                                     // 서버에서 가입처리 안됨
                                     print("Server reported error on registering user: \(Fault?.description)")
                                 })
-                                
-                                
                             } else {
                                 // 약관 동의 안되어있을 때
                                 SCLAlertView().showError("약관 동의 필요", subTitle: "동의해주세요")
@@ -160,7 +169,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     // 전체 동의 버튼 클릭할 때 액션
     @IBAction func allAgree(_ sender: Any) {
         // 하나라도 동의가 안된 변수가 있을 때
-        if !isAgreement || !isPrivacy || !isTransaction || !isMarketing {
+        if !isAgreement || !isPrivacy || !isLocation || !isMarketing {
             // 동의로 변경
             if !isAgreement {
                 changeAgree()
@@ -168,8 +177,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             if !isPrivacy {
                 changePrivacy()
             }
-            if !isTransaction {
-                changeTransaction()
+            if !isLocation {
+                changeLocation()
             }
             if !isMarketing {
                 changeMarketing()
@@ -181,7 +190,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             // 모두 동의했을 때 취소 - 색 변경
             changeAgree()
             changePrivacy()
-            changeTransaction()
+            changeLocation()
             changeMarketing()
             changeAllAgree()
             allAgreeButton.setCheckState(.unchecked, animated: true)
@@ -194,9 +203,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBAction func privacyButtonTapped(_ sender: Any) {
         changePrivacy()
     }
-    @IBAction func transactionButtonTapped(_ sender: Any) {
-        changeTransaction()
+    @IBAction func locationButtonTapped(_ sender: Any) {
+        changeLocation()
     }
+    
     @IBAction func marketingButtonTapped(_ sender: Any) {
         changeMarketing()
     }
@@ -223,7 +233,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         nickOverlapCheckButton.backgroundColor = falseColor
         agreementButton.backgroundColor = falseColor
         privacyButton.backgroundColor = falseColor
-        trancsactionButton.backgroundColor = falseColor
+        locationButton.backgroundColor = falseColor
         marketingButton.backgroundColor = falseColor
     }
 
@@ -269,7 +279,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func changeAllAgree() {
-        if isAgreement && isPrivacy && isTransaction && isMarketing {
+        if isAgreement && isPrivacy && isLocation && isMarketing {
             self.allAgreeButton.backgroundColor = self.trueColor
         } else {
             self.allAgreeButton.backgroundColor = self.falseColor
@@ -320,25 +330,25 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func changeTransaction() {
+    func changeLocation() {
         // 만약 동의한 상태라면
-        if  isTransaction == true {
+        if  isLocation == true {
             UIView.animate(withDuration: 0.3, animations: {
                 // 텍스트 세팅
-                self.trancsactionButton.setTitle("동의 필요", for: .normal)
+                self.locationButton.setTitle("동의 필요", for: .normal)
                 // 칼라 세팅
-                self.trancsactionButton.backgroundColor = self.falseColor
+                self.locationButton.backgroundColor = self.falseColor
             })
-            isTransaction = false
+            isLocation = false
         } else {
             // 동의안한 상태라면
             UIView.animate(withDuration: 0.3, animations: {
                 // 텍스트 세팅
-                self.trancsactionButton.setTitle("동의 완료", for: .normal)
+                self.locationButton.setTitle("동의 완료", for: .normal)
                 // 칼라 세팅
-                self.trancsactionButton.backgroundColor = self.trueColor
+                self.locationButton.backgroundColor = self.trueColor
             })
-            isTransaction = true
+            isLocation = true
         }
     }
     
@@ -363,6 +373,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             isMarketing = true
         }
     }
+    
 }
 
 extension String {
