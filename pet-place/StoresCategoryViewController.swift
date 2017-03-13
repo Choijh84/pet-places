@@ -34,12 +34,15 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     /// Address Presentation
     @IBOutlet weak var formattedAddress: UILabel!
     
+    
+    /// MARK: Tableview Function
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.section[section]
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 135.0
+        return 180
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

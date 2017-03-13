@@ -180,8 +180,8 @@ class HomeViewController: UITableViewController {
             return 40
         } else if (indexPath.row == 2) {
             let number = ceil(Double(recommendStores.count/2))+1
-            print("This is collectionView Height: \(200*number)")
-            return CGFloat(200*number)
+            print("This is collectionView Height: \(180*number)")
+            return CGFloat(180*number)
         } else {
             if isShowBusinessInfo == false {
                 return 150

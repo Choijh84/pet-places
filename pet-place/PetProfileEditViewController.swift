@@ -75,6 +75,7 @@ class PetProfileEditViewController: FormViewController {
                 
                 if selectedPetProfile.gender == "Male" {
                     $0.value = true
+                    $0.title = "Male"
                 } else {
                     $0.value = false
                     $0.title = "Female"
@@ -163,7 +164,7 @@ class PetProfileEditViewController: FormViewController {
             +++ Section("ExtraInfo 2")
             
             <<< TextAreaRow() {
-                if (selectedPetProfile.vaccination?.isEmpty)! {
+                if selectedPetProfile.vaccination == "EMPTY" {
                     $0.placeholder = "Vaccination"
                 } else {
                     $0.value = selectedPetProfile.vaccination
@@ -173,7 +174,7 @@ class PetProfileEditViewController: FormViewController {
             }
             
             <<< TextAreaRow("sickHistory") {
-                if (selectedPetProfile.sickHistory?.isEmpty)! {
+                if selectedPetProfile.sickHistory == "EMPTY" {
                     $0.placeholder = "Sick History"
                 } else {
                     $0.value = selectedPetProfile.sickHistory

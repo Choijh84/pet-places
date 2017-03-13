@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import IQKeyboardManagerSwift
 
-class PlaceRegisterViewController: UIViewController, UITextFieldDelegate {
+class PlaceRegisterViewController: UIViewController {
     
     let textFieldContentsKey = "textFieldContents"
     
@@ -20,8 +21,13 @@ class PlaceRegisterViewController: UIViewController, UITextFieldDelegate {
 
     
     override func viewDidLoad() {
+        IQKeyboardManager.sharedManager().enable = true
         nameTextField.layer.cornerRadius = 5.0
         locationTextField.layer.cornerRadius = 5.0
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
     }
     
     /** 

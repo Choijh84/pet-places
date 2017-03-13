@@ -148,6 +148,7 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
         /// 삭제 버튼에 row 저장
         cell.deleteButton.row = indexPath.row
         
+        cell.petProfileImageView.layer.cornerRadius = cell.petProfileImageView.layer.frame.width/2
         
         /// petArray의 petProfile에서 사진이 있는 경우
         if !petArray[indexPath.row].imagePic.isEmpty {

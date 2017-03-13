@@ -59,6 +59,7 @@
 		BEE804121E71C05A0012015F /* SMSVerficationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE804111E71C05A0012015F /* SMSVerficationViewController.swift */; };
 		BEE826F61E4F676D0004F750 /* StoreGoogleMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE826F51E4F676D0004F750 /* StoreGoogleMapTableViewCell.swift */; };
 		BEEB91701E3234C70089BE4D /* storePhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB916F1E3234C70089BE4D /* storePhotoTableViewCell.swift */; };
+		BEEDCC8D1E76ED1C007E82AB /* AddressHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEDCC8C1E76ED1C007E82AB /* AddressHistoryTableViewCell.swift */; };
 		BEF2BE3E1E1B9C070044203E /* CategoryDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2BE3D1E1B9C070044203E /* CategoryDownloadManager.swift */; };
 		BEF2BE411E1BB4A70044203E /* StoreListImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2BE401E1BB4A70044203E /* StoreListImageTableViewCell.swift */; };
 		BEF8033C1E4DB22200F5FD44 /* StoreMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF8033B1E4DB22200F5FD44 /* StoreMapViewController.swift */; };
@@ -196,6 +197,7 @@
 		BEE804111E71C05A0012015F /* SMSVerficationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSVerficationViewController.swift; sourceTree = "<group>"; };
 		BEE826F51E4F676D0004F750 /* StoreGoogleMapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreGoogleMapTableViewCell.swift; sourceTree = "<group>"; };
 		BEEB916F1E3234C70089BE4D /* storePhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = storePhotoTableViewCell.swift; sourceTree = "<group>"; };
+		BEEDCC8C1E76ED1C007E82AB /* AddressHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		BEF2BE3D1E1B9C070044203E /* CategoryDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDownloadManager.swift; sourceTree = "<group>"; };
 		BEF2BE401E1BB4A70044203E /* StoreListImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreListImageTableViewCell.swift; sourceTree = "<group>"; };
 		BEF8033B1E4DB22200F5FD44 /* StoreMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreMapViewController.swift; sourceTree = "<group>"; };
@@ -495,13 +497,13 @@
 			isa = PBXGroup;
 			children = (
 				EBB619901E198E690061BCEB /* LoadingImageView.swift */,
-				BE0B06301E6143C600432300 /* Account Views */,
 				EBB6199A1E1996640061BCEB /* LoadingTableView.swift */,
 				EBB6198E1E198B3E0061BCEB /* AccountTextField.swift */,
 				EBB619981E19960F0061BCEB /* GradientHeaderView.swift */,
 				EBB619941E1996060061BCEB /* OverlayView.swift */,
 				EBB619951E1996060061BCEB /* OverlayView.xib */,
 				EB2957001E16DAE40024E3E3 /* UIExtension.swift */,
+				BE0B06301E6143C600432300 /* Account Views */,
 				EBB6196D1E195C6C0061BCEB /* Onboarding view */,
 				BE270FB71E3CAF1000DE1DF5 /* News Views */,
 				EBD482201E1A947C00F2B8D5 /* StoreList Views */,
@@ -569,6 +571,7 @@
 				EB71A68A1E1CF54400948F41 /* StoreMapTableViewCell.swift */,
 				BEE826F51E4F676D0004F750 /* StoreGoogleMapTableViewCell.swift */,
 				BE3346911E31272800E23A88 /* ReviewOptionsTableViewCell.swift */,
+				BEEDCC8C1E76ED1C007E82AB /* AddressHistoryTableViewCell.swift */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -1043,6 +1046,7 @@
 				EBB6196E1E195C6C0061BCEB /* OnboardingButton.swift in Sources */,
 				EB71A68F1E1CF84A00948F41 /* StoreListAnnotationView.swift in Sources */,
 				EBB6194C1E1942790061BCEB /* StoreCategory.swift in Sources */,
+				BEEDCC8D1E76ED1C007E82AB /* AddressHistoryTableViewCell.swift in Sources */,
 				BE3E04B31E47BE98007735DF /* HeaderRow.swift in Sources */,
 				BEFB34101E72491100895607 /* BounceAndRoundButton.swift in Sources */,
 				EBB619671E194F070061BCEB /* HomeViewController.swift in Sources */,
