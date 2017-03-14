@@ -35,6 +35,7 @@ PODS:
   - M13Checkbox (3.1.3)
   - SCLAlertView (0.7.0)
   - SKPhotoBrowser (4.0.1)
+  - XLPagerTabStrip (7.0.0)
 
 DEPENDENCIES:
   - AlamofireImage (~> 3.1)
@@ -52,6 +53,7 @@ DEPENDENCIES:
   - M13Checkbox
   - SCLAlertView
   - SKPhotoBrowser
+  - XLPagerTabStrip (~> 7.0)
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
@@ -71,7 +73,8 @@ SPEC CHECKSUMS:
   M13Checkbox: c132a7e0eb964731855eff67b883a0b21b7c0977
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
   SKPhotoBrowser: 3a7c6fc02aa1620ab17253a47a49fafda46536e8
+  XLPagerTabStrip: 9be80a66c6b7d60306b2c0a6004965016d68f813
 
-PODFILE CHECKSUM: 06a9f0b75f84cd7a069facfcb715b58cb18515dd
+PODFILE CHECKSUM: c8cc6b6446461d98ffce861b0cfa9fd708a25e3f
 
 COCOAPODS: 1.2.0

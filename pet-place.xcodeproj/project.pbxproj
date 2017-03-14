@@ -60,6 +60,10 @@
 		BEE826F61E4F676D0004F750 /* StoreGoogleMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE826F51E4F676D0004F750 /* StoreGoogleMapTableViewCell.swift */; };
 		BEEB91701E3234C70089BE4D /* storePhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB916F1E3234C70089BE4D /* storePhotoTableViewCell.swift */; };
 		BEEDCC8D1E76ED1C007E82AB /* AddressHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEDCC8C1E76ED1C007E82AB /* AddressHistoryTableViewCell.swift */; };
+		BEEDCC901E7815BA007E82AB /* StoryAndReview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEEDCC8F1E7815BA007E82AB /* StoryAndReview.storyboard */; };
+		BEEDCC931E784635007E82AB /* StoryAndReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEDCC921E784635007E82AB /* StoryAndReviewViewController.swift */; };
+		BEEDCC951E7848B2007E82AB /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEDCC941E7848B2007E82AB /* StoryViewController.swift */; };
+		BEEDCC971E7848BA007E82AB /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEDCC961E7848BA007E82AB /* ReviewViewController.swift */; };
 		BEF2BE3E1E1B9C070044203E /* CategoryDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2BE3D1E1B9C070044203E /* CategoryDownloadManager.swift */; };
 		BEF2BE411E1BB4A70044203E /* StoreListImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2BE401E1BB4A70044203E /* StoreListImageTableViewCell.swift */; };
 		BEF8033C1E4DB22200F5FD44 /* StoreMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF8033B1E4DB22200F5FD44 /* StoreMapViewController.swift */; };
@@ -198,6 +202,10 @@
 		BEE826F51E4F676D0004F750 /* StoreGoogleMapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreGoogleMapTableViewCell.swift; sourceTree = "<group>"; };
 		BEEB916F1E3234C70089BE4D /* storePhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = storePhotoTableViewCell.swift; sourceTree = "<group>"; };
 		BEEDCC8C1E76ED1C007E82AB /* AddressHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		BEEDCC8F1E7815BA007E82AB /* StoryAndReview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoryAndReview.storyboard; sourceTree = "<group>"; };
+		BEEDCC921E784635007E82AB /* StoryAndReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryAndReviewViewController.swift; sourceTree = "<group>"; };
+		BEEDCC941E7848B2007E82AB /* StoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryViewController.swift; sourceTree = "<group>"; };
+		BEEDCC961E7848BA007E82AB /* ReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		BEF2BE3D1E1B9C070044203E /* CategoryDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDownloadManager.swift; sourceTree = "<group>"; };
 		BEF2BE401E1BB4A70044203E /* StoreListImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreListImageTableViewCell.swift; sourceTree = "<group>"; };
 		BEF8033B1E4DB22200F5FD44 /* StoreMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreMapViewController.swift; sourceTree = "<group>"; };
@@ -388,6 +396,16 @@
 			name = ImageRow;
 			sourceTree = "<group>";
 		};
+		BEEDCC911E7845CD007E82AB /* StoryAndReviews */ = {
+			isa = PBXGroup;
+			children = (
+				BEEDCC921E784635007E82AB /* StoryAndReviewViewController.swift */,
+				BEEDCC941E7848B2007E82AB /* StoryViewController.swift */,
+				BEEDCC961E7848BA007E82AB /* ReviewViewController.swift */,
+			);
+			name = StoryAndReviews;
+			sourceTree = "<group>";
+		};
 		BEF2BE3F1E1BB47E0044203E /* Detail Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -487,6 +505,7 @@
 				EBB6195C1E194C120061BCEB /* Home */,
 				EBB6195D1E194C1D0061BCEB /* Stores */,
 				BE3346931E3129C200E23A88 /* Reviews */,
+				BEEDCC911E7845CD007E82AB /* StoryAndReviews */,
 				EBB6195E1E194C230061BCEB /* News */,
 				EBB6195F1E194C2A0061BCEB /* Account */,
 			);
@@ -532,6 +551,7 @@
 				EBB619681E194F2E0061BCEB /* Onboarding.storyboard */,
 				BEA6BE921E3D0E2700D75CEE /* Main.storyboard */,
 				EBB6197F1E197A010061BCEB /* Reviews.storyboard */,
+				BEEDCC8F1E7815BA007E82AB /* StoryAndReview.storyboard */,
 				EBB619811E197A060061BCEB /* News.storyboard */,
 				EBB6197D1E1979220061BCEB /* Account.storyboard */,
 				BE3C8C001E51FA86005C21E5 /* Launch Screen.storyboard */,
@@ -857,6 +877,7 @@
 				EBB619971E1996060061BCEB /* OverlayView.xib in Resources */,
 				EB2956CB1E16D4E00024E3E3 /* Assets.xcassets in Resources */,
 				EBB619821E197A060061BCEB /* News.storyboard in Resources */,
+				BEEDCC901E7815BA007E82AB /* StoryAndReview.storyboard in Resources */,
 				BE3C8C011E51FA86005C21E5 /* Launch Screen.storyboard in Resources */,
 				BEA6BE931E3D0E2700D75CEE /* Main.storyboard in Resources */,
 				EBB6197E1E1979220061BCEB /* Account.storyboard in Resources */,
@@ -1053,6 +1074,7 @@
 				BEE826F61E4F676D0004F750 /* StoreGoogleMapTableViewCell.swift in Sources */,
 				BE0001921E684E7000ED7B86 /* FavoriteListCollectionViewCell.swift in Sources */,
 				BE0CA8E71E73BD6A0040A6F3 /* SMSVerification.swift in Sources */,
+				BEEDCC971E7848BA007E82AB /* ReviewViewController.swift in Sources */,
 				EB2956FE1E16DABC0024E3E3 /* AppFonts.swift in Sources */,
 				EBB619911E198E690061BCEB /* LoadingImageView.swift in Sources */,
 				BEE804121E71C05A0012015F /* SMSVerficationViewController.swift in Sources */,
@@ -1122,9 +1144,11 @@
 				EBB619501E1947420061BCEB /* Review.swift in Sources */,
 				EB2957011E16DAE40024E3E3 /* UIExtension.swift in Sources */,
 				BEB74FE21E65696000DF0904 /* InquiryViewController.swift in Sources */,
+				BEEDCC951E7848B2007E82AB /* StoryViewController.swift in Sources */,
 				BEA6BE8D1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift in Sources */,
 				BE00018E1E682C0400ED7B86 /* BusinessInfoRow.swift in Sources */,
 				BE3E04B51E47BEA8007735DF /* PhotoRow.swift in Sources */,
+				BEEDCC931E784635007E82AB /* StoryAndReviewViewController.swift in Sources */,
 				EB2956FF1E16DABC0024E3E3 /* AppColors.swift in Sources */,
 				EBB619631E194C640061BCEB /* LoginViewController.swift in Sources */,
 				EBE8A8AA1E1C30C800902C75 /* ExtensionDistanceHelper.swift in Sources */,

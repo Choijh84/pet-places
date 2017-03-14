@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/ProfileInfoViewController.swift"
-            timestampString = "510824275.665716"
+            timestampString = "511199629.642215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>

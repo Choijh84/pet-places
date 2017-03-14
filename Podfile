@@ -20,6 +20,7 @@ target 'pet-place' do
   pod 'SCLAlertView'
   pod 'AlamofireImage', '~> 3.1'
   pod 'M13Checkbox'
+  pod 'XLPagerTabStrip', '~> 7.0'
 
   # Pods for pet-place
 

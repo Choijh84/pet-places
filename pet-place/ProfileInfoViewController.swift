@@ -212,12 +212,8 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
             }
             
             if let nickname = UserManager.currentUser()?.getProperty("nickname") {
-                if nickname == nil {
-                    nicknameLabel.text = "no nickname"
-                } else {
-                    nicknameLabel.text = nickname as? String
-                    print("This is nickname: \(nickname)")
-                }
+                nicknameLabel.text = nickname as? String
+                print("This is nickname: \(nickname)")
             } else {
                 nicknameLabel.text = UserManager.currentUser()?.name as String?
             }

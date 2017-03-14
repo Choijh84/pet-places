@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '49C5F11D21FA06CF9D915D9FC695CA9B'
-               BlueprintName = 'SKPhotoBrowser'
+               BlueprintIdentifier = '76E163C234EB487E646DB14EA4587012'
+               BlueprintName = 'XLPagerTabStrip-XLPagerTabStrip'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SKPhotoBrowser.framework'>
+               BuildableName = 'XLPagerTabStrip.bundle'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -46,6 +46,10 @@ class StoryboardManager: NSObject {
         return UIStoryboard(name: "Account", bundle: nil).instantiateViewController(withIdentifier: "myprofileNavigationController") as! UINavigationController
     }
     
+    class func storyAndReviewController() -> UINavigationController {
+        return UIStoryboard(name: "StoryAndReview", bundle: nil).instantiateViewController(withIdentifier: "StoryAndReviewNavigationController") as! UINavigationController
+    }
+    
     /**
      Returns a ReviewsViewController from Reviews Storyboard
      
