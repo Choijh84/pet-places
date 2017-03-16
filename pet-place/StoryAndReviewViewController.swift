@@ -27,6 +27,8 @@ class StoryAndReviewViewController: ButtonBarPagerTabStripViewController {
         settings.style.buttonBarLeftContentInset = 0
         settings.style.buttonBarRightContentInset = 0
         
+        
+        
         changeCurrentIndexProgressive = { [weak self] (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
             guard changeCurrentIndex == true else { return }
             oldCell?.label.textColor = .black
@@ -50,8 +52,9 @@ class StoryAndReviewViewController: ButtonBarPagerTabStripViewController {
     // MARK: - PagerTabStripDataSource
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        let child_1 = StoryViewController(itemInfo: "Story")
-        let child_2 = ReviewViewController(itemInfo: "Reviews")
+        let storyboard = UIStoryboard(name: "StoryAndReview", bundle: nil)
+        let child_1 = storyboard.instantiateViewController(withIdentifier: "StoryViewController")
+        let child_2 = storyboard.instantiateViewController(withIdentifier: "ReviewViewController")
         return [child_1, child_2]
     }
 

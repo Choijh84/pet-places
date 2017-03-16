@@ -19,7 +19,8 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        //fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {

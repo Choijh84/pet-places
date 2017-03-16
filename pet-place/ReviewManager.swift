@@ -111,6 +111,7 @@ class ReviewManager: NSObject {
         let queryOptions = QueryOptions()
         queryOptions.sortBy = ["created desc"]
         query.queryOptions = queryOptions
+        
         // Download only the reviews that are related to the selected Store
         query.whereClause = "Store[reviews].objectId = \'\(storeObject.objectId!)\'"
         

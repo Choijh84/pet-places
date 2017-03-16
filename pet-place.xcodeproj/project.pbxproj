@@ -44,6 +44,10 @@
 		BE554B0A1E62CFE80021A79D /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE554B091E62CFE80021A79D /* ImageRow.swift */; };
 		BE842C9E1E59A5B500246A39 /* ShowStreetMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */; };
 		BE91C4A71E6D59CB00B4C8B5 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE91C4A61E6D59CB00B4C8B5 /* FilterViewController.swift */; };
+		BE9C99B21E7954A6000838B8 /* StoryPhotoCollectionVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C99B11E7954A6000838B8 /* StoryPhotoCollectionVIewCell.swift */; };
+		BE9C99B41E79612C000838B8 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C99B31E79612C000838B8 /* Story.swift */; };
+		BE9C99B61E796260000838B8 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C99B51E796260000838B8 /* Comment.swift */; };
+		BE9C99B81E797A68000838B8 /* StoryDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C99B71E797A68000838B8 /* StoryDownloadManager.swift */; };
 		BEA4FB151E694CFB005578AE /* UIActivityViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA4FB141E694CFB005578AE /* UIActivityViewControllerExtension.swift */; };
 		BEA6BE8A1E3CCA4700D75CEE /* NewsListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE891E3CCA4700D75CEE /* NewsListDetailViewController.swift */; };
 		BEA6BE8D1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE8B1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift */; };
@@ -53,6 +57,7 @@
 		BEB1F8961E6AB877002D273A /* LocationControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB1F8951E6AB877002D273A /* LocationControlViewController.swift */; };
 		BEB74FE21E65696000DF0904 /* InquiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB74FE11E65696000DF0904 /* InquiryViewController.swift */; };
 		BEB74FE41E65DD7A00DF0904 /* ShowTermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB74FE31E65DD7A00DF0904 /* ShowTermsViewController.swift */; };
+		BEBF030A1E790AA500484B81 /* StoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBF03091E790AA500484B81 /* StoryTableViewCell.swift */; };
 		BED601F01E4C535700EFB928 /* HomeDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED601EF1E4C535700EFB928 /* HomeDownloadManager.swift */; };
 		BEE51EED1E66D74800D11843 /* BounceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE51EEC1E66D74800D11843 /* BounceButton.swift */; };
 		BEE804101E71C04B0012015F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE8040F1E71C04B0012015F /* SignUpViewController.swift */; };
@@ -186,6 +191,10 @@
 		BE554B091E62CFE80021A79D /* ImageRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRow.swift; sourceTree = "<group>"; };
 		BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowStreetMapViewController.swift; sourceTree = "<group>"; };
 		BE91C4A61E6D59CB00B4C8B5 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		BE9C99B11E7954A6000838B8 /* StoryPhotoCollectionVIewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryPhotoCollectionVIewCell.swift; sourceTree = "<group>"; };
+		BE9C99B31E79612C000838B8 /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
+		BE9C99B51E796260000838B8 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		BE9C99B71E797A68000838B8 /* StoryDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryDownloadManager.swift; sourceTree = "<group>"; };
 		BEA4FB141E694CFB005578AE /* UIActivityViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIActivityViewControllerExtension.swift; sourceTree = "<group>"; };
 		BEA6BE891E3CCA4700D75CEE /* NewsListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsListDetailViewController.swift; sourceTree = "<group>"; };
 		BEA6BE8B1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTransitionPresentAnimator.swift; sourceTree = "<group>"; };
@@ -195,6 +204,7 @@
 		BEB1F8951E6AB877002D273A /* LocationControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationControlViewController.swift; sourceTree = "<group>"; };
 		BEB74FE11E65696000DF0904 /* InquiryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiryViewController.swift; sourceTree = "<group>"; };
 		BEB74FE31E65DD7A00DF0904 /* ShowTermsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowTermsViewController.swift; sourceTree = "<group>"; };
+		BEBF03091E790AA500484B81 /* StoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTableViewCell.swift; sourceTree = "<group>"; };
 		BED601EF1E4C535700EFB928 /* HomeDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDownloadManager.swift; sourceTree = "<group>"; };
 		BEE51EEC1E66D74800D11843 /* BounceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceButton.swift; sourceTree = "<group>"; };
 		BEE8040F1E71C04B0012015F /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -396,6 +406,15 @@
 			name = ImageRow;
 			sourceTree = "<group>";
 		};
+		BEBF03041E78F9F200484B81 /* Story Views */ = {
+			isa = PBXGroup;
+			children = (
+				BEBF03091E790AA500484B81 /* StoryTableViewCell.swift */,
+				BE9C99B11E7954A6000838B8 /* StoryPhotoCollectionVIewCell.swift */,
+			);
+			name = "Story Views";
+			sourceTree = "<group>";
+		};
 		BEEDCC911E7845CD007E82AB /* StoryAndReviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,6 +513,8 @@
 				EBB619511E1947CD0061BCEB /* SortingOption.swift */,
 				BE0B062E1E607DAD00432300 /* PetProfile.swift */,
 				BE0CA8E61E73BD6A0040A6F3 /* SMSVerification.swift */,
+				BE9C99B31E79612C000838B8 /* Story.swift */,
+				BE9C99B51E796260000838B8 /* Comment.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -522,8 +543,9 @@
 				EBB619941E1996060061BCEB /* OverlayView.swift */,
 				EBB619951E1996060061BCEB /* OverlayView.xib */,
 				EB2957001E16DAE40024E3E3 /* UIExtension.swift */,
+				BEBF03041E78F9F200484B81 /* Story Views */,
 				BE0B06301E6143C600432300 /* Account Views */,
-				EBB6196D1E195C6C0061BCEB /* Onboarding view */,
+				EBB6196D1E195C6C0061BCEB /* Onboarding View */,
 				BE270FB71E3CAF1000DE1DF5 /* News Views */,
 				EBD482201E1A947C00F2B8D5 /* StoreList Views */,
 			);
@@ -667,12 +689,12 @@
 			name = Account;
 			sourceTree = "<group>";
 		};
-		EBB6196D1E195C6C0061BCEB /* Onboarding view */ = {
+		EBB6196D1E195C6C0061BCEB /* Onboarding View */ = {
 			isa = PBXGroup;
 			children = (
 				EBB6196C1E195C6C0061BCEB /* OnboardingButton.swift */,
 			);
-			name = "Onboarding view";
+			name = "Onboarding View";
 			path = "../../Examples/Zappdesigntemplates-StoreLocator/Source Code/StoreLocator/ZappShopFinder/ZappShopFinder";
 			sourceTree = "<group>";
 		};
@@ -695,6 +717,7 @@
 				EBB6198C1E197C4B0061BCEB /* UserManager.swift */,
 				BE3346961E312D9500E23A88 /* ReviewManager.swift */,
 				BE270FBE1E3CB45D00DE1DF5 /* NewsDownloader.swift */,
+				BE9C99B71E797A68000838B8 /* StoryDownloadManager.swift */,
 			);
 			name = "Download Manager";
 			sourceTree = "<group>";
@@ -1069,11 +1092,13 @@
 				EBB6194C1E1942790061BCEB /* StoreCategory.swift in Sources */,
 				BEEDCC8D1E76ED1C007E82AB /* AddressHistoryTableViewCell.swift in Sources */,
 				BE3E04B31E47BE98007735DF /* HeaderRow.swift in Sources */,
+				BE9C99B61E796260000838B8 /* Comment.swift in Sources */,
 				BEFB34101E72491100895607 /* BounceAndRoundButton.swift in Sources */,
 				EBB619671E194F070061BCEB /* HomeViewController.swift in Sources */,
 				BEE826F61E4F676D0004F750 /* StoreGoogleMapTableViewCell.swift in Sources */,
 				BE0001921E684E7000ED7B86 /* FavoriteListCollectionViewCell.swift in Sources */,
 				BE0CA8E71E73BD6A0040A6F3 /* SMSVerification.swift in Sources */,
+				BE9C99B41E79612C000838B8 /* Story.swift in Sources */,
 				BEEDCC971E7848BA007E82AB /* ReviewViewController.swift in Sources */,
 				EB2956FE1E16DABC0024E3E3 /* AppFonts.swift in Sources */,
 				EBB619911E198E690061BCEB /* LoadingImageView.swift in Sources */,
@@ -1146,11 +1171,14 @@
 				BEB74FE21E65696000DF0904 /* InquiryViewController.swift in Sources */,
 				BEEDCC951E7848B2007E82AB /* StoryViewController.swift in Sources */,
 				BEA6BE8D1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift in Sources */,
+				BEBF030A1E790AA500484B81 /* StoryTableViewCell.swift in Sources */,
 				BE00018E1E682C0400ED7B86 /* BusinessInfoRow.swift in Sources */,
 				BE3E04B51E47BEA8007735DF /* PhotoRow.swift in Sources */,
 				BEEDCC931E784635007E82AB /* StoryAndReviewViewController.swift in Sources */,
 				EB2956FF1E16DABC0024E3E3 /* AppColors.swift in Sources */,
+				BE9C99B21E7954A6000838B8 /* StoryPhotoCollectionVIewCell.swift in Sources */,
 				EBB619631E194C640061BCEB /* LoginViewController.swift in Sources */,
+				BE9C99B81E797A68000838B8 /* StoryDownloadManager.swift in Sources */,
 				EBE8A8AA1E1C30C800902C75 /* ExtensionDistanceHelper.swift in Sources */,
 				BE270FBD1E3CB13D00DE1DF5 /* NewsListViewController.swift in Sources */,
 				EBD4821D1E1A8B0E00F2B8D5 /* StoresListNavigationController.swift in Sources */,
