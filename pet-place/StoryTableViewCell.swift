@@ -10,7 +10,6 @@ import UIKit
 
 protocol StoryTableViewCellProtocol: class {
     func actionTapped(tag: Int)
-
 }
 
 class StoryTableViewCell: UITableViewCell {
@@ -24,6 +23,8 @@ class StoryTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImageView: LoadingImageView!
     
     @IBOutlet weak var nicknameLabel: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
     
     @IBOutlet weak var imageCollection: UICollectionView!
     
@@ -57,7 +58,6 @@ class StoryTableViewCell: UITableViewCell {
                 sender.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
             }, completion: nil)
         }
-        // 업데이트 이후 서버에 저장
     }
     
     // 댓글버튼 누르면 Reply 창으로 이동 tag = 1

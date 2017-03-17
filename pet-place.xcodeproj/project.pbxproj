@@ -17,6 +17,7 @@
 		BE0B06321E61446B00432300 /* PetProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B06311E61446B00432300 /* PetProfileCollectionViewCell.swift */; };
 		BE0CA8E71E73BD6A0040A6F3 /* SMSVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA8E61E73BD6A0040A6F3 /* SMSVerification.swift */; };
 		BE1482131E41FC8B006602E6 /* ProfileInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1482121E41FC8B006602E6 /* ProfileInfoViewController.swift */; };
+		BE2683F61E7B8014008BFAB6 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2683F51E7B8014008BFAB6 /* CommentViewController.swift */; };
 		BE270FB91E3CAF3A00DE1DF5 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FB81E3CAF3A00DE1DF5 /* NewsTableViewCell.swift */; };
 		BE270FBB1E3CB09200DE1DF5 /* NewsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FBA1E3CB09200DE1DF5 /* NewsNavigationController.swift */; };
 		BE270FBD1E3CB13D00DE1DF5 /* NewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FBC1E3CB13D00DE1DF5 /* NewsListViewController.swift */; };
@@ -30,6 +31,8 @@
 		BE33469B1E31397400E23A88 /* AddReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE33469A1E31397400E23A88 /* AddReviewViewController.swift */; };
 		BE33469D1E31440700E23A88 /* StoreDetailActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE33469C1E31440700E23A88 /* StoreDetailActionButton.swift */; };
 		BE35C05B1E650CAB00270766 /* InfoChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE35C05A1E650CAB00270766 /* InfoChangeViewController.swift */; };
+		BE3C57721E7B9F88008ECA4E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C57711E7B9F88008ECA4E /* CommentTableViewCell.swift */; };
+		BE3C57741E7BE8B5008ECA4E /* AddStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C57731E7BE8B5008ECA4E /* AddStoryViewController.swift */; };
 		BE3C8C011E51FA86005C21E5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE3C8C001E51FA86005C21E5 /* Launch Screen.storyboard */; };
 		BE3E04AD1E471CAA007735DF /* PetProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E04AC1E471CAA007735DF /* PetProfileViewController.swift */; };
 		BE3E04AF1E471D3B007735DF /* PlaceRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E04AE1E471D3B007735DF /* PlaceRegisterViewController.swift */; };
@@ -164,6 +167,7 @@
 		BE0B06311E61446B00432300 /* PetProfileCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		BE0CA8E61E73BD6A0040A6F3 /* SMSVerification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSVerification.swift; sourceTree = "<group>"; };
 		BE1482121E41FC8B006602E6 /* ProfileInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileInfoViewController.swift; sourceTree = "<group>"; };
+		BE2683F51E7B8014008BFAB6 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		BE270FB81E3CAF3A00DE1DF5 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		BE270FBA1E3CB09200DE1DF5 /* NewsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsNavigationController.swift; sourceTree = "<group>"; };
 		BE270FBC1E3CB13D00DE1DF5 /* NewsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsListViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +181,8 @@
 		BE33469A1E31397400E23A88 /* AddReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddReviewViewController.swift; sourceTree = "<group>"; };
 		BE33469C1E31440700E23A88 /* StoreDetailActionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDetailActionButton.swift; sourceTree = "<group>"; };
 		BE35C05A1E650CAB00270766 /* InfoChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoChangeViewController.swift; sourceTree = "<group>"; };
+		BE3C57711E7B9F88008ECA4E /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		BE3C57731E7BE8B5008ECA4E /* AddStoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddStoryViewController.swift; sourceTree = "<group>"; };
 		BE3C8C001E51FA86005C21E5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		BE3E04AC1E471CAA007735DF /* PetProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetProfileViewController.swift; sourceTree = "<group>"; };
 		BE3E04AE1E471D3B007735DF /* PlaceRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceRegisterViewController.swift; sourceTree = "<group>"; };
@@ -411,6 +417,7 @@
 			children = (
 				BEBF03091E790AA500484B81 /* StoryTableViewCell.swift */,
 				BE9C99B11E7954A6000838B8 /* StoryPhotoCollectionVIewCell.swift */,
+				BE3C57711E7B9F88008ECA4E /* CommentTableViewCell.swift */,
 			);
 			name = "Story Views";
 			sourceTree = "<group>";
@@ -420,6 +427,8 @@
 			children = (
 				BEEDCC921E784635007E82AB /* StoryAndReviewViewController.swift */,
 				BEEDCC941E7848B2007E82AB /* StoryViewController.swift */,
+				BE2683F51E7B8014008BFAB6 /* CommentViewController.swift */,
+				BE3C57731E7BE8B5008ECA4E /* AddStoryViewController.swift */,
 				BEEDCC961E7848BA007E82AB /* ReviewViewController.swift */,
 			);
 			name = StoryAndReviews;
@@ -1091,6 +1100,7 @@
 				EB71A68F1E1CF84A00948F41 /* StoreListAnnotationView.swift in Sources */,
 				EBB6194C1E1942790061BCEB /* StoreCategory.swift in Sources */,
 				BEEDCC8D1E76ED1C007E82AB /* AddressHistoryTableViewCell.swift in Sources */,
+				BE2683F61E7B8014008BFAB6 /* CommentViewController.swift in Sources */,
 				BE3E04B31E47BE98007735DF /* HeaderRow.swift in Sources */,
 				BE9C99B61E796260000838B8 /* Comment.swift in Sources */,
 				BEFB34101E72491100895607 /* BounceAndRoundButton.swift in Sources */,
@@ -1132,6 +1142,7 @@
 				BE3E04AD1E471CAA007735DF /* PetProfileViewController.swift in Sources */,
 				BE0001901E68431800ED7B86 /* FavoriteListViewController.swift in Sources */,
 				EBB619751E1961E50061BCEB /* OnboardingTransitionManager.swift in Sources */,
+				BE3C57721E7B9F88008ECA4E /* CommentTableViewCell.swift in Sources */,
 				BE33469D1E31440700E23A88 /* StoreDetailActionButton.swift in Sources */,
 				BEB74FE41E65DD7A00DF0904 /* ShowTermsViewController.swift in Sources */,
 				BE0B062C1E60202200432300 /* PetProfileInputViewController.swift in Sources */,
@@ -1153,6 +1164,7 @@
 				BE0B06321E61446B00432300 /* PetProfileCollectionViewCell.swift in Sources */,
 				BE33469B1E31397400E23A88 /* AddReviewViewController.swift in Sources */,
 				BE3346971E312D9500E23A88 /* ReviewManager.swift in Sources */,
+				BE3C57741E7BE8B5008ECA4E /* AddStoryViewController.swift in Sources */,
 				BE0B062F1E607DAD00432300 /* PetProfile.swift in Sources */,
 				BEE804101E71C04B0012015F /* SignUpViewController.swift in Sources */,
 				BE33468F1E31252A00E23A88 /* ReviewTableViewCell.swift in Sources */,

@@ -63,7 +63,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="N4B-Fu-6RW">
-                                <rect key="frame" x="16" y="74" width="343" height="369.5"/>
+                                <rect key="frame" x="16" y="74" width="343" height="368.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="2o3-is-ZBt">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="126"/>
@@ -133,10 +133,10 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="jfx-zd-4GA">
-                                        <rect key="frame" x="0.0" y="136" width="343" height="53.5"/>
+                                        <rect key="frame" x="0.0" y="136" width="343" height="52.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기타 정보" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCv-R1-iBp">
-                                                <rect key="frame" x="0.0" y="0.0" width="59" height="18.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="59" height="17.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="59" id="2C0-bn-GCf"/>
                                                 </constraints>
@@ -145,7 +145,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WAi-0J-4pB">
-                                                <rect key="frame" x="0.0" y="23.5" width="343" height="30"/>
+                                                <rect key="frame" x="0.0" y="22.5" width="343" height="30"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="닉네임" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7qk-wK-2oW">
                                                         <rect key="frame" x="0.0" y="0.0" width="249" height="30"/>
@@ -180,7 +180,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="O78-Gp-hxI">
-                                        <rect key="frame" x="0.0" y="199.5" width="343" height="170"/>
+                                        <rect key="frame" x="0.0" y="198.5" width="343" height="170"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="8Z8-s0-XZB">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -2119,7 +2119,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="xAn-kG-qnb">
-                                <rect key="frame" x="26" y="89" width="323" height="340"/>
+                                <rect key="frame" x="26" y="89" width="323" height="339"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5aK-ER-P4J">
                                         <rect key="frame" x="0.0" y="0.0" width="323" height="50"/>
@@ -2150,7 +2150,7 @@
                                         <rect key="frame" x="0.0" y="75" width="323" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="OJb-NM-l3q">
-                                                <rect key="frame" x="0.0" y="6.5" width="24.5" height="17.5"/>
+                                                <rect key="frame" x="0.0" y="7" width="24.5" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -2168,7 +2168,7 @@
                                         <rect key="frame" x="0.0" y="130" width="323" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="위치" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="X3W-Rj-DTf">
-                                                <rect key="frame" x="0.0" y="6.5" width="24.5" height="17.5"/>
+                                                <rect key="frame" x="0.0" y="7" width="24.5" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -2186,7 +2186,7 @@
                                         <rect key="frame" x="0.0" y="185" width="323" height="100"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="추천 이유" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="wXr-yc-NDl">
-                                                <rect key="frame" x="0.0" y="0.0" width="52.5" height="17.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="52.5" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -2207,7 +2207,7 @@
                                         </constraints>
                                     </stackView>
                                     <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9a-4L-4FP">
-                                        <rect key="frame" x="0.0" y="310" width="323" height="30"/>
+                                        <rect key="frame" x="0.0" y="310" width="323" height="29"/>
                                         <color key="backgroundColor" red="0.84313725490000002" green="0.80000000000000004" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="14"/>
                                         <state key="normal" title="제출하기">

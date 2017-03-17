@@ -17,6 +17,13 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
     
     @IBOutlet weak var tableView: LoadingTableView!
     
+    /// Lazy getter for the dateformatter that formats the date property of each review to the desired format
+    lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        return dateFormatter
+    }()
+    
     init(itemInfo: IndicatorInfo) {
         self.itemInfo = itemInfo
         super.init(nibName: nil, bundle: nil)
@@ -121,6 +128,8 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             cell.photoList = imageArray
         }
         
+        cell.timeLabel.text = dateFormatter.string(from: story.created! as Date)
+        
         return cell
     }
     
@@ -150,7 +159,7 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             case 2:
                 print("Comment Button Clicked")
                 // 공유 액션
-                performSegue(withIdentifier: "showComments", sender: nil)
+                performSegue(withIdentifier: "showComments", sender: row)
             case 3:
                 print("Share Button Clicked")
                 // 공유 액션
@@ -159,7 +168,7 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                 // 좋아하는 유저들 보여주기
             case 5:
                 print("Show Comments: \(row)")
-                performSegue(withIdentifier: "showComments", sender: nil)
+                performSegue(withIdentifier: "showComments", sender: row)
             default:
                 print("Some other action")
         }
@@ -241,10 +250,18 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                 })
             }
         }
-        
-        
-        
     }
+    
+    // MARK: - Segue 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any? ) {
+        if segue.identifier == "showComments" {
+            let index = sender as! Int
+            let destinationVC = segue.destination as! CommentViewController
+            destinationVC.selectedStory = StoryArray[index]
+            print("Selected Story: \(index)")
+        }
+    }
+    
     
     // MARK: - IndicatorInfoProvider
     

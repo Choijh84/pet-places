@@ -11,6 +11,10 @@ import XLPagerTabStrip
 
 class StoryAndReviewViewController: ButtonBarPagerTabStripViewController {
 
+    @IBAction func addNewStory(_ sender: Any) {
+        performSegue(withIdentifier: "newStory", sender: nil)
+    }
+    
     let blueInstagramColor = UIColor(red: 37/255.0, green: 111/255.0, blue: 206/255.0, alpha: 1.0)
     
     override func viewDidLoad() {
@@ -26,8 +30,7 @@ class StoryAndReviewViewController: ButtonBarPagerTabStripViewController {
         settings.style.buttonBarItemsShouldFillAvailableWidth = true
         settings.style.buttonBarLeftContentInset = 0
         settings.style.buttonBarRightContentInset = 0
-        
-        
+
         
         changeCurrentIndexProgressive = { [weak self] (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
             guard changeCurrentIndex == true else { return }

@@ -41,4 +41,10 @@ class Story: NSObject {
             self.commentNumbers = Int(comments.count)
         }
     }
+    
+    /// time when the Story was created
+    var created: Date!
+    
+    /// time when the Story was updated
+    var updated: Date?
 }

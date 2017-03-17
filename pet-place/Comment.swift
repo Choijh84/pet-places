@@ -30,5 +30,11 @@ class Comment: NSObject {
             self.likeNumbers = Int((likeUsers.count as NSNumber?)!)
         }
     }
+    
+    /// time when the comment was created
+    var created: Date!
+    
+    /// time when the comment was updated 
+    var updated: Date? 
 }
 
