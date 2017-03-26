@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="Cjs-ZR-P37">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="Cjs-ZR-P37">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,11 +9,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Montserrat-Light.otf">
-            <string>Montserrat-Light</string>
+        <array key="BMHANNA_11yrs.otf">
+            <string>BMHANNA11yrsoldOTF</string>
         </array>
-        <array key="Montserrat-Regular.ttf">
-            <string>Montserrat-Regular</string>
+        <array key="BMJUA.otf">
+            <string>BMJUAOTF</string>
+        </array>
+        <array key="이순신돋움체M.otf">
+            <string>YiSunShinDotumM</string>
         </array>
     </customFonts>
     <scenes>
@@ -25,24 +28,22 @@
                         <viewControllerLayoutGuide type="top" id="AyP-KH-dXz"/>
                         <viewControllerLayoutGuide type="bottom" id="qNC-Yo-aoE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="6wh-BS-oC8">
+                    <view key="view" alpha="0.80000000000000004" contentMode="scaleToFill" id="6wh-BS-oC8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="locationIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9Y4-mM-4N5">
                                 <rect key="frame" x="155.5" y="187.5" width="64" height="92"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We need your location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yN7-MV-ooR">
-                                <rect key="frame" x="98" y="310.5" width="179.5" height="21"/>
-                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="위치 정보를 알려주세요" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yN7-MV-ooR">
+                                <rect key="frame" x="108" y="310.5" width="160.5" height="18.5"/>
+                                <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="18"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyX-Ug-lXz">
-                                <rect key="frame" x="30" y="336.5" width="315" height="37.5"/>
-                                <string key="text">In order to show you the best stores
-around your location</string>
-                                <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="펫시티에서 주변의 장소를  알려드리려면 위치 정보가 필요해요" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyX-Ug-lXz">
+                                <rect key="frame" x="30" y="341" width="315" height="30"/>
+                                <fontDescription key="fontDescription" name="BMHANNA11yrsoldOTF" family="BM HANNA 11yrs old OTF" pointSize="15"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -53,8 +54,8 @@ around your location</string>
                                     <constraint firstAttribute="height" constant="46" id="SmO-ll-GUh"/>
                                     <constraint firstAttribute="width" constant="160" id="VPq-mt-PC7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
-                                <state key="normal" title="Enable GPS"/>
+                                <fontDescription key="fontDescription" name="BMJUAOTF" family="BM JUA_OTF" pointSize="16"/>
+                                <state key="normal" title="위치 정보 승인"/>
                                 <connections>
                                     <action selector="gpsButtonPressed" destination="Cjs-ZR-P37" eventType="touchUpInside" id="nLU-Vs-BGA"/>
                                 </connections>
@@ -71,7 +72,7 @@ around your location</string>
                             <constraint firstItem="yN7-MV-ooR" firstAttribute="top" secondItem="9Y4-mM-4N5" secondAttribute="bottom" constant="31" id="i4S-Oi-Brf"/>
                             <constraint firstItem="xyX-Ug-lXz" firstAttribute="centerX" secondItem="6wh-BS-oC8" secondAttribute="centerX" id="mzV-KZ-AZ4"/>
                             <constraint firstItem="qNC-Yo-aoE" firstAttribute="top" secondItem="323-WQ-FtK" secondAttribute="bottom" constant="47" id="rr0-Em-KD2"/>
-                            <constraint firstItem="xyX-Ug-lXz" firstAttribute="top" secondItem="yN7-MV-ooR" secondAttribute="bottom" constant="5" id="xiy-E1-hc1"/>
+                            <constraint firstItem="xyX-Ug-lXz" firstAttribute="top" secondItem="yN7-MV-ooR" secondAttribute="bottom" constant="12" id="xiy-E1-hc1"/>
                         </constraints>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>

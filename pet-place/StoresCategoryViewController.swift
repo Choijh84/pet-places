@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SCLAlertView
 
 class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LocationHandlerProtocol {
 
@@ -72,6 +73,22 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     override func viewDidLoad() {
+        let user = Backendless.sharedInstance().userService.currentUser
+        
+        // 유저 로그인이 안 되어있으면 로그인으로 이동
+        if user == nil {
+            let appearance = SCLAlertView.SCLAppearance(
+                showCloseButton: false
+            )
+            let alertView = SCLAlertView(appearance: appearance)
+            alertView.addButton("로그인으로 이동") {
+                let storyboard = UIStoryboard(name: "Account", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+                self.present(controller, animated: true, completion: nil)
+            }
+            alertView.showInfo("로그인 필요", subTitle: "로그인해주세요!")
+        }
+        
         super.viewDidLoad()
         
         self.tabBarController?.tabBar.isTranslucent = false

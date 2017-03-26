@@ -170,14 +170,21 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     
     /**
      Called when user taps on logout button, present an alertview asking for confirmation
+     로그아웃 버튼 누르면 유저 로그인 체크, 의사를 다시 한 번 물어보고 로그아웃 실행
      */
     @IBAction func logoutButtonPressed() {
         if UserManager.isUserLoggedIn() {
-            let alertView = UIAlertController(title: "Logout?", message: "Are you sure you want to log out?", preferredStyle: .alert)
-            alertView.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
-            alertView.addAction(UIAlertAction(title: "Log out", style: .default, handler: { (alertAction) -> Void in
+            let appearance = SCLAlertView.SCLAppearance(
+                showCloseButton: false
+            )
+            let alertView = SCLAlertView(appearance: appearance)
+            alertView.addButton("취소", action: { 
+                print("취소되었습니다")
+            })
+            alertView.addButton("로그아웃") {
                 self.logoutUser()
-            }))
+            }
+            alertView.showInfo("로그아웃?", subTitle: "로그아웃하시겠습니까?")
             present(alertView, animated: true, completion: nil)
         } else {
             SCLAlertView().showWarning("사용자 정보", subTitle: "로그인이 되어 있지 않습니다")
@@ -186,11 +193,13 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     
     /**
      Log out the user and present the login viewcontroller
+     로그아웃 실행
      */
     func logoutUser() {
         UserManager.logoutUser { (successful, errorMessage) -> () in
             if successful {
-                self.presentLoginViewController()
+//                self.presentLoginViewController()
+                self.dismiss(animated: true, completion: nil)
             } else {
                 // Present error
                 self.displayAlertView(errorMessage!, title: "Error")
@@ -275,6 +284,8 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
             view.addSubview(loginViewController.view)
             loginViewController.didMove(toParentViewController: self)
             addChildViewController(loginViewController)
+        } else {
+            dismiss(animated: true, completion: nil)
         }
     }
     

@@ -233,7 +233,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         
         /// Set the gesture recognizer, doubleTap for present new view
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTap(recognizer:)))
-        recognizer.numberOfTapsRequired = 2
+        recognizer.numberOfTapsRequired = 1
         self.tableView.addGestureRecognizer(recognizer)
     }
     
@@ -245,13 +245,17 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
      */
     func didTap(recognizer: UIGestureRecognizer) {
         let tapLocation = recognizer.location(in: self.tableView)
+        
+        // 싱글탭하면 전화 걸기, 웹사이트 이동, 리뷰 보기 지원 
+        
         if let tapIndexPath = tableView.indexPathForRow(at: tapLocation) {
+            print("This is tapIndexPath: \(tapIndexPath)")
             if self.tableView.cellForRow(at: tapIndexPath) != nil {
-                /// Phone call Initiation
+                /// 전화번호 걸게
                 if tapIndexPath == [3,0] {
                     callButtonPressed()
                 } else if tapIndexPath == [3,2] {
-                    /// Safari View Loading for website
+                    /// 웹사이트 로딩, 사파리뷰
                     if var website = storeToDisplay.website {
                         if website.lowercased().hasPrefix("http") == false {
                             website = "http://".appending(website)
@@ -264,9 +268,30 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                             present(vc, animated: true, completion: nil)
                         }
                     } else {
-                        SCLAlertView().showNotice("No Website", subTitle: "Please wait")
+                        SCLAlertView().showNotice("웹사이트가 없어요", subTitle: "생기면 업데이트를 하겠습니다")
                     }
+                } else if tapIndexPath.section == 11 {
+                    // [11]이 리뷰 3개를 표시하는 곳, 선택하면 바로 보여주기
+                    let reviewPresentManager : ReviewPresentManager = ReviewPresentManager()
                     
+                    let selectedReview = downloadedReviews[tapIndexPath.row]
+                    let storyboard = UIStoryboard(name: "Reviews", bundle: nil)
+                    let destinationController = storyboard.instantiateViewController(withIdentifier: "ReviewsDetailViewController") as! ReviewsDetailViewController
+                    destinationController.reviewToDisplay = selectedReview
+                    destinationController.transitioningDelegate = reviewPresentManager
+                    present(destinationController, animated: true, completion: nil)
+                    
+                } else if (tapIndexPath == [3,1]) ||  (tapIndexPath.section == 8) {
+                    // (tapIndexPath == [3,3]) || (tapIndexPath.section == 6) ||
+                    // [3,1]과 [8]은 주소 - 우선 주소만 카피
+                    // [3,3]은 영업시간, 섹션 6은 디테일 정보
+                    let pasteboard = UIPasteboard.general
+                    if let address = storeToDisplay.address {
+                        pasteboard.string = "\(address)"
+                        SCLAlertView().showSuccess("주소 복사 완료", subTitle: "클립 보드에 저장됨")
+                    } else {
+                        SCLAlertView().showError("주소 복사 실패", subTitle: "저장할 주소가 없습니다")
+                    }
                 }
             }
         }
@@ -765,19 +790,22 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
      Presents an alertView to be able to call the store's phoneNumber
      */
     func callButtonPressed () {
-        let alertViewController = UIAlertController(title: NSLocalizedString("Call", comment: ""), message: "\(storeToDisplay.phoneNumber!)", preferredStyle: .alert)
-        alertViewController.addAction(UIAlertAction(title: "Call", style: .default, handler: { (alertAction) -> Void in
+        let appearance = SCLAlertView.SCLAppearance(
+            showCloseButton: false
+        )
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.addButton("전화걸기", action: {
             let replaced = self.storeToDisplay.phoneNumber!.replacingOccurrences(of: "-", with: "")
             let phoneNumberString = "telprompt://\(replaced)"
             print("This is phonenumber: \(phoneNumberString)")
             if let url = URL(string: "telprompt://\(replaced)") {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
-        }))
-        alertViewController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) -> Void in
-            alertViewController.dismiss(animated: true, completion: nil)
-        }))
-        present(alertViewController, animated: true, completion: nil)
+        })
+        alertView.addButton("취소") {
+            print("전화걸기가 취소되었습니다")
+        }
+        alertView.showInfo("전화번호", subTitle: "\(storeToDisplay.phoneNumber!)")
     }
 
     /**
