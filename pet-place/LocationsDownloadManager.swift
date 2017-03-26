@@ -30,9 +30,11 @@ class LocationsDownloadManager : NSObject {
     let dataStore = Backendless.sharedInstance().persistenceService.of(Store.self)
     
     /**
-     Download Store objects within the raduis with the matched storeCategory 
-     - parameter selectedStoreCategory  : selected store category by user
-     - parameter radius                 : radius around the user, basically can be set as km(2000)
+     스토어 카테고리에 맞춰서 스토어 객체를 다운로드하는 함수
+     - parameter skip                   : 이미 그 전에 로딩이 끝나서 스킵한 객체의 수
+     - parameter limit                  : 한 번에 쿼리로 불러오는 객체의 수
+     - parameter selectedStoreCategory  : 사용자가 선택한 스토어 카테고리
+     - parameter radius                 : 사용자 검색 반경, 현재는 2,000킬로, 수정 필요
      - parameter completionBlock        : called after the request is completed, returns the Store arrays
      
      */
@@ -44,10 +46,14 @@ class LocationsDownloadManager : NSObject {
         let queryOptions = QueryOptions()
         queryOptions.relationsDepth = 1
         
+        // 쿼리조건 - 선택된 스토어 카테고리 및 2000km, 향후에 radius도 받아서 조정 가능
         dataQuery.whereClause = "StoreCategory[stores].objectId = \'\(selectedStoreCategory.objectId!)\' AND distance(\(userCoordinate.latitude), \(userCoordinate.longitude), location.latitude, location.longitude ) < km(2000)"
+        
+        // 반려동물 타입에 관련해서 쿼리 조건 추가
         if !((selectedPetType ?? "").isEmpty) {
             dataQuery.whereClause = dataQuery.whereClause.appending("\(selectedPetType!)")
         }
+        // 반려동물 크게 관련해서 쿼리 조건 추가
         if !((selectedPetSize ?? "").isEmpty) {
             dataQuery.whereClause = dataQuery.whereClause.appending("\(selectedPetSize!)")
         }
@@ -55,6 +61,7 @@ class LocationsDownloadManager : NSObject {
         queryOptions.related = ["location"]
         queryOptions.pageSize = limit
         queryOptions.offset = skip
+        dataQuery.queryOptions = queryOptions
         
         print("First Clause: \(dataQuery.whereClause!)")
         
@@ -68,7 +75,8 @@ class LocationsDownloadManager : NSObject {
     }
     
     /**
-    Download Store objects
+     이건 예제로 작성했던 함수, 더 이상 쓰지 않음
+     Download Store objects
     - parameter skip:   items to skip, that were loaded before
     - parameter limit:  max amount of Store objects to load
     - parameter completionBlock: called after the request is completed, returns the Store object

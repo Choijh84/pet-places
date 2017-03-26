@@ -34,6 +34,7 @@ class LocationControlViewController: UIViewController, UITableViewDelegate, UITa
         // Set a filter to return only address
         let addressFilter = GMSAutocompleteFilter()
         addressFilter.type = .noFilter
+        addressFilter.country = "KR"
         autocompleteController.autocompleteFilter = addressFilter
         
         present(autocompleteController, animated: true, completion: nil)
@@ -197,6 +198,20 @@ extension LocationControlViewController: GMSAutocompleteViewControllerDelegate {
             placeID = place.placeID
             formattedAddress = address
             coordinate = place.coordinate
+        }
+        
+        // 로컬리티 데이터 체크
+        var locality = ""
+        if let addressLines = place.addressComponents {
+            for field in addressLines {
+                switch field.type {
+                case kGMSPlaceTypeLocality:
+                    locality = field.name
+                    print("This is locality: \(locality)")
+                default:
+                    print("Type: \(field.type), Name: \(field.name)")
+                }
+            }
         }
         
         // Attach the placeID into history 

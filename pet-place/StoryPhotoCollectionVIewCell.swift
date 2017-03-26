@@ -12,4 +12,8 @@ class StoryPhotoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: LoadingImageView!
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = #imageLiteral(resourceName: "imageplaceholder")
+    }
 }

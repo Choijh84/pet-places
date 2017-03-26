@@ -140,28 +140,32 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         let dataStore = Backendless.sharedInstance().data.of(Users.ofClass())
         
         if let nickname = nicknameTextfield.text {
-            let whereClause = "nickname = '\(nickname)'"
-            let dataQuery = BackendlessDataQuery()
-            dataQuery.whereClause = whereClause
-            
-            dataStore?.find(dataQuery, response: { (response) in
-                if response?.totalObjects == 0 {
-                    // 만약에 데이터베이스에 닉네임이 안 겹칠 때
-                    print("This is response1: \(response)")
-                    self.changeNickCheck()
-                } else {
-                    // 데이터베이스에 겹칠 때
-                    print("This is response2: \(response)")
-                    SCLAlertView().showError("닉네임 중복", subTitle: "다른 닉네임을 선택해주세요")
-                    UIView.animate(withDuration: 0.3, animations: { 
-                        self.nickOverlapCheckButton.backgroundColor = self.falseColor
-                        self.nickOverlapCheckButton.setTitle("중복 체크", for: .normal)
-                    })
-                    self.nicknameTextfield.becomeFirstResponder()
-                }
-            }, error: { (Fault) in
-                print("Server reported an error: \(Fault?.description)")
-            })
+            if nickname.length == 0 {
+                SCLAlertView().showError("입력 필요", subTitle: "닉네임을 입력해주세요")
+            } else {
+                let whereClause = "nickname = '\(nickname)'"
+                let dataQuery = BackendlessDataQuery()
+                dataQuery.whereClause = whereClause
+                
+                dataStore?.find(dataQuery, response: { (response) in
+                    if response?.totalObjects == 0 {
+                        // 만약에 데이터베이스에 닉네임이 안 겹칠 때
+                        print("This is response1: \(response)")
+                        self.changeNickCheck()
+                    } else {
+                        // 데이터베이스에 겹칠 때
+                        print("This is response2: \(response)")
+                        SCLAlertView().showError("닉네임 중복", subTitle: "다른 닉네임을 선택해주세요")
+                        UIView.animate(withDuration: 0.3, animations: {
+                            self.nickOverlapCheckButton.backgroundColor = self.falseColor
+                            self.nickOverlapCheckButton.setTitle("중복 체크", for: .normal)
+                        })
+                        self.nicknameTextfield.becomeFirstResponder()
+                    }
+                }, error: { (Fault) in
+                    print("Server reported an error: \(Fault?.description)")
+                })
+            }
         }
 
     }
@@ -228,7 +232,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         
         // Button Background color setting
-        emailSubscribeButton.backgroundColor = falseColor
         allAgreeButton.backgroundColor = falseColor
         nickOverlapCheckButton.backgroundColor = falseColor
         agreementButton.backgroundColor = falseColor

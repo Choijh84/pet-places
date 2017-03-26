@@ -13,7 +13,7 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var tableView: LoadingTableView!
     
     /// Categories that needs to be displayed
-    let section = ["PET PLACES"]
+    let section = ["펫플레이스 카테고리 선택하기"]
     
     /// A handler object that responsible for getting the user's location
     var locationHandler: LocationHandler!
@@ -73,7 +73,7 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // title = "PLACES CATEGORY"
+        
         self.tabBarController?.tabBar.isTranslucent = false
         GlobalVar.filter1 = nil
         GlobalVar.filter2 = nil

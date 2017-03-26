@@ -7,17 +7,35 @@
 //
 
 import UIKit
+import SCLAlertView
 
-class CommentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CommentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CommentTableViewCellProtocol {
 
     var selectedStory = Story()
     
     var commentArray = [Comment]()
     
+    @IBOutlet weak var commentTextField: UITextField!
+    
     @IBOutlet weak var tableView: LoadingTableView!
     
     /// 코멘트 저장
     @IBAction func saveComment(_ sender: Any) {
+        print("Let us save the comment")
+        if let text = commentTextField.text {
+            StoryDownloadManager().uploadNewComment(text, selectedStory, completionBlock: { (success, error) in
+                if success {
+                    self.commentTextField.resignFirstResponder()
+                    self.commentTextField.text = ""
+                    self.setUpCommentArray()
+                } else {
+                    SCLAlertView().showWarning("에러 발생", subTitle: "확인해주세요")
+                }
+            })
+        } else {
+            SCLAlertView().showWarning("입력 필요", subTitle: "코멘트를 입력해주세요")
+        }
+        
         
     }
     
@@ -30,9 +48,8 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.rowHeight = UITableViewAutomaticDimension
         
         // tableView 아래 빈 셀들 separator 줄 안 보이게
-        tableView.tableFooterView = UIView()
+        customizeViews()
         
-        // Do any additional setup after loading the view.
         setUpCommentArray()
         
         //Looks for single or multiple taps.
@@ -46,13 +63,35 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func setUpCommentArray() {
         tableView.showLoadingIndicator()
+
         commentArray = selectedStory.comments
-        dump(commentArray)
+        // 생성 시간으로 정렬
+        commentArray = commentArray.sorted { (left, right) -> Bool in
+            return left.created > right.created
+        }
         
+        tableView.reloadData()
         tableView.hideLoadingIndicator()
     }
     
-    //Calls this function when the tap is recognized.
+    /**
+     Customize the tableview's look and feel
+     */
+    func customizeViews() {
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        tableView.separatorColor = .separatorLineColor()
+    }
+    
+    /// MARK: CommentTableViewCellProtocol
+    func actionTapped(row: Int) {
+        commentArray.remove(at: row)
+        print("댓글이 삭제되어야 합니다")
+        tableView.reloadData()
+        
+        // 데이터베이스에서도 삭제
+    }
+    
+    /// Calls this function when the tap is recognized.
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
@@ -70,29 +109,41 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CommentTableViewCell
         
+        // 프로토콜 delegate 설정
+        cell.delegate = self
+        
         let comment = commentArray[indexPath.row]
         // Profile image
-        cell.profileImage.image = #imageLiteral(resourceName: "user_profile")
+        if let profile = comment.writer.getProperty("profileURL") as? String {
+            let url = URL(string: profile)
+            DispatchQueue.main.async(execute: { 
+                cell.profileImage.hnk_setImage(from: url)
+            })
+        } else {
+            cell.profileImage.image = #imageLiteral(resourceName: "user_profile")
+        }
         // name
         cell.nameLabel.text = comment.writer.name as String?
         // comment 
         cell.commentLabel.text = comment.bodyText
-        // time 
-        if let time = comment.updated {
-            print("This is updated time: \(time)")
-            let timedifference = timeDifferenceShow(date: time)
-            cell.timeLabel.text = timedifference
-        } else {
-            let time = comment.created
-            print("This is created time: \(time)")
-            let timedifference = timeDifferenceShow(date: time!)
-            cell.timeLabel.text = timedifference
-        }
-        // 편집 및 삭제 버튼
+        // 시간은 그냥 작성된 시간 기준으로 - 편집 기능은 없앨 수도.... 
+        let time = comment.created
+        print("This is created time: \(time)")
+        let timedifference = timeDifferenceShow(date: time!)
+        cell.timeLabel.text = timedifference
+
+        // 편집, 삭제 버튼에 tag 부여하기
+        cell.editButton.tag = indexPath.row
+        cell.deleteButton.tag = indexPath.row
+        
+        // 편집 및 삭제 버튼, 아이디가 일치하면 보여주기
         if comment.writer.objectId != Backendless.sharedInstance().userService.currentUser.objectId {
             cell.editButton.isHidden = true
             cell.deleteButton.isHidden = true
         }
+        
+        // editButton - 생략, 아직 구현 안함
+        cell.editButton.isHidden = true
         
         // likeButton - 생략, 아직 구현 안함
         cell.likeButton.isHidden = true

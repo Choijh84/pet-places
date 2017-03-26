@@ -9,6 +9,7 @@
 import UIKit
 import DKImagePickerController
 import SKPhotoBrowser
+import SCLAlertView
 
 // Viewcontroller 스토리 추가할 때
 class AddStoryViewController: UIViewController, UIImagePickerControllerDelegate, UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -27,8 +28,57 @@ class AddStoryViewController: UIViewController, UIImagePickerControllerDelegate,
     var assets: [DKAsset]?
     var imageArray = [UIImage]()
     
+    /// Overlay view to be shown while creating a new review
+    lazy var overlayView: OverlayView = {
+        let overlayView = OverlayView()
+        return overlayView
+    }()
+    
     /// 콜렉션뷰
     @IBOutlet weak var colllectionView: UICollectionView!
+    
+    // MARK: 완료 버튼, 스토리 데이터 베이스 wire-up
+    
+    @IBAction func addStoryButtonPressed(_ sender: Any) {
+        
+        textView.resignFirstResponder()
+        
+        // 이미지가 없는 경우
+        if imageArray.count == 0 {
+            SCLAlertView().showError("사진 필요", subTitle: "사진을 업로드해주세요")
+        } else if textView.text == nil {
+            // 스토리가 비어있는 경우
+            SCLAlertView().showError("스토리 필요", subTitle: "스토리를 입력해주세요")
+        } else {
+            overlayView.displayView(view, text: "스토리 올리는 중")
+            // 사진부터 업로드하고 url을 return 받아온다
+            StoryDownloadManager().uploadPhotos(selectedImages: imageArray, completionBlock: { (success, fileUrl, error) in
+                if success {
+                    // 사진 업로드가 성공하는 경우
+                    print("This is FILEURL: \(fileUrl)")
+                    
+                    StoryDownloadManager().uploadNewStory(self.textView.text, fileURL: fileUrl, completionBlock: { (success, error) in
+                        if success {
+                            // 업로드 성공하고 나면 뒤로 돌아가야지요?
+                            self.overlayView.hideView()
+                            SCLAlertView().showSuccess("완료", subTitle: "업로드 되었습니다")
+                            _ = self.navigationController?.popViewController(animated: true)
+                            
+                            // 현재 리로드가 안됨
+                        } else {
+                            // 업로드 실패입니다 ㅠ 다시 시도
+                            SCLAlertView().showError("에러", subTitle: "다시 시도해주세요")
+                        }
+                        self.overlayView.hideView()
+                    })
+                } else {
+                    // 사진 업로드가 실패하는 경우
+                    print("ERROR on uploading the photos of story")
+                    self.overlayView.hideView()
+                }
+            })
+        }
+    }
     
     // MARK: image picker
     /**
@@ -98,7 +148,7 @@ class AddStoryViewController: UIViewController, UIImagePickerControllerDelegate,
         imageArray.removeAll()
         for asset in self.assets! {
             asset.fetchOriginalImageWithCompleteBlock({ (image, info) in
-                self.imageArray.append(image!)
+                self.imageArray.append(image!.compressImage(image!))
             })
         }
     }

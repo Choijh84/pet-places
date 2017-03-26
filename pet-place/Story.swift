@@ -47,4 +47,5 @@ class Story: NSObject {
     
     /// time when the Story was updated
     var updated: Date?
+
 }

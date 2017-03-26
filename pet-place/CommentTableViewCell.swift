@@ -7,9 +7,17 @@
 //
 
 import UIKit
+import SCLAlertView
+
+protocol CommentTableViewCellProtocol: class {
+    func actionTapped(row: Int)
+}
 
 class CommentTableViewCell: UITableViewCell {
 
+    weak var delegate: CommentTableViewCellProtocol?
+    var row: Int?
+    
     @IBOutlet weak var profileImage: UIImageView!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -25,11 +33,20 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var deleteButton: UIButton!
     
     @IBAction func editComment(_ sender: Any) {
-        
+        // 해당되는 코멘트의 데이터를 가지고 수정할 수 있게 해야 하나?
     }
     
-    @IBAction func deleteComment(_ sender: Any) {
-        
+    @IBAction func deleteComment(_ sender: UIButton) {
+        // 삭제할까요? 물어보고 그냥 바로 삭제 
+        let alertView = SCLAlertView()
+        alertView.addButton("삭제") { 
+            print("This is deleteButton tag: \(self.deleteButton.tag)")
+            self.delegate?.actionTapped(row: self.deleteButton.tag)
+        }
+        alertView.addButton("취소") { 
+            print("취소되었습니다")
+        }
+        alertView.showNotice("댓글 삭제", subTitle: "지우시겠습니까?")
     }
     
     
@@ -55,6 +72,7 @@ class CommentTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        profileImage.layer.cornerRadius = profileImage.layer.frame.width/2
     }
 
 }

@@ -34,7 +34,7 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addView.isHidden = true
-        self.navigationController?.title = "My Pet"
+        self.navigationController?.title = "마이펫"
         setupPetArray { (success) in
             if success {
                 if self.petArray.count != 0 {
@@ -52,31 +52,22 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func setupPetArray(completionHandler: @escaping (_ success: Bool) -> ()) {
-        let user = UserManager.currentUser()
+        let user = Backendless.sharedInstance().userService.currentUser
         petArray.removeAll()
-        let myGroup = DispatchGroup()
         
         if (user != nil) {
             let petProfiles = user?.getProperty("petProfiles") as! [PetProfile]
+            print("펫프로필 개수: \(petProfiles.count)")
+            dump(petProfiles)
+            // 그냥 바로 집어넣자
+            self.petArray = petProfiles
             
-            for petProfile in petProfiles {
-                let dataStore = Backendless.sharedInstance().data.of(PetProfile.ofClass())
-                myGroup.enter()
-                
-                dataStore?.findID(petProfile.objectId, response: { (result) in
-                    let profile = result as! PetProfile
-                    self.petArray.append(profile)
-                    dump(profile)
-                    myGroup.leave()
-                }, error: { (Fault) in
-                    print("Server reported an error (2): \(Fault?.description)")
-                    completionHandler(false)
-                })
+            self.petArray = self.petArray.sorted { (left, right) -> Bool in
+                return left.created > right.created
             }
-            myGroup.notify(queue: DispatchQueue.main, execute: {
-                completionHandler(true)
-                self.collectionView.reloadData()
-            })
+            completionHandler(true)
+            self.collectionView.reloadData()
+            
         }
     }
     
@@ -97,19 +88,33 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
     func deletePetProfile(sender: MyButton) {
         let profile = petArray[sender.row!]
         let user = Backendless.sharedInstance().userService.currentUser
+        /// close 버튼 숨기기
+        let appearance = SCLAlertView.SCLAppearance(
+            showCloseButton: false
+        )
+        let alertView = SCLAlertView(appearance: appearance)
         
         if user != nil {
-            var petProfiles = user?.getProperty("petProfiles") as! [PetProfile]
-            if let index = petProfiles.index(of: profile) {
-                petProfiles.remove(at: index)
-            }
-            user?.setProperty("petProfiles", object: petProfiles)
-            Backendless.sharedInstance().userService.update(user, response: { (user) in
-                SCLAlertView().showSuccess("Delete Pet Profile", subTitle: "OK")
-                _ = self.navigationController?.popViewController(animated: true)
-            }, error: { (Fault) in
-                print("Server reported an error on deleting pet profile: \(Fault?.description)")
+            alertView.addButton("Yes", action: { 
+                var petProfiles = user?.getProperty("petProfiles") as! [PetProfile]
+                if let index = petProfiles.index(of: profile) {
+                    petProfiles.remove(at: index)
+                }
+                user?.setProperty("petProfiles", object: petProfiles)
+                Backendless.sharedInstance().userService.update(user, response: { (user) in
+                    SCLAlertView().showSuccess("삭제되었습니다", subTitle: "OK")
+                    _ = self.navigationController?.popViewController(animated: true)
+                }, error: { (Fault) in
+                    print("Server reported an error on deleting pet profile: \(Fault?.description)")
+                })
             })
+            alertView.addButton("No", action: { 
+                print("User says no")
+                SCLAlertView().showInfo("취소", subTitle: "저장이 취소되었습니다")
+            })
+            
+            alertView.showInfo("펫 프로필 삭제", subTitle: "삭제하시겠습니까?")
+            
         } else {
             print("There is no user u can save")
         }
@@ -151,8 +156,10 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
         cell.petProfileImageView.layer.cornerRadius = cell.petProfileImageView.layer.frame.width/2
         
         /// petArray의 petProfile에서 사진이 있는 경우
-        if !petArray[indexPath.row].imagePic.isEmpty {
-            let url = URL(string: petArray[indexPath.row].imagePic)
+        cell.petProfileImageView.image = #imageLiteral(resourceName: "imageplaceholder")
+        print("This is pet profile url: \(petArray[indexPath.row].imagePic)")
+        if !(petArray[indexPath.row].imagePic?.isEmpty)! {
+            let url = URL(string: petArray[indexPath.row].imagePic!)
             DispatchQueue.main.async(execute: { 
                 cell.petProfileImageView.hnk_setImage(from: url)
             })
@@ -189,7 +196,9 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
             cell.historyLabel.text = "EMPTY"
         }
         
-        cell.pageNumber.text = "\(indexPath.row+1) of \(petArray.count)"
+        // cell.pageNumber.text = "\(indexPath.row+1) of \(petArray.count)"
+        cell.pageControl.numberOfPages = petArray.count
+        cell.pageControl.currentPage = indexPath.row
         
         
         if isVaccinationShow == false {
@@ -211,6 +220,10 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
                 cell.historyStackView.isHidden = false
             })
         }
+        
+        cell.updateConstraintsIfNeeded()
+        cell.layoutIfNeeded()
+        
         return cell
     }
     
@@ -219,8 +232,14 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = UIScreen.main.bounds.size.width
-        return CGSize(width: width, height: width*1.2)
+        
+//        let width = UIScreen.main.bounds.size.width
+//        let height = self.view.bounds.size.height-self.topLayoutGuide.length-self.bottomLayoutGuide.length
+        
+        let width = collectionView.layer.frame.width
+        let height = collectionView.layer.frame.height
+        
+        return CGSize(width: width, height: height)
     }
     
 }

@@ -14,6 +14,7 @@ class PetProfileInputViewController: FormViewController {
 
     var petSpecies = "Dog"
     
+    var receiver = [NSArray]()
     /// Array of Dog Breed List
     var dogBreed = [String]()
     /// Array of Cat Breed List
@@ -27,26 +28,41 @@ class PetProfileInputViewController: FormViewController {
     
     /// To save the pet profile object
     @IBAction func saveObject(_ sender: Any) {
-        /// To ask user to save or not 
-        let alertView = SCLAlertView()
-        alertView.addButton("Yes") { 
-            /// setup pet profile
-            self.setupPetProfile { (success) in
-                if success {
-                    /// show alarm and dismiss
-                    SCLAlertView().showSuccess("Success to save your Pet", subTitle: "저장되었습니다")
-                    self.dismiss(animated: true, completion: nil)
-                } else {
-                    /// show error
-                    SCLAlertView().showError("Error on saving your pet", subTitle: "다시 시도해주세요")
+        
+        // form에서 value 형성
+        valueDictionary = form.values(includeHidden: false) as [String : AnyObject]
+        dump(valueDictionary)
+        /// 데이터 입력 여부 체크
+        /// 필수 입력: 이름, 성별, 종, 품종 등
+        if valueDictionary["species"] is NSNull || valueDictionary["name"] is NSNull || valueDictionary["breed"] is NSNull || valueDictionary["gender"] is NSNull {
+            SCLAlertView().showError("입력 에러", subTitle: "필수 값을 입력해주세요")
+        } else {
+            /// To ask user to save or not
+            /// close 버튼 숨기기
+            let appearance = SCLAlertView.SCLAppearance(
+                showCloseButton: false
+            )
+            let alertView = SCLAlertView(appearance: appearance)
+            alertView.addButton("Yes") {
+                /// setup pet profile
+                self.setupPetProfile { (success) in
+                    if success {
+                        /// show alarm and dismiss
+                        SCLAlertView().showSuccess("프로필 저장 완료", subTitle: "저장되었습니다")
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        /// show error
+                        SCLAlertView().showError("에러 발생", subTitle: "다시 시도해주세요")
+                    }
                 }
             }
+            alertView.addButton("No") {
+                print("User says no")
+                SCLAlertView().showInfo("취소", subTitle: "저장이 취소되었습니다")
+            }
+            alertView.showInfo("펫 프로필 저장", subTitle: "저장이 완료되면 알려드립니다")
         }
-        alertView.addButton("No") { 
-            print("User says no")
-        }
-        alertView.showNotice("펫 프로필 저장", subTitle: "저장이 완료되면 알려드립니다")
-        _ = navigationController?.popViewController(animated: true)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,12 +73,12 @@ class PetProfileInputViewController: FormViewController {
     /// Initial View setup
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.title = "Pet Add"
+        navigationBar.title = "펫 프로필 추가"
         readPetBreedList()
         
         form =
         
-            Section("General Info")
+            Section("필수 정보")
 //            {
 //                $0.header = HeaderFooterView<HeaderImageView>(.class)
 //            }
@@ -77,10 +93,6 @@ class PetProfileInputViewController: FormViewController {
                 }
             }
             
-            <<< ImageRow("imagePic"){
-                $0.title = "Pet Photo"
-            }
-            
             <<< SwitchRow("gender") {
                 $0.title = "Choose Gender"; $0.value = false
                 $0.add(rule: RuleRequired())
@@ -88,17 +100,17 @@ class PetProfileInputViewController: FormViewController {
                 }
                 .onChange({ row in
                     if row.value == true {
-                        row.cell.textLabel?.text = "Male"
+                        row.cell.textLabel?.text = "Female"
                     }
                     else {
-                        row.cell.textLabel?.text = "Female"
+                        row.cell.textLabel?.text = "Male"
                     }
                 })
             
             <<< ActionSheetRow<String>("species") {
                 $0.title = "Species"
                 $0.selectorTitle = "Your Pet? "
-                $0.options = ["Dog", "Cat", "Reptiles", "Birds", "Fish"]
+                $0.options = ["강아지", "고양이", "기타"]
                 $0.value = "Dog"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
@@ -113,9 +125,9 @@ class PetProfileInputViewController: FormViewController {
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
             }.onCellSelection({ (cell, row) in
-                if self.petSpecies == "Dog" {
+                if self.petSpecies == "강아지" {
                     row.options = self.dogBreed
-                } else if self.petSpecies == "Cat" {
+                } else if self.petSpecies == "고양이" {
                     row.options = self.catBreed
                 } else {
                     row.options = self.dogBreed
@@ -123,7 +135,7 @@ class PetProfileInputViewController: FormViewController {
             })
             
             
-        +++ Section("ExtraInfo 1")
+        +++ Section("추가 정보 1")
     
             <<< DecimalRow("weight") {
                 $0.title = "Weight"
@@ -144,6 +156,10 @@ class PetProfileInputViewController: FormViewController {
                 $0.validationOptions = .validatesOnChange
             }
             
+            <<< ImageRow("imagePic"){
+                $0.title = "Pet Photo"
+            }
+            
             <<< AccountRow("registration") {
                 $0.title = "Registation"
                 $0.placeholder = "Registration"
@@ -158,7 +174,7 @@ class PetProfileInputViewController: FormViewController {
                 $0.dateFormatter = formatter
             }
             
-        +++ Section("ExtraInfo 2")
+        +++ Section("추가 정보 2")
         
             <<< TextAreaRow("vaccination") {
                 $0.placeholder = "예시: 2016년 12월 31일 1차 접종 완료"
@@ -179,22 +195,38 @@ class PetProfileInputViewController: FormViewController {
         let pathList = Bundle.main.path(forResource: "PetBreedList", ofType: "plist")
         let data: NSData? = NSData(contentsOfFile: pathList!)
         let datasourceDictionary = try! PropertyListSerialization.propertyList(from: data as! Data, options: [], format: nil) as! [String:Any]
-        let temp = datasourceDictionary["Dog"] as! [String]
-        dogBreed = temp.sorted()
-        catBreed = datasourceDictionary["Cat"] as! [String]
+        
+        var temps = datasourceDictionary["Dog"] as! [NSArray]
+
+        for temp in temps {
+            dogBreed.append(temp[0] as! String)
+        }
+        
+        dogBreed = dogBreed.sorted()
+        
+        temps = datasourceDictionary["Cat"] as! [NSArray]
+        
+        for temp in temps {
+            catBreed.append(temp[0] as! String)
+        }
+        catBreed = catBreed.sorted()
+        
     }
+
     
     /**
-     Upload photo
+     Upload photo, compressImage를 활용해서 압축해서 저장할 예정임
      :param: image
-     :param: name, 파일네임이 name+time 형태로 저장될 예정, 저장 루드: petProfileImages/
+     :param: name, 파일네임이 name+time 형태로 저장될 예정, 저장 루트: petProfileImages/
      */
     func uploadPhoto(image: UIImage!, name: String!, completionHandler: @escaping (_ success: Bool, _ url: String) -> ())   {
+        
+        let compressed = image.compressImage(image)
         
         let fileName = String(format: "\(name!)%0.0f.jpeg", Date().timeIntervalSince1970)
         let filePath = "petProfileImages/\(fileName)"
         print("This is filePath:\(filePath)")
-        let content = UIImageJPEGRepresentation(image, 1.0)
+        let content = UIImageJPEGRepresentation(compressed, 1.0)
         
         Backendless.sharedInstance().fileService.saveFile(filePath, content: content, response: { (uploadedFile) in
             let fileURL = uploadedFile?.fileURL
@@ -207,7 +239,6 @@ class PetProfileInputViewController: FormViewController {
     }
     
     func setupPetProfile(completionHandler: @escaping (_ success: Bool) -> ()) {
-        valueDictionary = form.values(includeHidden: false) as [String : AnyObject]
         
         let tempPet = PetProfile()
         var name: String?

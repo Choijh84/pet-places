@@ -132,7 +132,7 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
         imageArray.removeAll()
         for asset in self.assets! {
             asset.fetchOriginalImageWithCompleteBlock({ (image, info) in
-                self.imageArray.append(image!)
+                self.imageArray.append(image!.compressImage(image!))
             })
         }
     }

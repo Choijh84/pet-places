@@ -220,39 +220,39 @@ class InquiryViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             if let asset = assets?[0] {
                 asset.fetchImageWithSize(basicSize, completeBlock: { (image, info) in
                     self.imageView1.image = image
-                    self.imageArray.append(image!)
+                    self.imageArray.append(image!.compressImage(image!))
                 })
             }
         } else if num == 2 {
             if let asset = assets?[0] {
                 asset.fetchImageWithSize(basicSize, completeBlock: { (image, info) in
                     self.imageView1.image = image
-                    self.imageArray.append(image!)
+                    self.imageArray.append(image!.compressImage(image!))
                 })
             }
             if let asset = assets?[1] {
                 asset.fetchImageWithSize(basicSize, completeBlock: { (image, info) in
                     self.imageView2.image = image
-                    self.imageArray.append(image!)
+                    self.imageArray.append(image!.compressImage(image!))
                 })
             }
         } else if num == 3 {
             if let asset = assets?[0] {
                 asset.fetchImageWithSize(basicSize, completeBlock: { (image, info) in
                     self.imageView1.image = image
-                    self.imageArray.append(image!)
+                    self.imageArray.append(image!.compressImage(image!))
                 })
             }
             if let asset = assets?[1] {
                 asset.fetchImageWithSize(basicSize, completeBlock: { (image, info) in
                     self.imageView2.image = image
-                    self.imageArray.append(image!)
+                    self.imageArray.append(image!.compressImage(image!))
                 })
             }
             if let asset = assets?[2] {
                 asset.fetchImageWithSize(basicSize, completeBlock: { (image, info) in
                     self.imageView3.image = image
-                    self.imageArray.append(image!)
+                    self.imageArray.append(image!.compressImage(image!))
                 })
             }
         }

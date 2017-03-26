@@ -178,8 +178,8 @@ class SMSVerficationViewController: UIViewController {
     func generate() {
         // 인증번호 초기화
         generatedString.removeAll()
-        // 랜덤번호 6자리 생성
         
+        // 랜덤번호 6자리 생성
         for _ in 0...5 {
             let randomNum : UInt32 = arc4random_uniform(10) // range to 0 to 9
             let someString = String(randomNum)

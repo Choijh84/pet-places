@@ -13,53 +13,52 @@ import CoreLocation
 class Store: NSObject {
 
     var objectId: String?
-    /// Name of the store
+    /// 스토어의 이름
     var name: String?
-    /// Address of the store
+    /// 스토어 주소
     var address: String?
-    /// PhoneNumber of the Store
+    /// 스토어 전화번호
     var phoneNumber: String?
-    /// Short description of the Store
+    /// 스토어의 짧은 디스크립션
     var storeDescription: String?
-    /// Subtitle of the Store
+    /// 서브 타이틀
     var storeSubtitle: String?
-    /// Website of the Store
+    /// 웹사이트
     var website: String?
-    /// Distance between current and store's location
+    /// 현재 위치와의 거리
     var distance: Double?
-    /// GeoPoint from backendless.com
+    /// 지오 포인트
     var location: GeoPoint?
-    /// Email address of the store.
+    /// 이메일 주소
     var emailAddress: String?
-    /// mainImage of the store
+    /// 메인 이미지
     var imageURL: String?
-    /// images of the store
+    /// 사진 섹션에 배치되는 사진들 링크 - ','로 구분됨
     var imageArray: String?
     
     /// 서비스 카테고리 
     var serviceCategory: String? 
-    /// opeartion Time 
+    /// 영업 시간
     var operationTime: String?
-    /// serviceable Pet 
+    /// 서비스 가능한 반려동물 품종 - 개, 고양이 등
     var serviceablePet: String?
-    /// available size of Pet 
+    /// 반려동물 크기 - 대형, 중형, 소형 등
     var petSize: String?
-    /// information about the price
+    /// 가격 정보
     var priceInfo: String?
-    /// note for the precautions
+    /// 참고 사항
     var note: String?
-    /// array for Favorite List of users
+    /// 좋아요 리스트에 추가한 사용자들 정보
     var favoriteList: [BackendlessUser] = []
-    /// the number of user looked at the store
+    
+    /// 몇 명의 사용자가 봤는지
     var hits: Int = 0
-    
-    
-    /// Boolean for favorite or not
-//    var isFavorited: Bool = false
-    /// Category of the Store object (pension, cafe, etc.)
-//    var parentCategory: StoreCategory?
-    /// Categories of the Store objects - moved to the StoreCategory
-//    var parentCategories: [StoreCategory] = []
+    /// 제휴 여부 
+    var isAffiliated: Bool = false
+    /// 인증 여부
+    var isVerified: Bool = false
+    /// 광고 여부
+    var isAdvertising: Bool = false
     
     /// Array of Review objects that connected with the Store
     var reviews: [Review] = [] {

@@ -38,7 +38,13 @@ class PetProfileCollectionViewCell: UICollectionViewCell {
     /// Button to click to show or hide the history
     @IBOutlet weak var historyShowHideButton: UIButton!
     
-    @IBOutlet weak var pageNumber: UILabel!
+    // @IBOutlet weak var pageNumber: UILabel!
+    @IBOutlet weak var pageControl: UIPageControl!
+    
+    
+    override func awakeFromNib() {
+        pageControl.layer.cornerRadius = 7.5
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()

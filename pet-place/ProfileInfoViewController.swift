@@ -23,7 +23,8 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     @IBOutlet weak var loggedInEmailLabel: UILabel!
     //// The logout Button
     @IBOutlet weak var logoutButton: UIBarButtonItem!
-
+    // 메뉴가 보이는지 체크하는 변수
+    var menuShowing = false
     
     /// Buttons for the next View
     @IBOutlet weak var favoriteListButton: UIButton!
@@ -33,6 +34,40 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     @IBOutlet weak var recommendButton: UIButton!
     @IBOutlet weak var myReviewButton: UIButton!
     
+    /// 메뉴를 포함하고 있는 뷰
+    @IBOutlet weak var menuView: UIView!
+    
+    /// 스택뷰 리딩 및 트레일링 변수
+    @IBOutlet weak var stackLeading: NSLayoutConstraint!
+    @IBOutlet weak var stackTrailing: NSLayoutConstraint!
+    /// 메뉴뷰 리딩 변수 - 넓이는 120으로 설정해서 컨트롤
+    @IBOutlet weak var menuLeading: NSLayoutConstraint!
+    
+    
+    /// 메뉴 보이고 뷰를 조정하는
+    @IBAction func showMenu(_ sender: Any) {
+        if (menuShowing) {
+            // 메뉴를 숨기자
+            UIView.animate(withDuration: 0.5, animations: { 
+                self.menuLeading.constant = -120
+                self.stackLeading.constant = 0
+                self.stackTrailing.constant = 0
+            })
+        } else {
+            // 메뉴를 보이자
+            UIView.animate(withDuration: 0.5, animations: { 
+                self.menuLeading.constant = 0
+                self.stackLeading.constant = 130
+                self.stackTrailing.constant = -110
+            })
+        }
+        menuShowing = !menuShowing
+        
+        UIView.animate(withDuration: 0.5) { 
+            self.view.layoutIfNeeded()
+        }
+    }
+
     /**
     @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var announcementButton: UIButton!
@@ -180,8 +215,10 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
      */
     func customiseView() {
         
+        // 프로필 사진 동그랗게 만들기
         profilePicture.layer.cornerRadius = profilePicture.layer.frame.width/2
         
+        // 로그인 상태 체크에서 프로필 사진 및 이름 읽어오기
         if UserManager.isUserLoggedIn() == true {
             print("User has been logged")
             
@@ -203,6 +240,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
                 print("profile picture has changed")
             }
             
+            // 이메일 체크
             if let email = UserManager.currentUser()?.email {
                 loggedInEmailLabel.text = email as String
                 print("This is email: \(email)")
@@ -211,6 +249,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
                 loggedInEmailLabel.text = UserManager.currentUser()?.name as String?
             }
             
+            // 닉네임 체크
             if let nickname = UserManager.currentUser()?.getProperty("nickname") {
                 nicknameLabel.text = nickname as? String
                 print("This is nickname: \(nickname)")
@@ -220,6 +259,10 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         } else {
             print("User hasn't been logged")
         }
+        
+        // 메뉴뷰 레이어 세팅
+        menuView.layer.shadowOpacity = 1
+        menuView.layer.shadowRadius = 10
     }
     
     /**
@@ -246,7 +289,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "My Profile"
+        title = "내 프로필"
         
         // Do any additional setup after loading the view.
         /**
@@ -303,6 +346,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         let controller = UIImagePickerController()
         controller.delegate = self
         /// Need to change later
+        controller.sourceType = .camera
         controller.sourceType = .photoLibrary
         
         present(controller, animated: true, completion: nil)
@@ -313,17 +357,18 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let selectedImage = (info[UIImagePickerControllerOriginalImage] as! UIImage)
+        let compressed = selectedImage.compressImage(selectedImage)
         
         /// First, change the view
         profilePicture.image = selectedImage
         isProfilePictureChanged = true
         /// Start the image upload
         DispatchQueue.main.async { 
-            self.imageUploadAsync(image: selectedImage)
+            self.imageUploadAsync(image: compressed)
         }
         
-        dismiss(animated: true, completion: nil )
+        dismiss(animated: true, completion: nil)
     }
     
     func imageUploadAsync(image: UIImage!) {

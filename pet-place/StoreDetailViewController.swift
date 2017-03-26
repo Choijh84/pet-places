@@ -255,12 +255,12 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                     if var website = storeToDisplay.website {
                         if website.lowercased().hasPrefix("http") == false {
                             website = "http://".appending(website)
-                        }
+                        } 
                         print("This is url: \(website)")
                         if let url = URL(string: website) {
                             let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
                             vc.delegate = self
-                            
+                            // vc.modalPresentationStyle = .overFullScreen
                             present(vc, animated: true, completion: nil)
                         }
                     } else {
@@ -273,7 +273,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        dismiss(animated: true, completion: nil)
+        print("Nothing to do")
     }
 
     
@@ -373,11 +373,14 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
             print("Location Header")
         }
         
+        // 애플맵 기반으로 작성된 mapSection, 주석 처리
+        /**
         let mapSection = StoreDetailRowDatasource<StoreMapTableViewCell>(identifier: "mapCell", setupBlock: { (cell) in
                 self.configureMapCell(cell)
         }) {
             // add method here to handle cell selection
         }
+         */
         
         let googleMapSection = StoreDetailRowDatasource<StoreGoogleMapTableViewCell>(identifier: "googleMapCell", setupBlock: { (cell) in
                 DispatchQueue.main.async(execute: {

@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import SCLAlertView
 
+/// 스토어뷰에서 리뷰를 더 보기하면 스토어 관련된 리뷰를 쭉 보여주는 뷰컨트롤러
 class ReviewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     /// Button to leave a review
@@ -19,6 +21,7 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
     let reviewDownloadManager = ReviewManager()
     /// The selected store object, which reviews should be displayed
     var selectedStoreObject: Store!
+    
     /// Array of reviews to be displayed
     var reviewsArray: [Review] = []
     /// Refresh control
@@ -30,6 +33,9 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         dateFormatter.dateStyle = .medium
         return dateFormatter
     }()
+    
+    /// True, if we currently loading new reviews
+    var isLoadingItems: Bool = false
     
     let reviewPresentManager : ReviewPresentManager = ReviewPresentManager()
     
@@ -85,24 +91,80 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     /**
      Load the reviews for the selected Store
+     - 처음 다운로드 함수이므로 reviewsArray를 비우고 시작, 추가 다운로드는 loadMoreReviews에서 처리
      */
     func loadReviews() {
-        tableView.showLoadingIndicator()
+        isLoadingItems = true
+        reviewsArray.removeAll()
+        self.tableView.showLoadingIndicator()
         refreshControl.beginRefreshing()
         
-        reviewDownloadManager.downloadReviewCountsAndReviewsForStore(selectedStoreObject) { (reviews, error) -> () in
-            self.refreshControl.endRefreshing()
-            if error != nil {
-                // handle error here
+        reviewDownloadManager.downloadReviewCountAndReviewByPage(skippingNumberOfObject: 0, limit: 10, storeObject: selectedStoreObject) { (reviews, error) in
+            self.isLoadingItems = false
+            if let error = error {
+                self.showAlertViewWithRedownloadOption(error)
             } else {
                 if let reviews = reviews {
-                    self.reviewsArray = reviews
+                    self.reviewsArray.append(contentsOf: reviews)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 }
             }
-            
-            self.tableView.hideLoadingIndicator()
-            self.tableView.reloadData()
         }
+        self.refreshControl.endRefreshing()
+        self.tableView.hideLoadingIndicator()
+    }
+    
+    /**
+     스크롤을 70% 이상 내리면 발동되는 스토어 객체 추가 다운로드 함수
+     */
+    func loadMoreReviews() {
+        isLoadingItems = true
+        self.refreshControl.beginRefreshing()
+        self.tableView.showLoadingIndicator()
+        // 이미 다운로드 받은 리뷰의 숫자
+        let temp = reviewsArray.count as NSNumber
+        
+        reviewDownloadManager.downloadReviewCountAndReviewByPage(skippingNumberOfObject: temp, limit: 10, storeObject: selectedStoreObject) { (reviews, error) in
+            if let error = error {
+                self.showAlertViewWithRedownloadOption(error)
+            } else {
+                if let reviews = reviews {
+                    self.reviewsArray.append(contentsOf: reviews)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
+        isLoadingItems = false
+        self.refreshControl.endRefreshing()
+        self.tableView.hideLoadingIndicator()
+    }
+    
+    /**
+     사용자가 스크롤을 70% 이상 내리면 추가로 리뷰를 다운로드 - loadMoreReviews
+     */
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let endScrolling = scrollView.contentOffset.y + scrollView.frame.height
+        if endScrolling >= (scrollView.contentSize.height*0.7) && !isLoadingItems && reviewsArray.count >= 10 {
+            self.loadMoreReviews()
+        }
+    }
+
+    /**
+    다운로드에 문제가 있다는 것을 알려주는 함수
+    */
+    func showAlertViewWithRedownloadOption(_ error: String) {
+        let alert = SCLAlertView()
+        alert.addButton("확인") {
+            print("확인 완료")
+        }
+        alert.addButton("다시 시도") {
+            self.loadReviews()
+        }
+        alert.showError("에러 발생", subTitle: "다운로드에 문제가 있습니다")
     }
 
     // MARK: tableView methods

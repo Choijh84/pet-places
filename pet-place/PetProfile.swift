@@ -20,7 +20,7 @@ class PetProfile: NSObject {
     /// gender of the pet
     var gender: String!
     /// Image url of the pet
-    var imagePic: String = ""
+    var imagePic: String?
     /// name of the pet 
     var name: String!
     /// whether to be neutrazlied or not: True - neutralized
@@ -35,5 +35,11 @@ class PetProfile: NSObject {
     var weight: Double = 0.0
     /// Vaccincation history 
     var vaccination: String?
+    
+    /// time when the Pet Profile was created
+    var created: Date!
+    
+    /// time when the Pet Profile was updated
+    var updated: Date?
     
 }

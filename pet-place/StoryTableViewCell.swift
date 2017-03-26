@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SCLAlertView
 
 protocol StoryTableViewCellProtocol: class {
     func actionTapped(tag: Int)
@@ -40,6 +41,9 @@ class StoryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var commentNumberLabel: UILabel!
     
+    @IBOutlet weak var pageControl: UIPageControl!
+    
+    
     // 라이크버튼 눌렀을 때
     @IBAction func likeButtonClicked(_ sender: UIButton) {
         print("Like Button Clicked: \(likeButton.tag)")
@@ -72,6 +76,24 @@ class StoryTableViewCell: UITableViewCell {
         delegate?.actionTapped(tag: shareButton.tag)
     }
     
+    @IBAction func moreButtonClicked(_ sender: Any) {
+        let appearance = SCLAlertView.SCLAppearance(
+            kTextFont: UIFont(name: "GeneralLeeDotum", size: 14)!,
+            showCloseButton: false
+        )
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.addButton("신고") {
+            // 게시물 숨기기?
+            // 서버나 관리자에게 이메일 보내기
+        }
+        alertView.addButton("취소") {
+            print("취소되었습니다")
+        }
+        alertView.showWarning("신고하시겠습니까?", subTitle: "이 게시물을 위법/위해 게시물로 신고하시겠습니까?")
+        
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -79,6 +101,9 @@ class StoryTableViewCell: UITableViewCell {
         imageCollection.delegate = self
         imageCollection.dataSource = self
         
+        // 페이지컨트로 한개의 사진이면 안 보이게
+        pageControl.hidesForSinglePage = true
+        pageControl.layer.cornerRadius = 10.0
         
         // 이미지뷰 원형 모양으로
         profileImageView.layer.cornerRadius = profileImageView.layer.frame.width/2
@@ -110,12 +135,20 @@ class StoryTableViewCell: UITableViewCell {
         delegate?.actionTapped(tag: row)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
 }
 
 extension StoryTableViewCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     // MARK: Collectionview Method
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        self.pageControl.numberOfPages = photoList.count
         return photoList.count
     }
     
@@ -124,8 +157,9 @@ extension StoryTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
         
         let imageURL = photoList[indexPath.row]
         let url = URL(string: imageURL)
-        cell.imageView.hnk_setImage(from: url)
-        
+        DispatchQueue.main.async {
+            cell.imageView.hnk_setImage(from: url)
+        }
         return cell
     }
     
@@ -135,6 +169,10 @@ extension StoryTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.size.width
-        return CGSize(width: width, height: 170)
+        return CGSize(width: width, height: width*0.8)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        self.pageControl.currentPage = indexPath.row
     }
 }

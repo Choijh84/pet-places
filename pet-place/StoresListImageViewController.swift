@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SCLAlertView
 
 class StoresListImageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LocationHandlerProtocol {
 
@@ -41,12 +42,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     /// Array to hold all the downloaded categories
     var allStoreCategories: [StoreCategory] = []
     
-    /// The selected sorting option from filterview - Pet Type: 강아지, 고양이 등 - Replaced by GlobalVar
-    /// var SortingPetType: String?
-    /// The selected sorting option from filterview - Pet Size: 소형, 중형, 대형 등 - Replaced by GlobalVar
-    /// var SortingPetSize: String?
-    
-    /// True, if we currently loading new products
+    /// True, if we currently loading new stores
     var isLoadingItems: Bool = false
     
     /// View which contains filter
@@ -65,8 +61,6 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         customizeViews()
         customizeFilterView()
         startLocationTracking()
-        
-        // title = "Places Nearby"
         
         tableView.showLoadingIndicator()
     }
@@ -101,6 +95,8 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     
     /**
      Called when user applies a filter from the FilterViewController
+     사용자가 필터를 적용하고 나서 뷰가 돌아올 때 적용하는 unwind 함수
+     쿼리에 적용할 petType과 petSize에 대한 정보를 받아서 입력
      
      :param: segue apply the selected sorting option and download the Store objects again.
      */
@@ -141,7 +137,6 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
                 self.filterView.isHidden = false
             })
             configureFilterInfo()
-            
         }
     }
     
@@ -176,7 +171,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         locationHandler.startLocationTracking()
     }
     /**
-     Customize the view's look and feel
+     Customize the tableview's look and feel
      */
     func customizeViews() {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -190,7 +185,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     /**
-    Downloads all the Store Object
+    스토어 객체를 다운도르 시키는 함수
     */
     func downloadStores() {
         if lastLocation != nil || isConfirmedLocation == true {
@@ -201,6 +196,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             downloadManager.selectedStoreCategory = selectedStoreCategory
             
             downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 10, selectedStoreCategory: selectedStoreCategory, radius: 20, completionBlock: { (storeObjects, error) in
+                self.isLoadingItems = false
                 if let error = error {
                     self.showAlertViewWithRedownloadOption(error)
                 } else {
@@ -212,20 +208,21 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
                     } else {
                         self.calculateDistanceBetweenStoreLocationsWithLocation(self.pickedLocation!)
                     }
-                    
+                    DispatchQueue.main.async(execute: {
+                        self.tableView.reloadData()
+                    })
                 }
-                self.tableView.reloadData()
                 self.tableView.hideLoadingIndicator()
             })
         }
     }
     
     /**
-    Download more Store Objects, triggered when user scrolled down enough 
+    스크롤을 70% 이상 내리면 발동되는 스토어 객체 추가 다운로드 함수
     */
     func downloadMoreStores() {
         isLoadingItems = true
-        
+        refreshControl.beginRefreshing()
         let temp = objectsArray.count as NSNumber
         
         downloadManager.downloadStores(skippingNumberOfObjects: temp, limit: 10, selectedStoreCategory: selectedStoreCategory, radius: 20) { (storeObjects, error) in
@@ -234,15 +231,16 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             } else {
                 if let storeObjects = storeObjects {
                     self.objectsArray.append(contentsOf: storeObjects)
+                    DispatchQueue.main.async(execute: {
+                        self.tableView.reloadData()
+                    })
                 }
                 if let location = self.lastLocation {
                     self.calculateDistanceBetweenStoreLocationsWithLocation(location)
                 }
             }
-            
             self.isLoadingItems = false
             self.refreshControl.endRefreshing()
-            self.tableView.reloadData()
             self.tableView.hideLoadingIndicator()
         }
     }
@@ -252,7 +250,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     */
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let endScrolling = scrollView.contentOffset.y + scrollView.frame.height
-        if endScrolling >= (scrollView.contentSize.height*0.7) && !isLoadingItems && objectsArray.count > 10 {
+        if endScrolling >= (scrollView.contentSize.height*0.7) && !isLoadingItems && objectsArray.count >= 10 {
             self.downloadMoreStores()
         }
     }
@@ -278,12 +276,14 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
      :param: error error to display
      */
     func showAlertViewWithRedownloadOption(_ error: String) {
-        let alertView = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-        alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        alertView.addAction(UIAlertAction(title: "Retry", style: .default, handler: { (alertAction) -> Void in
+        let alert = SCLAlertView()
+        alert.addButton("확인") { 
+            print("확인 완료")
+        }
+        alert.addButton("다시 시도") { 
             self.downloadStores()
-        }))
-        present(alertView, animated: true, completion: nil)
+        }
+        alert.showError("에러 발생", subTitle: "다운로드에 문제가 있습니다")
     }
     
     // MARK: location handler protocol methods

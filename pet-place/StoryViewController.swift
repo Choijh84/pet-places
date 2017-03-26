@@ -8,6 +8,7 @@
 
 import UIKit
 import XLPagerTabStrip
+import SCLAlertView
 
 class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewDataSource, UITableViewDelegate, StoryTableViewCellProtocol {
     
@@ -15,7 +16,13 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
     
     var itemInfo: IndicatorInfo = "Story"
     
+    /// Refreshcontrol to show a loading indicator and a pull to refresh view, when the view is loading content
+    var refreshControl: UIRefreshControl!
+    
     @IBOutlet weak var tableView: LoadingTableView!
+    
+    /// 스토리를 다운로드하고 있으면 true
+    var isLoadingItems: Bool = false
     
     /// Lazy getter for the dateformatter that formats the date property of each review to the desired format
     lazy var dateFormatter: DateFormatter = {
@@ -41,23 +48,114 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         tableView.estimatedRowHeight = 320
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        super.viewDidLoad()
+        customizeViews()
         
-        StoryDownloadManager().downloadStory(nil) { (array, error) in
-            if error == nil {
-                self.StoryArray = array!
-                dump(self.StoryArray)
-                self.tableView.reloadData()
-                self.tableView.hideLoadingIndicator()
-            } else {
-                print("Server reported error on downloading Story: \(error?.description)")
-            }
-        }
+        super.viewDidLoad()
+        downloadStory()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    /**
+     초기에 스토리를 다운로드 하는 함수
+     - 처음 다운로드 하므로 데이터 배열을 초기화하고 시작, 추가 다운로드는 downloadMoreStory에서 처리
+     */
+    
+    func downloadStory() {
+        isLoadingItems = true
+        refreshControl.beginRefreshing()
+        tableView.showLoadingIndicator()
+        
+        // 배열 초기화
+        StoryArray.removeAll()
+        
+        StoryDownloadManager().downloadStoryByPage(skippingNumberOfObjects: 0, limit: 10, user: nil) { (stories, error) in
+            self.isLoadingItems = false
+            if let error = error {
+                self.showAlertViewWithRedownloadOption(error)
+            } else {
+                if let stories = stories {
+                    self.StoryArray.append(contentsOf: stories)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
+        self.refreshControl.endRefreshing()
+        
+        self.tableView.hideLoadingIndicator()
+    }
+    
+    func downloadMoreStory() {
+        isLoadingItems = true
+        refreshControl.beginRefreshing()
+        tableView.showLoadingIndicator()
+        
+        // 이미 다운로드 받은 스토리의 수
+        let temp = StoryArray.count as NSNumber
+        print("This is temp: \(temp)")
+        
+        StoryDownloadManager().downloadStoryByPage(skippingNumberOfObjects: temp, limit: 10, user: nil) { (stories, error) in
+            self.isLoadingItems = false
+            if let error = error {
+                self.showAlertViewWithRedownloadOption(error)
+            } else {
+                if let stories = stories {
+                    self.StoryArray.append(contentsOf: stories)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
+        self.refreshControl.endRefreshing()
+        self.tableView.hideLoadingIndicator()
+    }
+    
+    /**
+     사용자가 스크롤을 70% 이상 내리면 추가로 리뷰를 다운로드 - downloadMoreStory
+     */
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let endScrolling = scrollView.contentOffset.y + scrollView.frame.height
+        if endScrolling >= (scrollView.contentSize.height*0.7) && !isLoadingItems && StoryArray.count >= 10 {
+            self.downloadMoreStory()
+        }
+    }
+    
+    /**
+     다운로드에 문제가 있다는 것을 알려주는 함수
+     */
+    func showAlertViewWithRedownloadOption(_ error: String) {
+        let alert = SCLAlertView()
+        alert.addButton("확인") {
+            print("확인 완료")
+        }
+        alert.addButton("다시 시도") {
+            self.downloadStory()
+        }
+        alert.showError("에러 발생", subTitle: "다운로드에 문제가 있습니다")
+    }
+    
+    /**
+     Customize the tableview's look and feel
+     */
+    func customizeViews() {
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        tableView.separatorColor = .separatorLineColor()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .globalTintColor()
+        refreshControl.addTarget(self, action: #selector(StoryViewController.downloadStory), for: .valueChanged)
+        tableView.addSubview(refreshControl)
     }
 
     // MARK: - UITableViewDataSource
@@ -75,6 +173,7 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         
         let story = StoryArray[indexPath.row]
         story.commentNumbers = story.comments.count
+        // 프로토콜 delegate 설정
         cell.delegate = self
         
         // tag 설정 
@@ -105,16 +204,23 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                     cell.profileImageView.hnk_setImage(from: url)
                 }
             }
+        } else {
+            //  삭제된 유저의 경우
+            cell.nicknameLabel.text = "탈퇴 유저"
+            cell.profileImageView.image = #imageLiteral(resourceName: "user_profile")
         }
         
         // 라이크버튼 설정
-        checkLike(indexPath.row) { (success) in
-            if success {
-                // 어떤 스토리를 좋아했다면
-                cell.likeButton.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
-            } else {
-                // 좋아했던 스토리가 아니라면
-                cell.likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
+        DispatchQueue.main.async { 
+            self.checkLike(indexPath.row) { (success) in
+                if success {
+                    // 어떤 스토리를 좋아했다면
+                    cell.likeButton.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
+                    
+                } else {
+                    // 좋아했던 스토리가 아니라면
+                    cell.likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
+                }
             }
         }
         
@@ -122,13 +228,12 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         cell.likeNumberLabel.text = String(story.likeNumbers) + "개의 좋아요"
         cell.commentNumberLabel.text = String(story.commentNumbers) + "개의 리플"
         
-        
-        if let imageLink = story.imageArray {
-            let imageArray = imageLink.components(separatedBy: ",").sorted()
-            cell.photoList = imageArray
-        }
+        cell.photoList = (story.imageArray?.components(separatedBy: ",").sorted())!
         
         cell.timeLabel.text = dateFormatter.string(from: story.created! as Date)
+        
+        // 향후 스크롤링하면서 데이터가 부정확해지기 때문에 꼭 reload를 해줘야 함
+        cell.imageCollection.reloadData()
         
         return cell
     }
@@ -258,7 +363,6 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             let index = sender as! Int
             let destinationVC = segue.destination as! CommentViewController
             destinationVC.selectedStory = StoryArray[index]
-            print("Selected Story: \(index)")
         }
     }
     

@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// 홈 화면 앞에 이미지 파일 돌아가는 프론트 프로모션 클래스
 class FrontPromotion: NSObject {
     
     /// ID
@@ -20,6 +21,7 @@ class FrontPromotion: NSObject {
     var url: String?
 }
 
+/// 추천하는 장소들 클래스 정의
 class Recommendations: NSObject {
     
     /// ID
@@ -28,7 +30,8 @@ class Recommendations: NSObject {
     var store: Store!
 }
 
-class HomeViewController: UITableViewController {
+/// 홈 화면 뷰 컨트롤러, BWWalkthrough Delegate 설정 필요
+class HomeViewController: UITableViewController, BWWalkthroughViewControllerDelegate {
     
     @IBOutlet var tableInsideHome: LoadingTableView!
     
@@ -40,11 +43,63 @@ class HomeViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "PET CITY HOME"
+        title = "펫시티 홈"
+
+        downloadBoth()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+        let userDefaults = UserDefaults.standard
+        
+        if !userDefaults.bool(forKey: "walkthroughPresented") {
+            showWalkThrough()
+            
+            userDefaults.set(true, forKey: "walkthroughPresented")
+            userDefaults.synchronize()
+        }
+    }
+    
+    // 워크스루 보여주는 함수
+    func showWalkThrough() {
+        let stb = UIStoryboard(name: "Walkthrough", bundle: nil)
+        let walkthrough = stb.instantiateViewController(withIdentifier: "walk") as! BWWalkthroughViewController
+        
+        
+        let page_one = stb.instantiateViewController(withIdentifier: "walk1")
+        let page_two = stb.instantiateViewController(withIdentifier: "walk2")
+        let page_three = stb.instantiateViewController(withIdentifier: "walk3")
+        let page_zero = stb.instantiateViewController(withIdentifier: "walk0")
+        
+        // 마스터 페이지에 결합
+        walkthrough.delegate = self
+        
+        // 순서대로 붙는다
+        walkthrough.add(viewController:page_one)
+        walkthrough.add(viewController:page_two)
+        walkthrough.add(viewController:page_three)
+        walkthrough.add(viewController:page_zero)
+        
+        self.present(walkthrough, animated: true, completion: nil)
+    }
+    
+    func downloadBoth() {
+        refreshControl?.beginRefreshing()
         downloadFrontPromotions()
         downloadRecommendations()
-        
+        refreshControl?.endRefreshing()
+    }
+    
+    // MARK: - Walkthrough delegate -
+    
+    func walkthroughPageDidChange(_ pageNumber: Int) {
+        print("This is page: \(pageNumber)")
+    }
+    
+    // Close Button을 누르면
+    func walkthroughCloseButtonPressed() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     /**

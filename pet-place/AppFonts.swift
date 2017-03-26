@@ -13,6 +13,18 @@ import UIKit
 */
 
 extension UIFont {
+    
+    class func GeneralLeeDotum() -> String {
+        return "이순신돋움체M"
+    }
+    
+    class func GeneralLee() -> String {
+        return "이순신Regular"
+    }
+    
+    class func Swagger() -> String {
+        return "SDSwaggerTTF"
+    }
 
     class func montSerratRegular() -> String {
         return "Montserrat-Regular"

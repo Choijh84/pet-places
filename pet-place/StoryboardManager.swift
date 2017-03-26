@@ -29,6 +29,10 @@ class StoryboardManager: NSObject {
         return UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! MainTabbarViewController
     }
     
+    class func firstViewController() -> FirstViewController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! FirstViewController
+    }
+    
     /**
      Returns a LoginViewController instance
      
