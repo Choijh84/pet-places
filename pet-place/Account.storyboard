@@ -8,7 +8,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -32,6 +31,9 @@
         </array>
         <array key="Montserrat-Regular.ttf">
             <string>Montserrat-Regular</string>
+        </array>
+        <array key="서울남산 장체B.otf">
+            <string>SeN-CB</string>
         </array>
         <array key="서울남산 장체L.otf">
             <string>SeN-CL</string>
@@ -66,6 +68,166 @@
             </objects>
             <point key="canvasLocation" x="57" y="1780"/>
         </scene>
+        <!--Sign Up Type View Controller-->
+        <scene sceneID="jS0-aN-wQ3">
+            <objects>
+                <viewController id="Z4a-NJ-nbP" customClass="SignUpTypeViewController" customModule="pet_place" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3mf-bm-hlX"/>
+                        <viewControllerLayoutGuide type="bottom" id="KmT-3x-UlD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="h98-FI-KVt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdz-l9-XgJ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="yer-rV-ggP">
+                                <rect key="frame" x="24" y="460" width="327" height="157"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynL-7V-dRJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="327" height="29"/>
+                                        <color key="backgroundColor" red="0.81648300802522444" green="0.84545633852001445" blue="0.86199253615994142" alpha="0.85397046236027396" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="16"/>
+                                        <state key="normal" title="SNS 회원가입">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.90196078430000004" green="0.73725490199999999" blue="0.066666666669999999" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="loginUser" destination="kbT-cq-KJ0" eventType="touchUpInside" id="4uD-ju-rs4"/>
+                                        </connections>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="X6o-N5-qRo">
+                                        <rect key="frame" x="0.0" y="44" width="327" height="27"/>
+                                        <subviews>
+                                            <button opaque="NO" alpha="0.69999998807907104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoG-np-0DP">
+                                                <rect key="frame" x="0.0" y="0.0" width="158.5" height="27"/>
+                                                <color key="backgroundColor" red="0.28235294119999998" green="0.41568627450000001" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BMDoHyeon-OTF" family="BM DoHyeon OTF" pointSize="12"/>
+                                                <state key="normal" title="페이스북 회원가입">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.79961993239999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="loginUserViaFacebook" destination="kbT-cq-KJ0" eventType="touchUpInside" id="d7m-RG-Yt2"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" alpha="0.69999998807907104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dh8-74-dTq">
+                                                <rect key="frame" x="168.5" y="0.0" width="158.5" height="27"/>
+                                                <color key="backgroundColor" red="0.92756336930000005" green="0.25630253549999998" blue="0.17451465129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BMDoHyeon-OTF" family="BM DoHyeon OTF" pointSize="12"/>
+                                                <state key="normal" title="구글 회원가입">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.79961993239999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="loginUserViaFacebook" destination="kbT-cq-KJ0" eventType="touchUpInside" id="6fG-0U-aRY"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="A3r-rm-0vd">
+                                        <rect key="frame" x="0.0" y="86" width="327" height="27"/>
+                                        <subviews>
+                                            <button opaque="NO" alpha="0.69999998807907104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUH-YQ-uGK">
+                                                <rect key="frame" x="0.0" y="0.0" width="158.5" height="27"/>
+                                                <color key="backgroundColor" red="0.98376697300000004" green="0.88921093939999996" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BMDoHyeon-OTF" family="BM DoHyeon OTF" pointSize="12"/>
+                                                <state key="normal" title="카카오 회원가입">
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.79961993239999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="loginUserViaFacebook" destination="kbT-cq-KJ0" eventType="touchUpInside" id="qwj-Nz-ixC"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" alpha="0.69999998807907104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nBp-cw-kBl">
+                                                <rect key="frame" x="168.5" y="0.0" width="158.5" height="27"/>
+                                                <color key="backgroundColor" red="0.0" green="0.78775483369999999" blue="0.19059815999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BMDoHyeon-OTF" family="BM DoHyeon OTF" pointSize="12"/>
+                                                <state key="normal" title="네이버 회원가입">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.79961993239999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="loginUserViaFacebook" destination="kbT-cq-KJ0" eventType="touchUpInside" id="Det-HE-WnG"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pwP-Tu-kB6">
+                                        <rect key="frame" x="0.0" y="128" width="327" height="29"/>
+                                        <color key="backgroundColor" red="0.81648300802522444" green="0.84545633852001445" blue="0.86199253615994142" alpha="0.85397046236027396" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="16"/>
+                                        <state key="normal" title="이메일 회원가입">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.90196078430000004" green="0.73725490199999999" blue="0.066666666669999999" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="loginUser" destination="kbT-cq-KJ0" eventType="touchUpInside" id="uCS-zW-3bh"/>
+                                            <segue destination="hE9-Z0-fzp" kind="push" identifier="showEmailSignUp" id="Ffc-4u-1Rr"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lfK-S5-q3W">
+                                <rect key="frame" x="24" y="35" width="343" height="375"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="펫시티는 당신의 펫을 행복하게 할 수 있는 가장 효과적인 서비스입니다" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTl-On-Lfj">
+                                        <rect key="frame" x="65.5" y="161" width="213.5" height="54"/>
+                                        <fontDescription key="fontDescription" name="BMJUAOTF" family="BM JUA_OTF" pointSize="18"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="VTl-On-Lfj" firstAttribute="centerY" secondItem="lfK-S5-q3W" secondAttribute="centerY" id="KpM-al-iOw"/>
+                                    <constraint firstItem="VTl-On-Lfj" firstAttribute="centerX" secondItem="lfK-S5-q3W" secondAttribute="centerX" id="eXh-DL-Hjd"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.95549887418746948" green="0.95622259378433228" blue="0.95561093091964722" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="lfK-S5-q3W" firstAttribute="leading" secondItem="h98-FI-KVt" secondAttribute="leadingMargin" constant="8" id="NLB-87-TQN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yer-rV-ggP" secondAttribute="trailing" constant="8" id="OAJ-RT-Zec"/>
+                            <constraint firstItem="yer-rV-ggP" firstAttribute="top" secondItem="lfK-S5-q3W" secondAttribute="bottom" constant="50" id="Q5v-OC-EKP"/>
+                            <constraint firstItem="lfK-S5-q3W" firstAttribute="trailing" secondItem="h98-FI-KVt" secondAttribute="trailingMargin" constant="8" id="UYO-3L-CxQ"/>
+                            <constraint firstItem="lfK-S5-q3W" firstAttribute="top" secondItem="3mf-bm-hlX" secondAttribute="bottom" constant="15" id="WAQ-ub-koO"/>
+                            <constraint firstItem="KmT-3x-UlD" firstAttribute="top" secondItem="yer-rV-ggP" secondAttribute="bottom" constant="50" id="iyV-Jy-YfV"/>
+                            <constraint firstItem="yer-rV-ggP" firstAttribute="leading" secondItem="h98-FI-KVt" secondAttribute="leadingMargin" constant="8" id="yfG-KC-8Mb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="pKw-Mt-f7b"/>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="vdz-l9-XgJ" id="nfx-ty-NcS"/>
+                        <outlet property="entireStackview" destination="yer-rV-ggP" id="6yt-3O-GW0"/>
+                        <outlet property="facebookSignup" destination="yoG-np-0DP" id="vxv-lJ-Ppr"/>
+                        <outlet property="googleSignup" destination="dh8-74-dTq" id="Wc6-dk-U0v"/>
+                        <outlet property="kakaoSignup" destination="aUH-YQ-uGK" id="uMH-ih-kOv"/>
+                        <outlet property="messageLabel" destination="VTl-On-Lfj" id="WNg-jE-Cfs"/>
+                        <outlet property="messageView" destination="lfK-S5-q3W" id="Dcc-h4-xA9"/>
+                        <outlet property="naverSignup" destination="nBp-cw-kBl" id="5Ui-4i-epB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yCh-lT-xLb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="761.5" y="929.5"/>
+        </scene>
         <!--회원가입-->
         <scene sceneID="uOb-uI-e4e">
             <objects>
@@ -78,6 +240,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mQj-Vk-p2T">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="N4B-Fu-6RW">
                                 <rect key="frame" x="16" y="74" width="343" height="358"/>
                                 <subviews>
@@ -434,6 +599,10 @@
                             <constraint firstItem="N4B-Fu-6RW" firstAttribute="top" secondItem="CWI-b8-QGD" secondAttribute="bottom" constant="10" id="268-dE-B6D"/>
                             <constraint firstItem="N4B-Fu-6RW" firstAttribute="leading" secondItem="yOr-tZ-C3j" secondAttribute="leadingMargin" id="DOr-zR-EcB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="N4B-Fu-6RW" secondAttribute="trailing" id="H1o-x1-Nui"/>
+                            <constraint firstItem="mQj-Vk-p2T" firstAttribute="top" secondItem="CWI-b8-QGD" secondAttribute="bottom" id="diR-IT-SuR"/>
+                            <constraint firstAttribute="trailing" secondItem="mQj-Vk-p2T" secondAttribute="trailing" id="kQq-Bk-hS9"/>
+                            <constraint firstItem="dsZ-bk-dsJ" firstAttribute="top" secondItem="mQj-Vk-p2T" secondAttribute="bottom" id="seE-aV-vYp"/>
+                            <constraint firstItem="mQj-Vk-p2T" firstAttribute="leading" secondItem="yOr-tZ-C3j" secondAttribute="leading" id="t99-5b-13E"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="회원가입" id="FRB-k6-2xr">
@@ -447,6 +616,7 @@
                     <connections>
                         <outlet property="agreementButton" destination="BAz-LP-DFr" id="G9C-yo-rc7"/>
                         <outlet property="allAgreeButton" destination="dLa-ne-fVZ" id="dUL-NQ-uEl"/>
+                        <outlet property="backgroundImageView" destination="mQj-Vk-p2T" id="Qw9-pl-eps"/>
                         <outlet property="emailSubscribeButton" destination="g81-86-f9Z" id="zec-6Y-tgP"/>
                         <outlet property="emailTextField" destination="PQj-VO-9DP" id="iWF-Np-wN8"/>
                         <outlet property="locationButton" destination="GFA-Q3-hwf" id="qR0-R6-5eu"/>
@@ -599,124 +769,233 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yHz-v6-kN4" userLabel="wrapperView">
-                                <rect key="frame" x="47.5" y="30" width="280" height="382"/>
+                                <rect key="frame" x="46" y="30" width="283" height="355"/>
                                 <subviews>
                                     <imageView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="companyLogo" translatesAutoresizingMaskIntoConstraints="NO" id="LOS-gR-Obg">
-                                        <rect key="frame" x="110" y="161" width="60" height="60"/>
+                                        <rect key="frame" x="111.5" y="147.5" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="XFb-VN-bJI"/>
+                                            <constraint firstAttribute="height" constant="60" id="mVA-bx-hnW"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LOS-gR-Obg" secondAttribute="bottom" constant="20" id="LYE-Ib-cuV"/>
-                                    <constraint firstItem="LOS-gR-Obg" firstAttribute="centerX" secondItem="yHz-v6-kN4" secondAttribute="centerX" id="Qa1-Fw-5VE"/>
-                                    <constraint firstItem="LOS-gR-Obg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="yHz-v6-kN4" secondAttribute="top" constant="20" id="hKy-jZ-98E"/>
-                                    <constraint firstItem="LOS-gR-Obg" firstAttribute="centerY" secondItem="yHz-v6-kN4" secondAttribute="centerY" id="oIL-5W-DmT"/>
+                                    <constraint firstItem="LOS-gR-Obg" firstAttribute="centerY" secondItem="yHz-v6-kN4" secondAttribute="centerY" id="L8j-zN-RX2"/>
+                                    <constraint firstItem="LOS-gR-Obg" firstAttribute="centerX" secondItem="yHz-v6-kN4" secondAttribute="centerX" id="Rd2-ZO-aIw"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" 이메일 주소" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="tjs-3o-zPv" customClass="AccountTextField" customModule="pet_place" customModuleProvider="target">
-                                <rect key="frame" x="47.5" y="412" width="280" height="40"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YVy-ql-jB9">
+                                <rect key="frame" x="46" y="395" width="283" height="252"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="   이메일 주소" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="tjs-3o-zPv">
+                                        <rect key="frame" x="0.0" y="0.0" width="283" height="30"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="jiL-hU-lfr"/>
+                                        </constraints>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="kbT-cq-KJ0" id="Yc5-nF-NB3"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="   패스워드" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ygh-zW-mej">
+                                        <rect key="frame" x="0.0" y="40" width="283" height="30"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="cZt-aW-NtQ"/>
+                                        </constraints>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" name="SeN-CB" family="SeoulNamsan CB" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="kbT-cq-KJ0" id="Kcg-S7-6VY"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nan-hh-nIM">
+                                        <rect key="frame" x="0.0" y="80" width="283" height="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="15" id="wCV-Zc-1fg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="9"/>
+                                        <state key="normal" title="비밀번호를 잊어버리셨나요?">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="r05-Sw-BnD">
+                                        <rect key="frame" x="0.0" y="105" width="283" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dC-TT-owM" customClass="KenButton" customModule="pet_place" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="131.5" height="30"/>
+                                                <color key="backgroundColor" red="0.81176470588235294" green="0.84705882352941175" blue="0.86274509803921573" alpha="0.69044306506849318" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="16"/>
+                                                <state key="normal" title="로그인">
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="0.90196078430000004" green="0.73725490199999999" blue="0.066666666669999999" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="loginUser" destination="kbT-cq-KJ0" eventType="touchUpInside" id="hru-YO-gC6"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZHY-l9-Qhj" customClass="KenButton" customModule="pet_place" customModuleProvider="target">
+                                                <rect key="frame" x="151.5" y="0.0" width="131.5" height="30"/>
+                                                <color key="backgroundColor" red="0.81176470588235294" green="0.84705882352941175" blue="0.86274509803921573" alpha="0.69044306506849318" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="16"/>
+                                                <state key="normal" title="회원가입">
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="0.90196078430000004" green="0.73725490199999999" blue="0.066666666669999999" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <segue destination="Z4a-NJ-nbP" kind="push" id="YOT-m6-Umd"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="l0k-UC-eLe"/>
+                                        </constraints>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ruT-R1-5Fo" customClass="KenButton" customModule="pet_place" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="145" width="283" height="30"/>
+                                        <color key="backgroundColor" red="0.81176470590000005" green="0.84705882349999995" blue="0.86274509799999999" alpha="0.69044306509999998" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="adP-gZ-CKi"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="16"/>
+                                        <state key="normal" title="SNS 로그인">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.90196078430000004" green="0.73725490199999999" blue="0.066666666669999999" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="loginUser" destination="kbT-cq-KJ0" eventType="touchUpInside" id="HIh-vK-09X"/>
+                                        </connections>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="V71-SF-DQt">
+                                        <rect key="frame" x="0.0" y="185" width="283" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" alpha="0.69999998807907104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ef-Pp-Z8x" customClass="KenButton" customModule="pet_place" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="131.5" height="30"/>
+                                                <color key="backgroundColor" red="0.28235294119999998" green="0.41568627450000001" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BMDoHyeon-OTF" family="BM DoHyeon OTF" pointSize="12"/>
+                                                <state key="normal" title="페이스북 로그인">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.79961993239999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="loginUserViaFacebook" destination="kbT-cq-KJ0" eventType="touchUpInside" id="9NJ-eM-nqN"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" alpha="0.69999998807907104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pwI-rx-GVg" customClass="KenButton" customModule="pet_place" customModuleProvider="target">
+                                                <rect key="frame" x="151.5" y="0.0" width="131.5" height="30"/>
+                                                <color key="backgroundColor" red="0.9275633692741394" green="0.25630253553390503" blue="0.17451465129852295" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BMDoHyeon-OTF" family="BM DoHyeon OTF" pointSize="12"/>
+                                                <state key="normal" title="구글 로그인">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.79961993239999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="loginUserViaFacebook" destination="kbT-cq-KJ0" eventType="touchUpInside" id="eCG-SU-4sG"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="AvJ-q1-qL8"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="49u-Pb-IF9">
+                                        <rect key="frame" x="0.0" y="225" width="283" height="27"/>
+                                        <subviews>
+                                            <button opaque="NO" alpha="0.69999998807907104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WqC-XC-Z1A" customClass="KenButton" customModule="pet_place" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="131.5" height="27"/>
+                                                <color key="backgroundColor" red="0.98376697300000004" green="0.88921093939999996" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BMDoHyeon-OTF" family="BM DoHyeon OTF" pointSize="12"/>
+                                                <state key="normal" title="카카오 로그인">
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.79961993239999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="loginUserViaFacebook" destination="kbT-cq-KJ0" eventType="touchUpInside" id="OxX-M1-cur"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" alpha="0.69999998807907104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kam-0a-Hea" customClass="KenButton" customModule="pet_place" customModuleProvider="target">
+                                                <rect key="frame" x="151.5" y="0.0" width="131.5" height="27"/>
+                                                <color key="backgroundColor" red="0.0" green="0.78775483369999999" blue="0.19059815999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BMDoHyeon-OTF" family="BM DoHyeon OTF" pointSize="12"/>
+                                                <state key="normal" title="네이버 로그인">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.79961993239999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="loginUserViaFacebook" destination="kbT-cq-KJ0" eventType="touchUpInside" id="3sh-9U-P27"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="ae9-Bc-wkv"/>
+                                    <constraint firstItem="r05-Sw-BnD" firstAttribute="leading" secondItem="YVy-ql-jB9" secondAttribute="leading" id="4dv-eq-VMd"/>
+                                    <constraint firstItem="Ygh-zW-mej" firstAttribute="leading" secondItem="YVy-ql-jB9" secondAttribute="leading" id="D7O-o2-6wg"/>
+                                    <constraint firstAttribute="trailing" secondItem="ruT-R1-5Fo" secondAttribute="trailing" id="O9e-We-9Tj"/>
+                                    <constraint firstItem="tjs-3o-zPv" firstAttribute="leading" secondItem="YVy-ql-jB9" secondAttribute="leading" id="OxB-0c-JO4"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nan-hh-nIM" secondAttribute="trailing" id="VxC-lt-Yp3"/>
+                                    <constraint firstAttribute="trailing" secondItem="r05-Sw-BnD" secondAttribute="trailing" id="Wsp-zq-OHL"/>
+                                    <constraint firstItem="V71-SF-DQt" firstAttribute="leading" secondItem="YVy-ql-jB9" secondAttribute="leading" id="awf-7c-qv7"/>
+                                    <constraint firstItem="ruT-R1-5Fo" firstAttribute="leading" secondItem="YVy-ql-jB9" secondAttribute="leading" id="cKX-41-oBZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ygh-zW-mej" secondAttribute="trailing" id="dDW-tz-ggI"/>
+                                    <constraint firstAttribute="trailing" secondItem="tjs-3o-zPv" secondAttribute="trailing" id="pvz-k3-3Iu"/>
+                                    <constraint firstAttribute="trailing" secondItem="V71-SF-DQt" secondAttribute="trailing" id="xEg-DY-km0"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SeN-CL" family="SeoulNamsan CL" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="inset">
-                                        <real key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="delegate" destination="kbT-cq-KJ0" id="Yc5-nF-NB3"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dC-TT-owM">
-                                <rect key="frame" x="47.5" y="517" width="135" height="40"/>
-                                <color key="backgroundColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="6m6-GK-WLA"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="16"/>
-                                <state key="normal" title="로그인">
-                                    <color key="titleColor" red="0.92156862750000001" green="0.77647058820000003" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="0.90196078430000004" green="0.73725490199999999" blue="0.066666666669999999" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="loginUser" destination="kbT-cq-KJ0" eventType="touchUpInside" id="hru-YO-gC6"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8k4-M7-u4S">
-                                <rect key="frame" x="47.5" y="577" width="280" height="40"/>
-                                <color key="backgroundColor" red="0.28235294119999998" green="0.41568627450000001" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="280" id="4aU-qs-2BX"/>
-                                    <constraint firstAttribute="height" constant="40" id="MDM-vf-JBa"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="16"/>
-                                <state key="normal" title="페이스북 로그인">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.79961993239999996" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="loginUserViaFacebook" destination="kbT-cq-KJ0" eventType="touchUpInside" id="Czh-Ya-F3D"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZHY-l9-Qhj">
-                                <rect key="frame" x="192.5" y="517" width="135" height="40"/>
-                                <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="DPq-4K-13w"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="16"/>
-                                <state key="normal" title="회원가입">
-                                    <color key="titleColor" red="0.92156862750000001" green="0.77647058820000003" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="0.90196078430000004" green="0.73725490199999999" blue="0.066666666669999999" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="hE9-Z0-fzp" kind="push" identifier="showSignUP" id="Rdl-W9-PM9"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" 패스워드" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ygh-zW-mej" customClass="AccountTextField" customModule="pet_place" customModuleProvider="target">
-                                <rect key="frame" x="47.5" y="462" width="280" height="40"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="mIB-5M-RBS"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="SeN-CL" family="SeoulNamsan CL" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="inset">
-                                        <real key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="delegate" destination="kbT-cq-KJ0" id="Kcg-S7-6VY"/>
-                                </connections>
-                            </textField>
+                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJU-N5-WTw">
                                 <rect key="frame" x="20" y="35" width="50" height="40"/>
                                 <constraints>
@@ -734,43 +1013,33 @@
                         </subviews>
                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Ygh-zW-mej" firstAttribute="top" secondItem="tjs-3o-zPv" secondAttribute="bottom" constant="10" id="1MA-gg-Viw"/>
-                            <constraint firstItem="3dC-TT-owM" firstAttribute="leading" secondItem="8k4-M7-u4S" secondAttribute="leading" id="65Z-Jm-opb"/>
-                            <constraint firstItem="8k4-M7-u4S" firstAttribute="top" secondItem="3dC-TT-owM" secondAttribute="bottom" constant="20" id="AUs-Nj-PMS"/>
-                            <constraint firstItem="3dC-TT-owM" firstAttribute="top" secondItem="Ygh-zW-mej" secondAttribute="bottom" constant="15" id="Aae-nY-O5w"/>
-                            <constraint firstItem="yHz-v6-kN4" firstAttribute="leading" secondItem="tjs-3o-zPv" secondAttribute="leading" id="C1A-Cz-4aE"/>
-                            <constraint firstItem="8k4-M7-u4S" firstAttribute="centerX" secondItem="5TI-gu-eo7" secondAttribute="centerX" id="Ecs-jE-Kgt"/>
-                            <constraint firstItem="yHz-v6-kN4" firstAttribute="trailing" secondItem="tjs-3o-zPv" secondAttribute="trailing" id="F6H-J2-R2y"/>
-                            <constraint firstItem="ZHY-l9-Qhj" firstAttribute="trailing" secondItem="8k4-M7-u4S" secondAttribute="trailing" id="FrT-Jg-ObF"/>
+                            <constraint firstItem="YVy-ql-jB9" firstAttribute="top" secondItem="yHz-v6-kN4" secondAttribute="bottom" constant="10" id="HvS-io-3h0"/>
                             <constraint firstItem="cJU-N5-WTw" firstAttribute="top" secondItem="Po3-WI-DXc" secondAttribute="bottom" constant="15" id="Jva-Pe-19Y"/>
-                            <constraint firstItem="3dC-TT-owM" firstAttribute="width" secondItem="8k4-M7-u4S" secondAttribute="width" multiplier="1/2" constant="-5" id="L1b-IH-4Jy"/>
-                            <constraint firstItem="ZHY-l9-Qhj" firstAttribute="width" secondItem="8k4-M7-u4S" secondAttribute="width" multiplier="1/2" constant="-5" id="LzU-hb-Cun"/>
-                            <constraint firstItem="yHz-v6-kN4" firstAttribute="top" secondItem="Po3-WI-DXc" secondAttribute="bottom" constant="10" id="aE1-3a-nED"/>
-                            <constraint firstItem="Ygh-zW-mej" firstAttribute="leading" secondItem="3dC-TT-owM" secondAttribute="leading" id="asX-Kf-sLd"/>
-                            <constraint firstItem="ZHY-l9-Qhj" firstAttribute="centerY" secondItem="3dC-TT-owM" secondAttribute="centerY" id="bDk-Ut-4Qe"/>
+                            <constraint firstItem="yHz-v6-kN4" firstAttribute="leading" secondItem="5TI-gu-eo7" secondAttribute="leadingMargin" constant="30" id="KHG-Gp-n1r"/>
+                            <constraint firstItem="YVy-ql-jB9" firstAttribute="leading" secondItem="5TI-gu-eo7" secondAttribute="leadingMargin" constant="30" id="Xzk-e0-aXy"/>
                             <constraint firstItem="cJU-N5-WTw" firstAttribute="leading" secondItem="5TI-gu-eo7" secondAttribute="leading" constant="20" id="bcC-xh-Ibv"/>
-                            <constraint firstItem="gcW-hR-gZQ" firstAttribute="top" secondItem="8k4-M7-u4S" secondAttribute="bottom" constant="50" id="fAj-eZ-JKy"/>
-                            <constraint firstItem="tjs-3o-zPv" firstAttribute="leading" secondItem="Ygh-zW-mej" secondAttribute="leading" id="paV-VW-Kcg"/>
-                            <constraint firstItem="Ygh-zW-mej" firstAttribute="trailing" secondItem="8k4-M7-u4S" secondAttribute="trailing" id="s4G-wF-3K1"/>
-                            <constraint firstItem="tjs-3o-zPv" firstAttribute="trailing" secondItem="Ygh-zW-mej" secondAttribute="trailing" id="vhE-bw-YI7"/>
-                            <constraint firstItem="tjs-3o-zPv" firstAttribute="top" secondItem="yHz-v6-kN4" secondAttribute="bottom" id="x1f-gJ-2Wf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yHz-v6-kN4" secondAttribute="trailing" constant="30" id="g7y-Sw-6Qb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YVy-ql-jB9" secondAttribute="trailing" constant="30" id="oh4-Ft-ufp"/>
+                            <constraint firstItem="gcW-hR-gZQ" firstAttribute="top" secondItem="YVy-ql-jB9" secondAttribute="bottom" constant="20" id="sNB-Qr-HSl"/>
+                            <constraint firstItem="yHz-v6-kN4" firstAttribute="top" secondItem="Po3-WI-DXc" secondAttribute="bottom" constant="10" id="t4s-c4-7fq"/>
                         </constraints>
                     </view>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="closeButton" destination="cJU-N5-WTw" id="csc-6G-y1V"/>
                         <outlet property="companyLogoImageView" destination="LOS-gR-Obg" id="k4L-Bg-HWH"/>
                         <outlet property="emailField" destination="tjs-3o-zPv" id="atb-EF-4bm"/>
-                        <outlet property="facebookButtonBottomConstraint" destination="fAj-eZ-JKy" id="qxK-dZ-Mlv"/>
-                        <outlet property="facebookLoginButton" destination="8k4-M7-u4S" id="BM8-H1-kat"/>
+                        <outlet property="facebookLoginButton" destination="4ef-Pp-Z8x" id="SOC-lq-bOd"/>
+                        <outlet property="googleLoginButton" destination="pwI-rx-GVg" id="N5h-0G-KIu"/>
+                        <outlet property="kakaoLoginButton" destination="WqC-XC-Z1A" id="pEm-Ny-i5p"/>
                         <outlet property="loginButton" destination="3dC-TT-owM" id="oPq-h4-UYq"/>
+                        <outlet property="naverLoginButton" destination="Kam-0a-Hea" id="RFf-Nn-p6X"/>
                         <outlet property="passwordField" destination="Ygh-zW-mej" id="XfV-0E-Zbv"/>
                         <outlet property="signupButton" destination="ZHY-l9-Qhj" id="iS5-z6-Jjm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="97u-qT-lnw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="951" y="1780"/>
+            <point key="canvasLocation" x="950.5" y="1779.5"/>
         </scene>
         <!--Pet Profile Edit View Controller-->
         <scene sceneID="agU-u1-QdS">
@@ -809,7 +1078,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJY-8r-173">
-                                <rect key="frame" x="77.5" y="597" width="220" height="40"/>
+                                <rect key="frame" x="78" y="597" width="220" height="40"/>
                                 <color key="backgroundColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="TmF-nn-zyQ"/>
@@ -833,13 +1102,13 @@
                                         <rect key="frame" x="142" y="199" width="60" height="60"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="로그인하셨습니다" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dr-9c-Nyh">
-                                        <rect key="frame" x="118" y="274" width="108" height="16.5"/>
+                                        <rect key="frame" x="118" y="274" width="108" height="17"/>
                                         <fontDescription key="fontDescription" name="YiSunShinDotumL" family="YiSunShin Dotum L" pointSize="16"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ourpro.choi@gmail.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lI-K8-yun">
-                                        <rect key="frame" x="87" y="300.5" width="169" height="17.5"/>
+                                        <rect key="frame" x="87" y="301" width="169" height="18"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1448,7 +1717,7 @@
                                 </cells>
                             </collectionView>
                             <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QLX-pp-9Tf">
-                                <rect key="frame" x="62.5" y="209" width="250" height="200"/>
+                                <rect key="frame" x="63" y="209" width="250" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="단골 리스트를 추가해주세요" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="2o3-qJ-ZfN">
                                         <rect key="frame" x="25" y="90" width="198.5" height="18.5"/>
@@ -1553,7 +1822,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="2Ga-Md-e5z">
-                                <rect key="frame" x="26" y="98.5" width="323" height="357"/>
+                                <rect key="frame" x="26" y="99" width="323" height="357"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="haY-es-nDx">
                                         <rect key="frame" x="91.5" y="0.0" width="140" height="123"/>
@@ -2019,7 +2288,7 @@
                                                     <state key="normal" image="delete-button1"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A6a-f4-hzO" customClass="MyButton" customModule="pet_place" customModuleProvider="target">
-                                                    <rect key="frame" x="214" y="153.5" width="20" height="20"/>
+                                                    <rect key="frame" x="214" y="154" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="JSl-nc-UbU"/>
                                                         <constraint firstAttribute="width" constant="20" id="SKr-xB-kxS"/>
@@ -2098,7 +2367,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gOM-Ij-4du">
-                                <rect key="frame" x="62.5" y="209" width="250" height="200"/>
+                                <rect key="frame" x="63" y="209" width="250" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="당신의 펫 프로필을 추가해주세요!" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="pav-Oa-0cJ">
                                         <rect key="frame" x="25" y="90" width="199" height="19"/>

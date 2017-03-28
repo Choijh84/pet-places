@@ -180,6 +180,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
             let alertView = SCLAlertView(appearance: appearance)
             alertView.addButton("취소", action: { 
                 print("취소되었습니다")
+                self.dismiss(animated: true, completion: nil)
             })
             alertView.addButton("로그아웃") {
                 self.logoutUser()
@@ -198,7 +199,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     func logoutUser() {
         UserManager.logoutUser { (successful, errorMessage) -> () in
             if successful {
-//                self.presentLoginViewController()
+                self.presentLoginViewController()
                 self.dismiss(animated: true, completion: nil)
             } else {
                 // Present error

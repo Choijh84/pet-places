@@ -401,9 +401,12 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             storeCell.categoriesLabel.text = text
         }
         
-        /// store의 모든 카테고리 타입을 모두 보여줘야 하나?
-//        storeCell.categoriesLabel.text = combineString(inputArray: storeObject.StoreCategory)
+        // 인증 마크 보여주기 설정, 인증이 false이면 인증 마크를 숨긴다
+        if storeObject.isVerified == false {
+            storeCell.verifiedMark.isHidden = true
+        }
         
+        // 장소의 이미지 불러오기
         if let imageURL = storeObject.imageURL {
             storeCell.storeImageView.hnk_setImage(from: URL(string: imageURL))
         }

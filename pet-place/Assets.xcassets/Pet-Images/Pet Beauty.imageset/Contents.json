@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Pet Beauty.jpg",
+      "filename" : "Pet Beauty 1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Pet Beauty 2x.jpg",
       "scale" : "2x"
     },
     {

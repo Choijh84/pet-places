@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if GeneralSettings.isOnboardingFinished() == false {
             window?.rootViewController = StoryboardManager.onboardingViewController()
         } else {
-            window?.rootViewController = StoryboardManager.firstViewController()
+            window?.rootViewController = StoryboardManager.homeTabbarController()
         }
         
         return true

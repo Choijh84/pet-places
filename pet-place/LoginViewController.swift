@@ -23,11 +23,15 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signupButton: UIButton!
     /// Facebook login button
     @IBOutlet weak var facebookLoginButton: UIButton!
+    /// 구글 로그인 버튼
+    @IBOutlet weak var googleLoginButton: KenButton!
+    /// 카카오 로그인 버튼
+    @IBOutlet weak var kakaoLoginButton: KenButton!
+    /// 네이버 로그인 버
+    @IBOutlet weak var naverLoginButton: KenButton!
+    
     /// UIImageView that displays the company's logo
     @IBOutlet weak var companyLogoImageView: UIImageView!
-    
-    /// Bottom constraint from the facebook button to the bottom of the view, so when the keyboard comes up we can just slide it up easily by adjusting this constraint
-    @IBOutlet weak var facebookButtonBottomConstraint: NSLayoutConstraint!
     
     /// Close button, that is only shown if the view is not presented at My Profile view, but presented modally/Full screen
     @IBOutlet weak var closeButton: UIButton!
@@ -45,6 +49,12 @@ class LoginViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    /// Lazy loader for LoginViewController, cause we might not need to initialize it in the first place
+    lazy var loginViewController: LoginViewController = {
+        let loginViewController = StoryboardManager.loginViewController()
+        return loginViewController
+    }()
+    
     /**
      Called after the view is loaded. Adds a shadow to the company logo and registers itself for keyboard notifications.
      */
@@ -53,10 +63,22 @@ class LoginViewController: UIViewController {
         
         addMotionEffectToCompanyLogo()
         
-        loginButton.layer.cornerRadius = 4.0
-        facebookLoginButton.layer.cornerRadius = 4.0
-        signupButton.layer.cornerRadius = 4.0
+        // 버튼들 코너 세팅
+        loginButton.layer.cornerRadius = 7.5
+        facebookLoginButton.layer.cornerRadius = 10
+        signupButton.layer.cornerRadius = 7.5
         
+        // 텍스트필드들 뷰 세팅
+        emailField.layer.cornerRadius = 15
+        emailField.layer.borderColor = UIColor.lightGray.cgColor
+        emailField.layer.borderWidth = 1
+        
+        passwordField.layer.cornerRadius = 15
+        passwordField.layer.borderColor = UIColor.lightGray.cgColor
+        passwordField.layer.borderWidth = 1
+        
+        
+        // 로고 이미지 쉐도우 세팅
         companyLogoImageView.layer.shadowColor = UIColor(white: 0.0, alpha: 0.3).cgColor
         companyLogoImageView.layer.shadowOffset = CGSize(width: 0.0, height: 6.0)
         companyLogoImageView.layer.shadowOpacity = 0.6
@@ -65,14 +87,23 @@ class LoginViewController: UIViewController {
         // NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         // NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
+        // tap 세팅
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.viewWasTapped(_:)))
         tapRecognizer.numberOfTapsRequired = 1
         view.addGestureRecognizer(tapRecognizer)
         
-        defaultFacebookButtonBottomConstraint = facebookButtonBottomConstraint.constant
-        print("this is :\(defaultFacebookButtonBottomConstraint)")
         closeButton.isHidden = !displayCloseButton
-
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     /**
@@ -102,48 +133,6 @@ class LoginViewController: UIViewController {
         
         companyLogoImageView.addMotionEffect(motionEffectGroup)
     }
-    /**
-    // MARK: keyboard handling
-    /**
-     Called before showing the keyboard. Slides up all the elements in the view so it is easy to access any buttons/fields
-     
-     - parameter notification: notification
-     */
-    func keyboardWillShow(_ notification: Notification) {
-        let userInfo = notification.userInfo
-        if let userInfo = userInfo {
-            let keyboardFrame = userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue
-            let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double
-            let keyboardSize = keyboardFrame?.cgRectValue
-            
-            let heightOfKeyboard = keyboardSize?.height
-            
-            facebookButtonBottomConstraint.constant = heightOfKeyboard!
-            
-            UIView.animate(withDuration: animationDuration!, animations: { () -> Void in
-                self.view.layoutIfNeeded()
-            })
-        }
-    }
-    
-    /**
-     Called before the keyboard is about to be dismissed, just reset the default view layout
-     
-     - parameter notification: notification
-     */
-    func keyboardWillHide(_ notification: Notification) {
-        let userInfo = notification.userInfo
-        if let userInfo = userInfo
-        {
-            let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double
-            facebookButtonBottomConstraint.constant = defaultFacebookButtonBottomConstraint
-            
-            UIView.animate(withDuration: animationDuration!, animations: { () -> Void in
-                self.view.layoutIfNeeded()
-            })
-        }
-    }
-     */
     
     // MARK: login methods
     /**

@@ -51,6 +51,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     let falseColor = UIColor(red: 255/255, green: 224/255, blue: 130/255, alpha: 0.9)
     let trueColor = UIColor(red: 240/255, green: 244/255, blue: 195/255, alpha: 0.9)
     
+    // 백그라운드 이미지뷰
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    
+    let imageArray = [#imageLiteral(resourceName: "signupbg4"), #imageLiteral(resourceName: "signupbg1"), #imageLiteral(resourceName: "signupbg2"), #imageLiteral(resourceName: "signupbg3")]
+    var imageCount = 0
+    
     // 다음 단계 진행 버튼
     @IBAction func nextProcess(_ sender: Any) {
         // 이메일 입력 체크
@@ -238,6 +244,25 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         privacyButton.backgroundColor = falseColor
         locationButton.backgroundColor = falseColor
         marketingButton.backgroundColor = falseColor
+        
+        animateImages()
+    }
+    
+    // 이미지뷰를 5초 간격으로 변환시키는 함수
+    func animateImages() {
+        print("This is imageCount: \(imageCount)")
+        let image = imageArray[imageCount]
+        UIView.transition(with: backgroundImageView, duration: 5, options: .transitionCrossDissolve, animations: {
+            self.backgroundImageView.image = image
+        }) { (finished) in
+            var timer = Timer()
+            timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.animateImages), userInfo: nil, repeats: false)
+            if self.imageCount == self.imageArray.count - 1  {
+                self.imageCount = 0
+            } else {
+                self.imageCount = self.imageCount + 1
+            }
+        }
     }
 
     // 이메일 체크 - validation

@@ -35,6 +35,11 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     /// Address Presentation
     @IBOutlet weak var formattedAddress: UILabel!
     
+    // Lazy loader for LoginViewController, cause we might not need to initialize it in the first place
+    lazy var loginViewController: LoginViewController = {
+        let loginViewController = StoryboardManager.loginViewController()
+        return loginViewController
+    }()
     
     /// MARK: Tableview Function
     
@@ -82,9 +87,10 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
             )
             let alertView = SCLAlertView(appearance: appearance)
             alertView.addButton("로그인으로 이동") {
-                let storyboard = UIStoryboard(name: "Account", bundle: nil)
-                let controller = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-                self.present(controller, animated: true, completion: nil)
+                
+                // self.present(StoryboardManager.accountNavigationController(), animated: true, completion: nil)
+                self.presentLoginViewController()
+                
             }
             alertView.showInfo("로그인 필요", subTitle: "로그인해주세요!")
         }
@@ -105,6 +111,25 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
         GlobalVar.filter2 = nil
         
         checkLocation()
+    }
+    
+    /**
+     Checks if the loginViewController is already presented, if not, it adds it as a subview to our view
+     */
+    func presentLoginViewController() {
+        if loginViewController.view.superview == nil {
+            // 탭을 마이 프로필로 이동
+            self.tabBarController?.selectedIndex = 3
+            loginViewController.view.frame = self.view.bounds
+            loginViewController.willMove(toParentViewController: self)
+            view.addSubview(loginViewController.view)
+            loginViewController.didMove(toParentViewController: self)
+            
+            addChildViewController(loginViewController)
+            
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     func checkLocation() {

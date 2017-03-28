@@ -31,6 +31,12 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         return dateFormatter
     }()
     
+    /// Lazy loader for LoginViewController, cause we might not need to initialize it in the first place
+    lazy var loginViewController: LoginViewController = {
+        let loginViewController = StoryboardManager.loginViewController()
+        return loginViewController
+    }()
+    
     init(itemInfo: IndicatorInfo) {
         self.itemInfo = itemInfo
         super.init(nibName: nil, bundle: nil)
@@ -48,11 +54,24 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         tableView.estimatedRowHeight = 320
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        customizeViews()
+        let user = Backendless.sharedInstance().userService.currentUser
         
-        super.viewDidLoad()
-        downloadStory()
-        
+        // 유저 로그인이 안 되어있으면 로그인으로 이동
+        if user == nil {
+            let appearance = SCLAlertView.SCLAppearance(
+                showCloseButton: false
+            )
+            let alertView = SCLAlertView(appearance: appearance)
+            alertView.addButton("로그인으로 이동") {
+                self.presentLoginViewController()
+            }
+            alertView.showInfo("로그인 필요", subTitle: "로그인해주세요!")
+        } else {
+            customizeViews()
+            
+            super.viewDidLoad()
+            downloadStory()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +81,22 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    /**
+     Checks if the loginViewController is already presented, if not, it adds it as a subview to our view
+     */
+    func presentLoginViewController() {
+        if loginViewController.view.superview == nil {
+            self.tabBarController?.selectedIndex = 3
+            loginViewController.view.frame = self.view.bounds
+            loginViewController.willMove(toParentViewController: self)
+            view.addSubview(loginViewController.view)
+            loginViewController.didMove(toParentViewController: self)
+            addChildViewController(loginViewController)
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     /**

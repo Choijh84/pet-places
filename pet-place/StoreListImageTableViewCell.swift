@@ -26,6 +26,8 @@ class StoreListImageTableViewCell: UITableViewCell {
     @IBOutlet weak var distanceLabel: UILabel!
     /// Label to display the category, this Store belongs to
     @IBOutlet weak var categoriesLabel: UILabel!
+    /// 인증된 샵에만 붙여주는 인증마크
+    @IBOutlet weak var verifiedMark: UIImageView!
     
     /**
      Called after the view is loaded from the nib file, or storyboard, do some customisation

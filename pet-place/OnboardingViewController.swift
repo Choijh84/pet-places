@@ -44,10 +44,10 @@ class OnboardingViewController: UIViewController, LocationHandlerProtocol {
     func transitionToHomeView() {
         GeneralSettings.saveOnboardingFinished()
         
-        let firstViewController = StoryboardManager.firstViewController()
+        let homeTabbarController = StoryboardManager.homeTabbarController()
         // homeViewController.transitioningDelegate = transitionManager
         // homeViewController.modalPresentationStyle = .custom
-        present(firstViewController, animated: true, completion: nil)
+        present(homeTabbarController, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {

@@ -18,6 +18,12 @@ class StoryAndReviewViewController: ButtonBarPagerTabStripViewController {
     
     let blueInstagramColor = UIColor(red: 37/255.0, green: 111/255.0, blue: 206/255.0, alpha: 1.0)
     
+    /// Lazy loader for LoginViewController, cause we might not need to initialize it in the first place
+    lazy var loginViewController: LoginViewController = {
+        let loginViewController = StoryboardManager.loginViewController()
+        return loginViewController
+    }()
+    
     override func viewDidLoad() {
 
         // change selected bar color
@@ -52,20 +58,10 @@ class StoryAndReviewViewController: ButtonBarPagerTabStripViewController {
         
         let user = Backendless.sharedInstance().userService.currentUser
         
-        // 유저 로그인이 안 되어있으면 로그인으로 이동
+        // 유저 로그인이 안 되어있으면 버튼바 높이를 조절
         if user == nil {
-            let appearance = SCLAlertView.SCLAppearance(
-                showCloseButton: false
-            )
-            let alertView = SCLAlertView(appearance: appearance)
-            alertView.addButton("로그인으로 이동") {
-                let storyboard = UIStoryboard(name: "Account", bundle: nil)
-                let controller = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-                self.present(controller, animated: true, completion: nil)
-            }
-            alertView.showInfo("로그인 필요", subTitle: "로그인해주세요!")
+            settings.style.buttonBarHeight = 0
         }
-        
         super.viewDidLoad()
     }
     
@@ -77,5 +73,5 @@ class StoryAndReviewViewController: ButtonBarPagerTabStripViewController {
         let child_2 = storyboard.instantiateViewController(withIdentifier: "ReviewViewController")
         return [child_1, child_2]
     }
-
+    
 }

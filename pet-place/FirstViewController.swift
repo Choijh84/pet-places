@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// 처음에 앱 실행할 때 애니메이션 보여주는 
+/// 처음에 앱 실행할 때 애니메이션 보여주는, 향후에는 유저 설정 체크해서 바로 메인으로 보내준다
 class FirstViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
@@ -17,31 +17,29 @@ class FirstViewController: UIViewController {
 
     @IBOutlet weak var bodyLabel: UILabel!
     
+    var isAlreadySeen = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         bodyLabel.alpha = 0.0
         titleLabel.alpha = 0.5
-//        let centerPoint = titleLabel.center
-//        
-//        UIView.animate(withDuration: 1.5, delay: 0.0, options: .curveEaseInOut, animations: { 
-//            self.titleLabel.alpha = 0
-//        }) { (true) in
-//            self.newText()
-//        }
-//        
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         UIView.animate(withDuration: 3.0, delay: 0.5, options: .curveEaseIn, animations: {
-//            self.imageView.center = CGPoint(x: centerPoint.x+200, y: centerPoint.y)
             self.titleLabel.alpha = 1.0
             self.bodyLabel.alpha = 1.0
         }) { (true) in
             self.goNext()
         }
-        
     }
     
     func goNext() {
         UIView.animateKeyframes(withDuration: 0, delay: 1, options: .calculationModeCubicPaced, animations: { 
-            self.performSegue(withIdentifier: "goToMain", sender: nil)
+            // self.performSegue(withIdentifier: "goToMain", sender: nil)
+            self.dismiss(animated: true, completion: nil)
         }, completion: nil)
     }
     

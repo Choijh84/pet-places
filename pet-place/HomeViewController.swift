@@ -30,34 +30,48 @@ class Recommendations: NSObject {
     var store: Store!
 }
 
-/// 홈 화면 뷰 컨트롤러, BWWalkthrough Delegate 설정 필요
+/// 홈 화면 뷰 컨트롤러, BWWalkthrough Delegate 설정 필요(워크 스루 구현을 위한)
 class HomeViewController: UITableViewController, BWWalkthroughViewControllerDelegate {
     
     @IBOutlet var tableInsideHome: LoadingTableView!
     
+    // 프로모션은 처음에 보이는 이미지들, 우리 뉴스나 광고를 집어넣어야 할 곳?
     var promotions = [FrontPromotion]()
+    
+    // 추천 장소를 모아놓는 배열
     var recommendStores = [Recommendations]()
     
     var isShowBusinessInfo = false
     var reloadIndexPath: IndexPath?
+    
+    var isFirstTime = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "펫시티 홈"
 
         downloadBoth()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        // 사용자 설정 편집
         let userDefaults = UserDefaults.standard
         
+        // walkthroughPresented를 기준으로 true이면 본 것으로 설정
         if !userDefaults.bool(forKey: "walkthroughPresented") {
             showWalkThrough()
             
             userDefaults.set(true, forKey: "walkthroughPresented")
             userDefaults.synchronize()
+        }
+        
+        if !isFirstTime {
+            let firstView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FirstViewController")
+            self.present(firstView, animated: false, completion: nil)
+            isFirstTime = true
         }
     }
     
@@ -81,9 +95,11 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
         walkthrough.add(viewController:page_three)
         walkthrough.add(viewController:page_zero)
         
+        // 보여주기
         self.present(walkthrough, animated: true, completion: nil)
     }
     
+    // 둘 다 다운로드 받게 함
     func downloadBoth() {
         refreshControl?.beginRefreshing()
         downloadFrontPromotions()

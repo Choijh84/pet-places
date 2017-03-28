@@ -24,6 +24,7 @@
 		BE270FBB1E3CB09200DE1DF5 /* NewsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FBA1E3CB09200DE1DF5 /* NewsNavigationController.swift */; };
 		BE270FBD1E3CB13D00DE1DF5 /* NewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FBC1E3CB13D00DE1DF5 /* NewsListViewController.swift */; };
 		BE270FBF1E3CB45D00DE1DF5 /* NewsDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FBE1E3CB45D00DE1DF5 /* NewsDownloader.swift */; };
+		BE2EA9EB1E8979E300E0FCA8 /* SignUpTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EA9EA1E8979E300E0FCA8 /* SignUpTypeViewController.swift */; };
 		BE33468F1E31252A00E23A88 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE33468D1E31252A00E23A88 /* ReviewTableViewCell.swift */; };
 		BE3346901E31252A00E23A88 /* ReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE33468E1E31252A00E23A88 /* ReviewTableViewCell.xib */; };
 		BE3346921E31272800E23A88 /* ReviewOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3346911E31272800E23A88 /* ReviewOptionsTableViewCell.swift */; };
@@ -202,6 +203,7 @@
 		BE270FBA1E3CB09200DE1DF5 /* NewsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsNavigationController.swift; sourceTree = "<group>"; };
 		BE270FBC1E3CB13D00DE1DF5 /* NewsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsListViewController.swift; sourceTree = "<group>"; };
 		BE270FBE1E3CB45D00DE1DF5 /* NewsDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDownloader.swift; sourceTree = "<group>"; };
+		BE2EA9EA1E8979E300E0FCA8 /* SignUpTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTypeViewController.swift; sourceTree = "<group>"; };
 		BE33468D1E31252A00E23A88 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		BE33468E1E31252A00E23A88 /* ReviewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewTableViewCell.xib; sourceTree = "<group>"; };
 		BE3346911E31272800E23A88 /* ReviewOptionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewOptionsTableViewCell.swift; sourceTree = "<group>"; };
@@ -764,6 +766,7 @@
 				BEB74FE31E65DD7A00DF0904 /* ShowTermsViewController.swift */,
 				BE00018F1E68431800ED7B86 /* FavoriteListViewController.swift */,
 				BEE8040F1E71C04B0012015F /* SignUpViewController.swift */,
+				BE2EA9EA1E8979E300E0FCA8 /* SignUpTypeViewController.swift */,
 				BEE804111E71C05A0012015F /* SMSVerficationViewController.swift */,
 			);
 			name = Account;
@@ -1314,6 +1317,7 @@
 				EBD4821D1E1A8B0E00F2B8D5 /* StoresListNavigationController.swift in Sources */,
 				EB2956C91E16D4E00024E3E3 /* pet_place.xcdatamodeld in Sources */,
 				EB71A69A1E1D4A7300948F41 /* StoreDetailRowDatasource.swift in Sources */,
+				BE2EA9EB1E8979E300E0FCA8 /* SignUpTypeViewController.swift in Sources */,
 				EBD482241E1AAECC00F2B8D5 /* LocationsDownloadManager.swift in Sources */,
 				BEF2BE411E1BB4A70044203E /* StoreListImageTableViewCell.swift in Sources */,
 				EBB6198F1E198B3E0061BCEB /* AccountTextField.swift in Sources */,
