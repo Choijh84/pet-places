@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Light.otf">
+            <string>Montserrat-Light</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reviewCell" rowHeight="100" id="jiM-2K-Xwj" customClass="ReviewTableViewCell" customModule="pet_place" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jiM-2K-Xwj" id="vcZ-Ws-MuB">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="우리 단비가 최고로 좋아하는 곳" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLd-zs-DRG">
+                        <rect key="frame" x="15" y="10" width="215" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="21.10.2015" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3L-KK-tlK">
+                        <rect key="frame" x="263.5" y="81" width="46.5" height="12"/>
+                        <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="10"/>
+                        <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="0.79761402027027029" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="svE-XU-xpt" customClass="HCSStarRatingView">
+                        <rect key="frame" x="188.5" y="82" width="70" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="dzM-8Y-aGW"/>
+                            <constraint firstAttribute="height" constant="10" id="wni-zG-hFt"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                <real key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="allowsHalfStars" value="NO"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="filledStarImage" value="reviewStar"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="emptyStarImage" value="reviewStarEmpty"/>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="accurateHalfStars" value="NO"/>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="continuous" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AKY-Wv-ofC" customClass="LoadingImageView" customModule="pet_place" customModuleProvider="target">
+                        <rect key="frame" x="235" y="10" width="75" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="75" id="Fua-Ed-Oes"/>
+                            <constraint firstAttribute="width" secondItem="AKY-Wv-ofC" secondAttribute="height" multiplier="5:4" id="Y8q-yd-APZ"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="AKY-Wv-ofC" firstAttribute="leading" secondItem="hLd-zs-DRG" secondAttribute="trailing" constant="5" id="HWL-O7-WxI"/>
+                    <constraint firstAttribute="trailing" secondItem="AKY-Wv-ofC" secondAttribute="trailing" constant="10" id="K79-30-WEB"/>
+                    <constraint firstItem="hLd-zs-DRG" firstAttribute="leading" secondItem="vcZ-Ws-MuB" secondAttribute="leading" constant="15" id="SZB-0I-f8y"/>
+                    <constraint firstAttribute="trailing" secondItem="o3L-KK-tlK" secondAttribute="trailing" constant="10" id="aPt-bt-4fL"/>
+                    <constraint firstItem="o3L-KK-tlK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="AKY-Wv-ofC" secondAttribute="bottom" constant="5" id="aeF-Zq-IQR"/>
+                    <constraint firstItem="AKY-Wv-ofC" firstAttribute="top" secondItem="vcZ-Ws-MuB" secondAttribute="top" constant="10" id="f0B-uH-yWV"/>
+                    <constraint firstItem="hLd-zs-DRG" firstAttribute="top" secondItem="vcZ-Ws-MuB" secondAttribute="top" constant="10" id="kpe-h7-HEN"/>
+                    <constraint firstItem="o3L-KK-tlK" firstAttribute="centerY" secondItem="svE-XU-xpt" secondAttribute="centerY" id="rat-uA-Rsm"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hLd-zs-DRG" secondAttribute="trailing" constant="10" id="sIs-Zg-Ian"/>
+                    <constraint firstItem="o3L-KK-tlK" firstAttribute="leading" secondItem="svE-XU-xpt" secondAttribute="trailing" constant="5" id="tCi-re-agg"/>
+                    <constraint firstAttribute="bottom" secondItem="svE-XU-xpt" secondAttribute="bottom" constant="7" id="tfK-6a-m8W"/>
+                    <constraint firstItem="o3L-KK-tlK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hLd-zs-DRG" secondAttribute="bottom" constant="12" id="uaO-Xt-jib"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="dateLabel" destination="o3L-KK-tlK" id="InC-K5-d2z"/>
+                <outlet property="ratingView" destination="svE-XU-xpt" id="KWA-Gk-KxK"/>
+                <outlet property="reviewImageView" destination="AKY-Wv-ofC" id="uqF-7f-fcY"/>
+                <outlet property="reviewImageViewWidthConstraint" destination="Fua-Ed-Oes" id="8w6-04-tab"/>
+                <outlet property="reviewTextLabel" destination="hLd-zs-DRG" id="3Xi-nA-KRQ"/>
+            </connections>
+            <point key="canvasLocation" x="443" y="407"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="reviewStar" width="10" height="10"/>
+        <image name="reviewStarEmpty" width="12" height="12"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
+</document>
