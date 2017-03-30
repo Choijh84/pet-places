@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SCLAlertView
 
 // 환경설정 뷰 컨트롤러
 class SettingsViewController: UITableViewController {
@@ -19,11 +20,40 @@ class SettingsViewController: UITableViewController {
     
     @IBOutlet weak var autoLoginSetting: UISwitch!
     
+    @IBOutlet weak var versionLabel: UILabel!
+    
+    
     // 저장 변수
     var isPush = false
     var isSMS = false
     var isEmail = false
     var isAutoLogin = false
+    
+    // 앱 푸쉬 알람 설정 열어주기
+    @IBAction func openSetting(_ sender: Any) {
+        UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+    }
+    
+    // 문자 수신 동의 변경
+    @IBAction func smsSettingChange(_ sender: Any) {
+    }
+    
+    // 이메일 수신 동의 변경
+    @IBAction func emailSettingChange(_ sender: Any) {
+    }
+    
+    // 자동 로그인 풀기
+    @IBAction func autoLoginSettingChange(_ sender: Any) {
+        let backendless = Backendless.sharedInstance()
+        if autoLoginSetting.isOn {
+            backendless?.userService.setStayLoggedIn(true)
+            SCLAlertView().showSuccess("자동 로그인", subTitle: "설정 ON")
+        } else {
+            backendless?.userService.setStayLoggedIn(false)
+            SCLAlertView().showSuccess("자동 로그인", subTitle: "설정 OFF")
+        }
+    }
+    
     
     // 뷰를 불러오면서 현재 설정만 체크해서 변수에 저장
     override func viewDidLoad() {
@@ -32,10 +62,14 @@ class SettingsViewController: UITableViewController {
         // 유저 설정 불러오기
         let user = Backendless.sharedInstance().userService.currentUser
         
-        // getproperty is now working 우아아아아 열받아 우아아아아아아
+        // getproperty is not working 우아아아아 열받아 우아아아아아아
         isSMS = user?.getProperty("isSMSReceive") as! Bool
         isEmail = user?.getProperty("isEmailReceive") as! Bool
+        
+        // 자동 로그인 설정
         isAutoLogin = Backendless.sharedInstance().userService.isStayLoggedIn
+        autoLoginSetting.setOn(isAutoLogin, animated: false)
+        
         print("This is SMS: \(isSMS) and Email: \(isEmail) and AutoLogin: \(isAutoLogin)")
         
         // 아래 셀 지우기

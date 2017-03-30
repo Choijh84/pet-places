@@ -1100,7 +1100,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="petcity@petcity.com" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="S1W-uT-oXm">
-                                <rect key="frame" x="16" y="108.5" width="343" height="30"/>
+                                <rect key="frame" x="16" y="109" width="343" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="rmf-NH-3gq"/>
                                 </constraints>
@@ -1109,7 +1109,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7iP-I7-rpe">
-                                <rect key="frame" x="112" y="188" width="150" height="45"/>
+                                <rect key="frame" x="112" y="188.5" width="150" height="45"/>
                                 <color key="backgroundColor" red="0.83153553299492389" green="0.83153553299492389" blue="0.83153553299492389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="BEt-Uj-k4Z"/>
@@ -1123,7 +1123,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rL-9s-DxL">
-                                <rect key="frame" x="254" y="59.5" width="45" height="24"/>
+                                <rect key="frame" x="254" y="60" width="45" height="24"/>
                                 <color key="backgroundColor" red="0.83153553300000005" green="0.83153553300000005" blue="0.83153553300000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="dLL-CY-5iK"/>
@@ -1536,7 +1536,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="휴대폰" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIc-CX-ieC">
-                                <rect key="frame" x="16" y="305" width="38" height="15.5"/>
+                                <rect key="frame" x="16" y="304.5" width="38" height="15.5"/>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1560,7 +1560,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이메일 수신 동의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94g-jW-IdP">
-                                <rect key="frame" x="138" y="127" width="77" height="12.5"/>
+                                <rect key="frame" x="138" y="127.5" width="77" height="12.5"/>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumL" family="YiSunShin Dotum L" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1593,7 +1593,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UY7-Fj-ewp">
-                                <rect key="frame" x="16" y="340.5" width="278" height="30"/>
+                                <rect key="frame" x="16" y="340" width="278" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.87843137250000003" blue="0.50980392159999999" alpha="0.60686001710000004" colorSpace="calibratedRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="BMJUAOTF" family="BM JUA_OTF" pointSize="14"/>
@@ -1625,7 +1625,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oP6-D3-yLc">
-                                <rect key="frame" x="313" y="342" width="46" height="27"/>
+                                <rect key="frame" x="313" y="341.5" width="46" height="27"/>
                                 <color key="backgroundColor" red="1" green="0.87843137250000003" blue="0.50980392159999999" alpha="0.60686001710000004" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
                                 <state key="normal" title="인증">
@@ -1908,14 +1908,26 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jff-CC-ekX">
-                                                    <rect key="frame" x="318" y="10" width="51" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </switch>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kaa-ep-UOz">
+                                                    <rect key="frame" x="307" y="9" width="60" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="71j-co-UTR"/>
+                                                        <constraint firstAttribute="width" constant="60" id="aSD-oW-QDM"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
+                                                    <state key="normal" title="설정 열기">
+                                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="openSetting:" destination="kwB-MF-0Aw" eventType="touchUpInside" id="Rss-CR-m8B"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="Kaa-ep-UOz" firstAttribute="centerY" secondItem="tyj-gM-csp" secondAttribute="centerY" id="LkA-C9-iOr"/>
                                                 <constraint firstItem="Idl-Oj-D75" firstAttribute="leading" secondItem="tyj-gM-csp" secondAttribute="leadingMargin" constant="10" id="Pqg-mi-D6D"/>
                                                 <constraint firstItem="Idl-Oj-D75" firstAttribute="centerY" secondItem="tyj-gM-csp" secondAttribute="centerY" id="Vxf-Z5-ubU"/>
+                                                <constraint firstItem="Kaa-ep-UOz" firstAttribute="trailing" secondItem="tyj-gM-csp" secondAttribute="trailingMargin" id="clv-NE-ycV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1940,6 +1952,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iuq-Lf-IlE">
                                                     <rect key="frame" x="318" y="10" width="51" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="smsSettingChange:" destination="kwB-MF-0Aw" eventType="valueChanged" id="hRE-bC-toZ"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1969,6 +1984,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nDU-cS-dYk">
                                                     <rect key="frame" x="318" y="10" width="51" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="emailSettingChange:" destination="kwB-MF-0Aw" eventType="valueChanged" id="w7P-75-dl3"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -2072,6 +2090,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aAz-Nh-l8X">
                                                     <rect key="frame" x="318" y="6" width="51" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="autoLoginSettingChange:" destination="kwB-MF-0Aw" eventType="valueChanged" id="RpD-Xx-me9"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -2121,12 +2142,12 @@
                         <outlet property="SMSSetting" destination="iuq-Lf-IlE" id="daZ-fr-xgc"/>
                         <outlet property="autoLoginSetting" destination="aAz-Nh-l8X" id="Jb1-Fw-kAn"/>
                         <outlet property="emailSetting" destination="nDU-cS-dYk" id="Vpv-bm-5Tp"/>
-                        <outlet property="pushSetting" destination="Jff-CC-ekX" id="khk-Ol-Dh7"/>
+                        <outlet property="versionLabel" destination="v6O-RS-bi5" id="jJe-Vt-7LC"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jPK-db-8xc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-585" y="2578"/>
+            <point key="canvasLocation" x="-585.5" y="2577.5"/>
         </scene>
         <!--Profile Info View Controller-->
         <scene sceneID="WDN-EE-eWJ">
